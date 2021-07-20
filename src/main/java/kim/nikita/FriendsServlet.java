@@ -20,11 +20,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import kim.nikita.model.Friendship;
-
+import org.apache.log4j.Logger;
 
 @WebServlet("/friendship")
 public class FriendsServlet extends HttpServlet{
-    
+    private static final Logger log = Logger.getLogger(FriendsServlet.class);
     
      private static final String URL = "jdbc:postgresql://127.0.0.1:5432/dotapick";
       private static final String USER = "postgres";
@@ -75,6 +75,7 @@ public class FriendsServlet extends HttpServlet{
         
         
         request.setAttribute("friends",friends);
+        log.info("redirect to friends");
         getServletContext().getRequestDispatcher("/friends.jsp").forward(request, response);
         
     }

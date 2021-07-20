@@ -24,6 +24,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
+
 
 @WebServlet("/result")
 public class IndexServlet extends HttpServlet{
@@ -34,7 +36,7 @@ public class IndexServlet extends HttpServlet{
       private static final String SELECT_ALL_QUERY = "select * from heroes";
       private static final String SELECT_FRIENDS_QUERY = "select count(*) from friendship where hero1=? and hero2=? or hero1=? and hero2=?";
       private static final String SELECT_ENEMIES_QUERY = "select count(*) from victimship  where predator=? and victim=?";
-      
+      private static final Logger log = Logger.getLogger(IndexServlet.class);
 
       @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -147,6 +149,7 @@ public class IndexServlet extends HttpServlet{
         System.out.println(results);
         
         request.setAttribute("results",results);
+        log.info("redirect to results");
         getServletContext().getRequestDispatcher("/results.jsp").forward(request, response);
     }
 

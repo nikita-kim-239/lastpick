@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import kim.nikita.model.Victimship;
+import org.apache.log4j.Logger;
+
 
 @WebServlet("/victimship")
 public class VictimServlet extends HttpServlet{
@@ -29,7 +31,7 @@ public class VictimServlet extends HttpServlet{
       private static final String PASS = "postgres";
       private static final String SELECT_ALL_QUERY = "select * from victimship order by predator,victim";
     private static final String INSERT_ENEMIES_QUERY = "insert into victimship (predator,victim) values (?,?)";
-    
+    private static final Logger log = Logger.getLogger(VictimServlet.class);
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -116,7 +118,7 @@ public class VictimServlet extends HttpServlet{
 		e.printStackTrace();
 		return;
 	}   
-        
+        log.info("redirect to victims");
         response.sendRedirect(request.getContextPath() + "/victimship");
         
     }
