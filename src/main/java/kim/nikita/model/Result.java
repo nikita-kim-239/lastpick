@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 public class Result implements Serializable{
     
-    public Result(String name,Integer score)
+    public Result(String name,int score)
         {   
             this.name=name;
             this.score=score;
@@ -22,7 +22,7 @@ public class Result implements Serializable{
     
     private String name;
     
-    private Integer score;
+    private int score;
     /**
      * @return the name
      */
@@ -40,14 +40,14 @@ public class Result implements Serializable{
     /**
      * @return the score
      */
-    public Integer getScore() {
+    public int getScore() {
         return score;
     }
 
     /**
      * @param score the score to set
      */
-    public void setScore(Integer score) {
+    public void setScore(int score) {
         this.score = score;
     }
     

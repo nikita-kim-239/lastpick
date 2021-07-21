@@ -14,10 +14,10 @@ import kim.nikita.model.Friendship;
  */
 public interface FriendshipRepository {
     
-    int countOfFriends(String heroName);
+    boolean isFriends(String hero1,String hero2);
     
     List <Friendship> getAllFriends();
     
-    Friendship create(String heroName1, String heroName2);
+    void create(String hero1, String hero2);
     
 }
