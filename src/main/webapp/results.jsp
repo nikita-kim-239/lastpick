@@ -4,6 +4,7 @@
 <head>
     <title>Results</title>
     <style>
+            
             table
             {
                 margin:auto
@@ -11,7 +12,17 @@
         </style>
 </head>
 <body>
+    
+    
+        
+        
+    
+   
+    
+    
     <table border="1" cellpadding="5">
+        
+            
             <caption><h2>List of Results</h2></caption>
             <tr>
    

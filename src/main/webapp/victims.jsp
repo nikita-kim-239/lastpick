@@ -12,6 +12,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Victims</title>
         <style>
+            body{
+                margin:20px;
+            }
             table
             {
                 margin:auto

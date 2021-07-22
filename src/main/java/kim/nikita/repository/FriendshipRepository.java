@@ -19,5 +19,7 @@ public interface FriendshipRepository {
     List <Friendship> getAllFriends();
     
     void create(int hero1_id, int hero2_id);
+ 
     
+    int count(int hero1_id,int hero2_id);
 }

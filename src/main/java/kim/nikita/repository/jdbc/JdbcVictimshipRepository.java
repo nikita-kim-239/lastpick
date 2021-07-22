@@ -29,7 +29,7 @@ public class JdbcVictimshipRepository implements VictimshipRepository{
       
       private static final String SELECT_ALL = "select V.id,V.predator_id,V.victim_id,H1.name as predator_name,H2.name as victim_name from victimship as V join heroes as H1 on H1.id=V.predator_id join heroes as H2 on H2.id=V.victim_id order by predator_name,victim_name";
       private static final String INSERT_ENEMIES_QUERY = "insert into victimship (predator_id,victim_id) values (?,?)";
-    
+      private static final String SELECT_COUNT = "select count(*) from victimship where predator_id=? and victim_id=?";
     
 
     @Override
@@ -119,5 +119,49 @@ public class JdbcVictimshipRepository implements VictimshipRepository{
         
         
     }
+    
+    
+    @Override
+    public int count(int predator_id,int victim_id) {
+        
+        int count=0;
+        try {
+		Class.forName("org.postgresql.Driver");
+	} catch (ClassNotFoundException e) {
+		System.out.println("PostgreSQL JDBC Driver is not found. Include it in your library path ");
+		e.printStackTrace();
+		
+	}
+
+        System.out.println("PostgreSQL JDBC Driver successfully connected");
+	Connection connection = null;
+        
+        
+        try {
+		connection = DriverManager
+		.getConnection(URL, USER, PASS);
+                
+                
+                PreparedStatement pstmt=connection.prepareStatement(SELECT_COUNT);
+                                        pstmt.setInt(1,predator_id);
+                                        pstmt.setInt(2,victim_id);                                       
+                                        ResultSet rs=pstmt.executeQuery();
+                                        rs.next();
+                                        count=rs.getInt(1);
+                                        
+                
+                connection.close();
+                pstmt.close();                        
+
+	} catch (SQLException e) {
+		System.out.println("Connection Failed");
+		e.printStackTrace();
+		
+	}   
+        
+        return count;
+        
+    }
+    
     
 }

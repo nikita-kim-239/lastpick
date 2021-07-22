@@ -19,4 +19,6 @@ public interface VictimshipRepository {
     List <Victimship> getAllVictims();
     
     void create(int predator_id,int victim_id);
+    
+    int count(int predator_id,int victim_id);
 }

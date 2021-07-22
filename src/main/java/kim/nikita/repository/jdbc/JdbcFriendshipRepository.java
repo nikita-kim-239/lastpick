@@ -28,7 +28,7 @@ public class JdbcFriendshipRepository implements FriendshipRepository{
       private static final String PASS = "postgres";
       private static final String SELECT_ALL_QUERY = "select F.id,F.hero1_id,F.hero2_id,H1.name as hero1_name,H2.name as hero2_name from friendship as F join heroes as H1 on H1.id=F.hero1_id join heroes as H2 on H2.id=F.hero2_id order by H1.name,H2.name";
       private static final String INSERT_FRIENDS_QUERY = "insert into friendship (hero1_id,hero2_id) values (?,?)";
-      
+      private static final String SELECT_COUNT = "select count(*) from friendship where hero1_id=? and hero2_id=? or hero1_id=? and hero2_id=?";
     
    
 
@@ -102,7 +102,8 @@ public class JdbcFriendshipRepository implements FriendshipRepository{
                 
                 PreparedStatement pstmt=connection.prepareStatement(INSERT_FRIENDS_QUERY);
                                         pstmt.setInt(1,hero1_id);
-                                        pstmt.setInt(2,hero2_id);                                       
+                                        pstmt.setInt(2,hero2_id); 
+                                        
                                         pstmt.executeUpdate();
                                         
                 connection.close();
@@ -115,5 +116,51 @@ public class JdbcFriendshipRepository implements FriendshipRepository{
 	}   
         
     }
+    
+    
+    @Override
+    public int count(int hero1_id,int hero2_id) {
+        
+        int count=0;
+        try {
+		Class.forName("org.postgresql.Driver");
+	} catch (ClassNotFoundException e) {
+		System.out.println("PostgreSQL JDBC Driver is not found. Include it in your library path ");
+		e.printStackTrace();
+		
+	}
+
+        System.out.println("PostgreSQL JDBC Driver successfully connected");
+	Connection connection = null;
+        
+        
+        try {
+		connection = DriverManager
+		.getConnection(URL, USER, PASS);
+                
+                
+                PreparedStatement pstmt=connection.prepareStatement(SELECT_COUNT);
+                                        pstmt.setInt(1,hero1_id);
+                                        pstmt.setInt(2,hero2_id);  
+                                        pstmt.setInt(3,hero2_id);
+                                        pstmt.setInt(4,hero1_id); 
+                                        ResultSet rs=pstmt.executeQuery();
+                                        rs.next();
+                                        count=rs.getInt(1);
+                                        
+                
+                connection.close();
+                pstmt.close();                        
+
+	} catch (SQLException e) {
+		System.out.println("Connection Failed");
+		e.printStackTrace();
+		
+	}   
+        
+        return count;
+        
+    }
+    
     
 }

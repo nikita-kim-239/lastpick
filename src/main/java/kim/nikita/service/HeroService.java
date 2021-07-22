@@ -8,9 +8,12 @@ package kim.nikita.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import kim.nikita.model.Friendship;
 import kim.nikita.model.Hero;
 import kim.nikita.model.Result;
@@ -44,6 +47,24 @@ public class HeroService {
         {
             
             
+            Set <Integer> setOfHeroesId=new HashSet<>();
+            
+            for (Integer i:friends)
+                {
+                    setOfHeroesId.add(i);
+                }
+            for (Integer i:enemies)
+                {
+                    setOfHeroesId.add(i);
+                }
+            
+            
+            
+            System.out.println(setOfHeroesId.size()!=(friends.size()+enemies.size()));
+            if (setOfHeroesId.size()!=(friends.size()+enemies.size()))
+                throw new RuntimeException("Герои не должны повторяться!");
+            
+            
             List <Result> results=new ArrayList<>();
             List <Friendship> friendship=friendshipRepository.getAllFriends();
             List <Victimship> victimship=victimshipRepository.getAllVictims();
@@ -53,10 +74,7 @@ public class HeroService {
             int [][] arrayOfFriendship=new int[length][length];
             
             int [][] arrayOfVictimship=new int[length][length];
-            
-            
-            
-            
+ 
             for (Friendship f:friendship)
                 {
                     arrayOfFriendship[f.getHero1().getId()][f.getHero2().getId()]=1;
@@ -75,20 +93,20 @@ public class HeroService {
             {
             //находим количество союзников среди друзей
             int countOfFriends=0;        
-                    for (int i=1;i<length;i++)
+                    for (Integer i : friends)
                     {
                         if (arrayOfFriendship[hero.getId()][i]==1) countOfFriends++;
                     }
             //находим количество врагов среди врагов
             int countOfEnemies=0;
-                    for (int i=1;i<length;i++)
+                    for (Integer i : enemies)
                     {
                         if (arrayOfVictimship[i][hero.getId()]==1) countOfEnemies++;
                     }
                     
             //находим количество тех врагов которые для нас жертва
             int countOfVictims=0;
-                    for (int i=1;i<length;i++)
+                    for (Integer i : enemies)
                     {
                         if (arrayOfVictimship[hero.getId()][i]==1) countOfVictims++;
                     }
@@ -114,11 +132,25 @@ public class HeroService {
     
     public void createFriendship(int hero1_id,int hero2_id)
         {
+            if (hero1_id==hero2_id) 
+                throw new RuntimeException("Герои не должны совпадать!");
+            if (friendshipRepository.count(hero1_id, hero2_id)!=0) 
+                throw new RuntimeException("В базе данных уже есть такая запись!");
+            
              friendshipRepository.create(hero1_id,hero2_id);
         }
     
     public void createVictimship(int predator_id,int victim_id)
         {
+            if (predator_id==victim_id) 
+                throw new RuntimeException("Герои не должны совпадать!");
+            
+            if (victimshipRepository.count(predator_id, victim_id)!=0) 
+                throw new RuntimeException("В базе данных уже есть такая запись!");
+            
+            if (victimshipRepository.count(victim_id,predator_id)!=0)
+                throw new RuntimeException("Герои не должны контрить друг друга!");
+            
              victimshipRepository.create(predator_id,victim_id);
         }
 }
