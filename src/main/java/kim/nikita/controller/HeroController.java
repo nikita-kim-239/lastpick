@@ -6,8 +6,10 @@
 package kim.nikita.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import kim.nikita.model.Friendship;
 import kim.nikita.model.Hero;
+import kim.nikita.model.Result;
 import kim.nikita.model.Victimship;
 import kim.nikita.service.HeroService;
 import org.apache.log4j.Logger;
@@ -26,10 +28,11 @@ public class HeroController {
     private static final Logger log = Logger.getLogger(HeroController.class);
     
     
-    public int getResult(String heroName,List<String> friends,List<String> enemies)
+    public List<Result> getResult(List<Integer> friends,List<Integer> enemies)
         {
-            log.info("get result for "+heroName);
-            return heroService.getResult(heroName,friends,enemies);
+            log.info("get results");
+            
+            return heroService.getResult(friends,enemies);
         }
 
     public List <Hero> getAllHeroes()
@@ -51,13 +54,13 @@ public class HeroController {
         }
     
     
-    public void createFriendship(String hero1,String hero2)
+    public void createFriendship(int hero1_id,int hero2_id)
         {
-            log.info("create friendship between "+hero1+" "+hero2);
-            heroService.createFriendship(hero1,hero2);
+            log.info("create friendship between "+hero1_id+" "+hero2_id);
+            heroService.createFriendship(hero1_id,hero2_id);
         }
     
-    public void createVictimship(String predator,String victim)
+    public void createVictimship(int predator,int victim)
         {
             log.info("create victimship between "+predator+" "+victim);
             heroService.createVictimship(predator,victim);

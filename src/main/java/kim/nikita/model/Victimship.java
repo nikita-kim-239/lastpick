@@ -13,11 +13,11 @@ public class Victimship {
 
     private int id;
 
-    private String predator;
+    private Hero predator;
 
-    private String victim;
+    private Hero victim;
 
-    public Victimship(int id,String predator,String victim)
+    public Victimship(int id,Hero predator,Hero victim)
         {
             this.id=id;
             this.predator=predator;
@@ -28,8 +28,7 @@ public class Victimship {
     public Victimship()
         {
         }
-    
-    
+
     /**
      * @return the id
      */
@@ -47,29 +46,33 @@ public class Victimship {
     /**
      * @return the predator
      */
-    public String getPredator() {
+    public Hero getPredator() {
         return predator;
     }
 
     /**
      * @param predator the predator to set
      */
-    public void setPredator(String predator) {
+    public void setPredator(Hero predator) {
         this.predator = predator;
     }
 
     /**
      * @return the victim
      */
-    public String getVictim() {
+    public Hero getVictim() {
         return victim;
     }
 
     /**
      * @param victim the victim to set
      */
-    public void setVictim(String victim) {
+    public void setVictim(Hero victim) {
         this.victim = victim;
     }
+    
+    
+    
+    
 
 }

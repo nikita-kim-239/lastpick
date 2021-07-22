@@ -5,9 +5,15 @@
  */
 package kim.nikita.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import kim.nikita.model.Friendship;
 import kim.nikita.model.Hero;
+import kim.nikita.model.Result;
 import kim.nikita.model.Victimship;
 import kim.nikita.repository.FriendshipRepository;
 import kim.nikita.repository.HeroRepository;
@@ -34,27 +40,65 @@ public class HeroService {
         }
     
     
-    public int getResult(String heroName,List<String> friends,List<String> enemies)
+    public List <Result> getResult(List<Integer> friends,List<Integer> enemies)
         {
-            //находим количество союзников среди друзей
-            int countOfFriends=0;            
-            for (String friend:friends)
+            
+            
+            List <Result> results=new ArrayList<>();
+            List <Friendship> friendship=friendshipRepository.getAllFriends();
+            List <Victimship> victimship=victimshipRepository.getAllVictims();
+            List <Hero> heroes=heroRepository.getAllHeroes();
+            
+            int length=heroes.size()+1;
+            int [][] arrayOfFriendship=new int[length][length];
+            
+            int [][] arrayOfVictimship=new int[length][length];
+            
+            
+            
+            
+            for (Friendship f:friendship)
                 {
-                    if (friendshipRepository.isFriends(heroName,friend)) countOfFriends++;
+                    arrayOfFriendship[f.getHero1().getId()][f.getHero2().getId()]=1;
+                    arrayOfFriendship[f.getHero2().getId()][f.getHero1().getId()]=1;
                 }
+           
+            for (Victimship v:victimship)
+                {
+                    arrayOfVictimship[v.getPredator().getId()][v.getVictim().getId()]=1;
+                    
+                }
+            
+            List <Hero> filteredHeroes=heroes.stream().filter(h->(!friends.contains(h.getId()))&&(!enemies.contains(h.getId()))).collect(Collectors.toList());
+            
+            for (Hero hero:filteredHeroes)
+            {
+            //находим количество союзников среди друзей
+            int countOfFriends=0;        
+                    for (int i=1;i<length;i++)
+                    {
+                        if (arrayOfFriendship[hero.getId()][i]==1) countOfFriends++;
+                    }
             //находим количество врагов среди врагов
             int countOfEnemies=0;
-            for (String enemy:enemies)
-                {
-                    if (victimshipRepository.isExist(enemy,heroName)) countOfEnemies++;
-                }
+                    for (int i=1;i<length;i++)
+                    {
+                        if (arrayOfVictimship[i][hero.getId()]==1) countOfEnemies++;
+                    }
+                    
             //находим количество тех врагов которые для нас жертва
             int countOfVictims=0;
-            for (String enemy:enemies)
-                {
-                    if (victimshipRepository.isExist(heroName,enemy)) countOfVictims++;
-                }
-            return countOfFriends-countOfEnemies+countOfVictims;
+                    for (int i=1;i<length;i++)
+                    {
+                        if (arrayOfVictimship[hero.getId()][i]==1) countOfVictims++;
+                    }
+            
+            results.add(new Result(hero.getName(),countOfFriends-countOfEnemies+countOfVictims));
+            }
+            
+            results.sort(Comparator.comparing(o->o.getScore()));
+            Collections.reverse(results);
+            return results;
         }
     
     public List <Friendship> getAllFriends()
@@ -68,13 +112,13 @@ public class HeroService {
             return victimshipRepository.getAllVictims();
         }
     
-    public void createFriendship(String hero1,String hero2)
+    public void createFriendship(int hero1_id,int hero2_id)
         {
-             friendshipRepository.create(hero1,hero2);
+             friendshipRepository.create(hero1_id,hero2_id);
         }
     
-    public void createVictimship(String predator,String victim)
+    public void createVictimship(int predator_id,int victim_id)
         {
-             victimshipRepository.create(predator,victim);
+             victimshipRepository.create(predator_id,victim_id);
         }
 }

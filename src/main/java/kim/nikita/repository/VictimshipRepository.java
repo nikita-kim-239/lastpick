@@ -14,9 +14,9 @@ import kim.nikita.model.Victimship;
  */
 public interface VictimshipRepository {
     
-    boolean isExist(String predator,String victim);
+    
     
     List <Victimship> getAllVictims();
     
-    void create(String predator,String victim);
+    void create(int predator_id,int victim_id);
 }

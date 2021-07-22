@@ -3,28 +3,117 @@
     <meta http-equiv="Content-Type"
           content="text/html; charset=UTF-8">
     <title>Dota Pick</title>
+    
+    <script language="javascript">
+        
+        
+         
+
+        
+      function addHeroSelect(){  
+        
+        var heroes=["Abaddon","Alchemist","Ancient Apparition","Anti-Mage","Arc Warden","Axe","Bane","Batrider",
+        "Beastmaster","Bloodseeker","Bounty Hunter","Brewmaster","Bristleback","Broodmother","Centaur Warrunner","Chaos Knight",
+         "Chen","Clinkz","Clockwerk","Crystal Maiden","Dark Seer","Dark Willow","Dawn Breaker","Dazzle",
+         "Death Prophet","Disruptor","Doom","Dragon knight","Drow Ranger","Earth Spirit","Earthshaker","Elder Titan"];
+        
+        
+        var selectEnemy1=document.getElementById("selectEnemy1");
+        var selectEnemy2=document.getElementById("selectEnemy2");
+        var selectEnemy3=document.getElementById("selectEnemy3");
+        var selectEnemy4=document.getElementById("selectEnemy4");
+        var selectEnemy5=document.getElementById("selectEnemy5");
+        var selectAlly1=document.getElementById("selectAlly1");
+        var selectAlly2=document.getElementById("selectAlly2");
+        var selectAlly3=document.getElementById("selectAlly3");
+        var selectAlly4=document.getElementById("selectAlly4");
+        
+        for (var i=0;i<heroes.length;i++)
+            {
+                var hero=heroes[i];
+                var el1=document.createElement("option");
+                el1.text=hero;
+                el1.value=i+1;
+                var el2=document.createElement("option");
+                el2.text=hero;
+                el2.value=i+1;
+                var el3=document.createElement("option");
+                el3.text=hero;
+                el3.value=i+1;
+                var el4=document.createElement("option");
+                el4.text=hero;
+                el4.value=i+1;
+                var el5=document.createElement("option");
+                el5.text=hero;
+                el5.value=i+1;
+                var el6=document.createElement("option");
+                el6.text=hero;
+                el6.value=i+1;
+                var el7=document.createElement("option");
+                el7.text=hero;
+                el7.value=i+1;
+                var el8=document.createElement("option");
+                el8.text=hero;
+                el8.value=i+1;
+                var el9=document.createElement("option");
+                el9.text=hero;
+                el9.value=i+1;
+                selectEnemy1.append(el1);
+                selectEnemy2.append(el2);
+                selectEnemy3.append(el3);
+                selectEnemy4.append(el4);
+                selectEnemy5.append(el5);
+                selectAlly1.append(el6);
+                selectAlly2.append(el7);
+                selectAlly3.append(el8);
+                selectAlly4.append(el9);
+               
+            }
+      }      
+      
+     
+    </script>  
+    
 </head>
-<body>
+<body onLoad="addHeroSelect()">
     <a href="friendship">Friendship</a>
     <br/>
     <a href="victimship">Victimship</a>
     <br/>
-<form action="result" method="post">
-<p>Enemies</p>
-<input type="text" name="enemy1"  />
-<input type="text" name="enemy2"  />
-<input type="text" name="enemy3"  />
-<input type="text" name="enemy4"  />
-<input type="text" name="enemy5"  />
-<br/>
-<p>Friends</p>
-<input type="text" name="ally1" />
-<input type="text" name="ally2"  />
-<input type="text" name="ally3"  />
-<input type="text" name="ally4"  />
-<br/>
+    <form action="result" method="post">
+        <select id="selectEnemy1" name="enemy1">
+          <option disabled>Выберите героя</option>
+        </select>
+        <select id="selectEnemy2" name="enemy2">
+          <option disabled>Выберите героя</option>
+        </select>
+        <select id="selectEnemy3" name="enemy3">
+          <option disabled>Выберите героя</option>
+        </select>
+       <select id="selectEnemy4" name="enemy4">
+          <option disabled>Выберите героя</option>
+        </select>
+       <select id="selectEnemy5" name="enemy5">
+          <option disabled>Выберите героя</option>
+        </select>
+      <br/>
+      <p>Friends</p>
+       <select id="selectAlly1" name="ally1">
+           <option disabled>Выберите героя</option>
+        </select>
+       <select id="selectAlly2" name="ally2">
+          <option disabled>Выберите героя</option>
+        </select>
+       <select id="selectAlly3" name="ally3">
+          <option disabled>Выберите героя</option>    
+        </select>
+       <select id="selectAlly4" name="ally4">
+          <option disabled>Выберите героя</option>
+        </select>
+      <br/>
 
-<input type="submit"  value="Get result"/>
-</form>
+      <input type="submit"     value="Get result"/>
+    </form>
+      
 </body>
 </html>

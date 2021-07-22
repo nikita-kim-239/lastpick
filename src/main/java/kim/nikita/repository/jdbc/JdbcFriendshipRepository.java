@@ -26,54 +26,15 @@ public class JdbcFriendshipRepository implements FriendshipRepository{
       private static final String URL = "jdbc:postgresql://127.0.0.1:5432/dotapick";
       private static final String USER = "postgres";
       private static final String PASS = "postgres";
-      private static final String SELECT_ALL_QUERY = "select * from friendship order by hero1,hero2";
-      private static final String INSERT_FRIENDS_QUERY = "insert into friendship (hero1,hero2) values (?,?)";
-      private static final String SELECT_FRIENDS_QUERY = "select count(*) from friendship where hero1=? and hero2=? or hero1=? and hero2=?";
+      private static final String SELECT_ALL_QUERY = "select F.id,F.hero1_id,F.hero2_id,H1.name as hero1_name,H2.name as hero2_name from friendship as F join heroes as H1 on H1.id=F.hero1_id join heroes as H2 on H2.id=F.hero2_id order by H1.name,H2.name";
+      private static final String INSERT_FRIENDS_QUERY = "insert into friendship (hero1_id,hero2_id) values (?,?)";
+      
     
-    @Override
-    public boolean isFriends(String hero1,String hero2) {
-        
-        int good=0;
-        try {
-		Class.forName("org.postgresql.Driver");
-	} catch (ClassNotFoundException e) {
-		System.out.println("PostgreSQL JDBC Driver is not found. Include it in your library path ");
-		e.printStackTrace();
-		
-	}
-
-        System.out.println("PostgreSQL JDBC Driver successfully connected");
-	Connection connection = null;
-        
-        
-        try {
-		connection = DriverManager
-		.getConnection(URL, USER, PASS);
-                
-                
-                PreparedStatement pstmt=connection.prepareStatement(SELECT_FRIENDS_QUERY);
-                                        pstmt.setString(1,hero1);
-                                        pstmt.setString(2,hero2);
-                                        pstmt.setString(3,hero2);
-                                        pstmt.setString(4,hero1);
-                                        ResultSet resultSet=pstmt.executeQuery();
-                                        resultSet.next();
-                                        good=resultSet.getInt(1);
-                                        
-                connection.close();
-                pstmt.close();
-                                        
-
-	} catch (SQLException e) {
-		System.out.println("Connection Failed");
-		e.printStackTrace();
-		
-	}   
-        return good==1;
-    }
+   
 
     @Override
     public List<Friendship> getAllFriends() {
+        
         
         List <Friendship> friendship = new ArrayList<Friendship>();
         try {
@@ -95,9 +56,11 @@ public class JdbcFriendshipRepository implements FriendshipRepository{
                 while (RS.next())
                     {   
                         int id=RS.getInt("id");
-                        String hero1 = RS.getString("hero1");
-                        String hero2 = RS.getString("hero2");
-                        friendship.add(new Friendship(id,hero1,hero2));
+                        int hero1_id = RS.getInt("hero1_id");
+                        int hero2_id = RS.getInt("hero2_id");
+                        String hero1_name=RS.getString("hero1_name");
+                        String hero2_name=RS.getString("hero2_name");
+                        friendship.add(new Friendship(id,new Hero(hero1_id,hero1_name),new Hero(hero2_id,hero2_name)));
                         
                     }    
                 
@@ -116,7 +79,7 @@ public class JdbcFriendshipRepository implements FriendshipRepository{
     }
 
     @Override
-    public void create(String hero1, String hero2) {
+    public void create(int hero1_id, int hero2_id) {
        
         
         
@@ -138,8 +101,8 @@ public class JdbcFriendshipRepository implements FriendshipRepository{
                 
                 
                 PreparedStatement pstmt=connection.prepareStatement(INSERT_FRIENDS_QUERY);
-                                        pstmt.setString(1,hero1);
-                                        pstmt.setString(2,hero2);                                       
+                                        pstmt.setInt(1,hero1_id);
+                                        pstmt.setInt(2,hero2_id);                                       
                                         pstmt.executeUpdate();
                                         
                 connection.close();

@@ -36,8 +36,8 @@
             <jsp:useBean id="victimship" class="kim.nikita.model.Victimship" scope="request"/>
                 <tr>
                    
-                    <td><c:out value="${victimship.predator}"/></td>
-                    <td><c:out value="${victimship.victim}"/></td>
+                    <td><c:out value="${victimship.predator.name}"/></td>
+                    <td><c:out value="${victimship.victim.name}"/></td>
                 </tr>
             </c:forEach>
         </table>

@@ -38,8 +38,8 @@
             <jsp:useBean id="friendship" class="kim.nikita.model.Friendship" scope="request"/>
                 <tr>
                    
-                    <td><c:out value="${friendship.hero1}"/></td>
-                    <td><c:out value="${friendship.hero2}"/></td>
+                    <td><c:out value="${friendship.hero1.name}"/></td>
+                    <td><c:out value="${friendship.hero2.name}"/></td>
                 </tr>
             </c:forEach>
         </table>

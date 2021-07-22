@@ -66,10 +66,10 @@ public class VictimServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         
-        String predator=request.getParameter("predator");
-        String victim=request.getParameter("victim");
+        String predator_id=request.getParameter("predator");
+        String victim_id=request.getParameter("victim");
         
-        heroController.createVictimship(predator,victim);
+        heroController.createVictimship(Integer.parseInt(predator_id),Integer.parseInt(victim_id));
         log.info("redirect to victims");
         response.sendRedirect(request.getContextPath() + "/victimship");
         

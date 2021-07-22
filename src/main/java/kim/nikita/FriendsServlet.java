@@ -60,10 +60,10 @@ public class FriendsServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         
-        String hero1=request.getParameter("hero1");
-        String hero2=request.getParameter("hero2");
+        String hero1_id=request.getParameter("hero1");
+        String hero2_id=request.getParameter("hero2");
      
-        heroController.createFriendship(hero1,hero2);
+        heroController.createFriendship(Integer.parseInt(hero1_id),Integer.parseInt(hero2_id));
         log.info("redirect to friends");
         response.sendRedirect(request.getContextPath() + "/friendship");
     }

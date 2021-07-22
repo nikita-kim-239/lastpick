@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import kim.nikita.model.Hero;
 import kim.nikita.model.Victimship;
 import kim.nikita.repository.VictimshipRepository;
 import org.springframework.stereotype.Repository;
@@ -25,50 +26,11 @@ public class JdbcVictimshipRepository implements VictimshipRepository{
       private static final String URL = "jdbc:postgresql://127.0.0.1:5432/dotapick";
       private static final String USER = "postgres";
       private static final String PASS = "postgres";
-      private static final String SELECT_ENEMY_QUERY = "select count(*) from victimship where predator=? and victim=?";
-      private static final String SELECT_ALL = "select * from victimship order by predator,victim";
-      private static final String INSERT_ENEMIES_QUERY = "insert into victimship (predator,victim) values (?,?)";
+      
+      private static final String SELECT_ALL = "select V.id,V.predator_id,V.victim_id,H1.name as predator_name,H2.name as victim_name from victimship as V join heroes as H1 on H1.id=V.predator_id join heroes as H2 on H2.id=V.victim_id order by predator_name,victim_name";
+      private static final String INSERT_ENEMIES_QUERY = "insert into victimship (predator_id,victim_id) values (?,?)";
     
-    @Override
-    public boolean isExist(String predator, String victim) {
-        
-        int good=0;
-        try {
-		Class.forName("org.postgresql.Driver");
-	} catch (ClassNotFoundException e) {
-		System.out.println("PostgreSQL JDBC Driver is not found. Include it in your library path ");
-		e.printStackTrace();
-		
-	}
-
-        System.out.println("PostgreSQL JDBC Driver successfully connected");
-	Connection connection = null;
-        
-        
-        try {
-		connection = DriverManager
-		.getConnection(URL, USER, PASS);
-                Statement Stmt = connection.createStatement();
-                
-                PreparedStatement pstmt=connection.prepareStatement(SELECT_ENEMY_QUERY);
-                                        pstmt.setString(1,predator);
-                                        pstmt.setString(2,victim);                                    
-                                        ResultSet resultSet=pstmt.executeQuery();
-                                        resultSet.next();
-                                        good=resultSet.getInt(1);
-                                        
-                connection.close();
-                pstmt.close();                        
-                                        
-
-	} catch (SQLException e) {
-		System.out.println("Connection Failed");
-		e.printStackTrace();
-		
-	}   
-        return good==1;
-        
-    }
+    
 
     @Override
     public List<Victimship> getAllVictims() {
@@ -93,7 +55,13 @@ public class JdbcVictimshipRepository implements VictimshipRepository{
                 ResultSet resultSet=Stmt.executeQuery(SELECT_ALL);
                 while (resultSet.next())
                     {
-                        Victimship victimship = new Victimship(resultSet.getInt(1),resultSet.getString(2),resultSet.getString(3));
+                        int id=resultSet.getInt("id");
+                        int predatorId=resultSet.getInt("predator_id");
+                        int victimId=resultSet.getInt("victim_id");
+                        String predatorName=resultSet.getString("predator_name");
+                        String victimName=resultSet.getString("victim_name");
+                        
+                        Victimship victimship = new Victimship(id,new Hero(predatorId,predatorName),new Hero(victimId,victimName));
                         result.add(victimship);
                     }
                               
@@ -114,7 +82,7 @@ public class JdbcVictimshipRepository implements VictimshipRepository{
     }
 
     @Override
-    public void create(String predator,String victim) {
+    public void create(int predator_id,int victim_id) {
         
         try {
 		Class.forName("org.postgresql.Driver");
@@ -134,8 +102,8 @@ public class JdbcVictimshipRepository implements VictimshipRepository{
                 
                 
                 PreparedStatement pstmt=connection.prepareStatement(INSERT_ENEMIES_QUERY);
-                                        pstmt.setString(1,predator);
-                                        pstmt.setString(2,victim);                                       
+                                        pstmt.setInt(1,predator_id);
+                                        pstmt.setInt(2,victim_id);                                       
                                         pstmt.executeUpdate();
                                         
                 
