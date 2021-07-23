@@ -5,13 +5,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>nikita.kim</groupId>
-  <artifactId>Dota</artifactId>
+  <artifactId>LastPick</artifactId>
   <version>1</version>
   <packaging>war</packaging>
 
-  <name>Dota Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <name>Lastpick</name>
+  
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -56,6 +55,20 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>5.3.9</version>
+            <scope>test</scope>
         </dependency>
         
   </dependencies>
