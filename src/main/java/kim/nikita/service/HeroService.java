@@ -60,7 +60,7 @@ public class HeroService {
             
             
             
-            System.out.println(setOfHeroesId.size()!=(friends.size()+enemies.size()));
+            
             if (setOfHeroesId.size()!=(friends.size()+enemies.size()))
                 throw new RuntimeException("Герои не должны повторяться!");
             

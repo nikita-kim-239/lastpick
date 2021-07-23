@@ -35,7 +35,7 @@ public class FriendsServlet extends HttpServlet{
     
      @Override
       public void init(){
-            springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+            springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml","spring/spring-db.xml");
             heroController=springContext.getBean(HeroController.class);
       }
       

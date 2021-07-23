@@ -6,6 +6,7 @@
 package kim.nikita.service;
 
 import java.util.List;
+import kim.nikita.TestData;
 import kim.nikita.controller.HeroController;
 import kim.nikita.model.Friendship;
 import kim.nikita.model.Hero;
@@ -29,7 +30,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @ContextConfiguration({
     "classpath:spring/spring-app.xml",
-    
+    "classpath:spring/spring-db.xml"
 })
 @RunWith(SpringRunner.class)
 public class HeroServiceTest {
@@ -43,32 +44,12 @@ public class HeroServiceTest {
     
     @Test
     public void testGetAllHeroes() {
-        
+        assertEquals(TestData.heroes,service.getAllHeroes());
     }
 
-    /**
-     * Test of getResult method, of class HeroService.
-     */
-    @Test
-    public void testGetResult() {
-        
-    }
+    
 
-    /**
-     * Test of getAllFriends method, of class HeroService.
-     */
-    @Test
-    public void testGetAllFriends() {
-        
-    }
-
-    /**
-     * Test of getAllVictims method, of class HeroService.
-     */
-    @Test
-    public void testGetAllVictims() {
-   
-    }
+    
 
     /**
      * Test of createFriendship method, of class HeroService.
