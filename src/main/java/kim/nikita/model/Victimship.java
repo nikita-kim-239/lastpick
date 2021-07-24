@@ -5,16 +5,20 @@
  */
 package kim.nikita.model;
 
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+
 /**
  *
  * @author Никита
  */
-public class Victimship {
+public class Victimship extends AbstractNamedEntity{
 
-    private int id;
-
+   
+    @ManyToOne(fetch = FetchType.LAZY)
     private Hero predator;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private Hero victim;
 
     public Victimship(int id,Hero predator,Hero victim)
@@ -29,23 +33,9 @@ public class Victimship {
         {
         }
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
+  
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the predator
-     */
+ 
     public Hero getPredator() {
         return predator;
     }

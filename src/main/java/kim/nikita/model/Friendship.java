@@ -6,16 +6,20 @@
 package kim.nikita.model;
 
 import java.io.Serializable;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Никита
  */
-public class Friendship implements Serializable{
+public class Friendship extends AbstractBaseEntity implements Serializable{
     
-    private int id;
-    
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Hero hero1;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
     private Hero hero2;
 
     
@@ -30,23 +34,8 @@ public class Friendship implements Serializable{
         {
         }
     
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the hero1
-     */
+   
+    
     public Hero getHero1() {
         return hero1;
     }

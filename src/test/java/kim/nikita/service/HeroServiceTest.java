@@ -44,6 +44,7 @@ public class HeroServiceTest {
     
     @Test
     public void testGetAllHeroes() {
+        log.info("Testing get all heroes");
         assertEquals(TestData.heroes,service.getAllHeroes());
     }
 
