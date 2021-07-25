@@ -13,11 +13,11 @@
         <title>Friends
         </title>
          
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
     </head>
     <body>
         
-        <a href="friendForm.jsp">Create</a>
+        <a href="createFriendship">Create</a>
         <br/>
         
         <table border="1" cellpadding="5">

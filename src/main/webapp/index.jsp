@@ -7,8 +7,8 @@
     <meta http-equiv="Content-Type"
           content="text/html; charset=UTF-8">
     <title>Dota Pick</title>
-     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/index.js"></script>
+     <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
+    <script src="/js/index.js"></script>
         
 
 </head>
@@ -17,7 +17,8 @@
     <br/>
     <a href="victimship">Victimship</a>
     <br/>
-    <form action="index" method="post">
+    <form action="results" method="post">
+        <p>Enemies</p>
         <select id="selectEnemy1" name="enemy1">
           <option disabled>Выберите героя</option>
         </select>
@@ -51,28 +52,6 @@
 
       <input type="submit"     value="Get result"/>
     </form>
-    <br/>
-    <c:if test="${!empty results}">
-    <table border="1" cellpadding="5">
-        
-            
-            <caption><h2>List of Results</h2></caption>
-            <tr>
-   
-                <th>Name</th>
-                <th>Score</th>
-                
-            </tr>
-            <c:forEach var="result" items="${results}">
-            <jsp:useBean id="result" class="kim.nikita.model.Result" scope="request"/>
-                <tr>
-                   
-                    <td><c:out value="${result.name}"/></td>
-                    <td><c:out value="${result.score}"/></td>
-                    
-                </tr>
-            </c:forEach>
-        </table>
-    </c:if>  
+    
 </body>
 </html>

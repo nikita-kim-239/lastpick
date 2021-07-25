@@ -7,7 +7,6 @@ package kim.nikita.service;
 
 import java.util.List;
 import kim.nikita.TestData;
-import kim.nikita.controller.HeroController;
 import kim.nikita.model.Friendship;
 import kim.nikita.model.Hero;
 import kim.nikita.model.Result;

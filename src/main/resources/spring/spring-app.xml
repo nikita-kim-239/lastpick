@@ -4,5 +4,5 @@
 
         
         <context:component-scan base-package="kim.nikita.service"/>
-        <context:component-scan base-package="kim.nikita.controller"/>
+        
 </beans> 

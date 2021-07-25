@@ -10,15 +10,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Victimship Form</title>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <script src="${pageContext.request.contextPath}/js/victim.js"></script>
+        <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
+        <script src="/js/victim.js"></script>
         
         
         
         
     </head>
     <body onload="addHeroSelect()">
-        <form action="victimship" method="post">
+        <form action="createVictimship" method="post">
             <p>Predator</p>
             
             <select id="selectPredator" name="predator">

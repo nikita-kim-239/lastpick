@@ -11,12 +11,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Friendship Form</title>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-        <script src="${pageContext.request.contextPath}/js/friend.js"></script>
+        <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
+        <script src="/js/friend.js"></script>
     </head>
     <body onload="addHeroSelect()">
         
-        <form action="friendship" method="post">
+        <form action="createFriendship" method="post">
             <p>Hero1</p>
             
             <select id="selectHero1" name="hero1">

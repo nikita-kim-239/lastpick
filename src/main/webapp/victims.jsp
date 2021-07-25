@@ -11,11 +11,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Victims</title>
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
     </head>
     <body>
         
-        <a href="victimForm.jsp">Create</a>
+        <a href="createVictimship">Create</a>
         <br/>
         
         <table border="1" cellpadding="5" >

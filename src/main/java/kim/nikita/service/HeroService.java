@@ -58,7 +58,8 @@ public class HeroService {
                     setOfHeroesId.add(i);
                 }
             
-            
+            System.out.println("friends: "+friends);
+            System.out.println("enemies: "+enemies);
             
             
             if (setOfHeroesId.size()!=(friends.size()+enemies.size()))
