@@ -8,8 +8,9 @@
           content="text/html; charset=UTF-8">
     <title>Dota Pick</title>
      <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
+      
     <script src="/js/index.js"></script>
-        
+    
 
 </head>
 <body onLoad="addHeroSelect()">

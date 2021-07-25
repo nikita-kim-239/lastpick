@@ -30,7 +30,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @ContextConfiguration({
     "classpath:spring/spring-app.xml",
-    "classpath:spring/spring-db.xml"
+    "classpath:spring/spring-db.xml",
+    "classpath:spring/spring-mvc.xml"
 })
 @RunWith(SpringRunner.class)
 public class HeroServiceTest {
@@ -48,7 +49,7 @@ public class HeroServiceTest {
     }
     
     @Test
-    @Ignore
+    
     public void testGetAllHeroes() {
         log.info("Testing get all heroes");
         
@@ -60,7 +61,7 @@ public class HeroServiceTest {
     
     
     @Test
-    @Ignore
+    
     public void testGetFriendship() {
         log.info("Testing friendship");
         
@@ -74,7 +75,7 @@ public class HeroServiceTest {
      * Test of createFriendship method, of class HeroService.
      */
     @Test
-    @Ignore
+    
     public void testCreateFriendshipWithTheSameHeroes() {
         log.info("Testing create friendship (1,1)");
         assertThrows(RuntimeException.class, () -> service.createFriendship(1,1));
@@ -84,7 +85,7 @@ public class HeroServiceTest {
      * Test of createVictimship method, of class HeroService.
      */
     @Test
-    @Ignore
+    
     public void testCreateVictimshipAlreadyInBase() {
         log.info("Testing create friendship (1,6) already in base");
         assertThrows(RuntimeException.class, () -> service.createFriendship(1,6));
