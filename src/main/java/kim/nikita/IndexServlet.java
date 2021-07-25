@@ -5,36 +5,24 @@
  */
 package kim.nikita;
 
-import java.io.BufferedReader;
 import kim.nikita.model.Result;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import kim.nikita.controller.HeroController;
-import kim.nikita.model.Hero;
 import org.apache.log4j.Logger;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 
-@WebServlet("/result")
+@WebServlet("/index")
 public class IndexServlet extends HttpServlet{
 
       private ConfigurableApplicationContext springContext;
@@ -47,15 +35,9 @@ public class IndexServlet extends HttpServlet{
       
       @Override
       public void init(){
-            springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml","spring/spring-db.xml");
+            WebApplicationContext springContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
             heroController=springContext.getBean(HeroController.class);
       }
-      
-      @Override
-        public void destroy() {
-            springContext.close();
-            super.destroy();
-        }
       
       
       @Override
@@ -97,8 +79,18 @@ public class IndexServlet extends HttpServlet{
         
         request.setAttribute("results",results);
         log.info("redirect to results");
-        getServletContext().getRequestDispatcher("/results.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        
+        
+        
+        log.info("redirect to index");
+        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+    }
+    
 }
 

@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import kim.nikita.controller.HeroController;
 import kim.nikita.model.Victimship;
 import org.apache.log4j.Logger;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 
 @WebServlet("/victimship")
@@ -31,22 +31,18 @@ public class VictimServlet extends HttpServlet{
     
    
     
-    private ConfigurableApplicationContext springContext;
+    
       private HeroController heroController;
     
     private static final Logger log = Logger.getLogger(VictimServlet.class);
     
     @Override
       public void init(){
-            springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml","spring/spring-db.xml");
+            WebApplicationContext springContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
             heroController=springContext.getBean(HeroController.class);
       }
       
-      @Override
-        public void destroy() {
-            springContext.close();
-            super.destroy();
-        }
+      
     
     
     @Override

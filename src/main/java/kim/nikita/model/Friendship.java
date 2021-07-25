@@ -6,20 +6,30 @@
 package kim.nikita.model;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
  * @author Никита
  */
+@Entity
+@Table(name="friendship")
+@NamedQuery(name="GET_ALL_FRIENDS",query="select f from Friendship f join f.hero1 h1 join f.hero2 h2 where h1.id=:f.hero1_id and h2.id=:f.hero2_id")
 public class Friendship extends AbstractBaseEntity implements Serializable{
     
 
-    @ManyToOne(fetch = FetchType.LAZY)
+      @ManyToOne (fetch=FetchType.LAZY)
+    @JoinColumn (name="hero1_id")
     private Hero hero1;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne (fetch=FetchType.LAZY)
+    @JoinColumn (name="hero2_id")
     private Hero hero2;
 
     

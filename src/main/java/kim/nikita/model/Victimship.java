@@ -5,20 +5,24 @@
  */
 package kim.nikita.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Никита
  */
-public class Victimship extends AbstractNamedEntity{
+public class Victimship extends AbstractBaseEntity{
 
    
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne (optional=false, cascade=CascadeType.ALL)
+    @JoinColumn (name="predator_id")
     private Hero predator;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne (optional=false, cascade=CascadeType.ALL)
+    @JoinColumn (name="victim_id")
     private Hero victim;
 
     public Victimship(int id,Hero predator,Hero victim)

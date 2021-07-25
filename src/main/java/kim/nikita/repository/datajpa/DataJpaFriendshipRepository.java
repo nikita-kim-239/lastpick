@@ -3,32 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package kim.nikita.repository.jpa;
+package kim.nikita.repository.datajpa;
 
 import java.util.List;
-import kim.nikita.model.Victimship;
-import kim.nikita.repository.VictimshipRepository;
+import kim.nikita.model.Friendship;
+import kim.nikita.repository.FriendshipRepository;
 import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Никита
  */
+
 @Repository
-public class JpaVictimshipRepository implements VictimshipRepository{
+public class DataJpaFriendshipRepository implements FriendshipRepository{
+
+    private CrudFriendshipRepository crudRepository;
+    
+    public DataJpaFriendshipRepository(CrudFriendshipRepository crudRepository)
+        {
+            this.crudRepository=crudRepository;
+        }
+    
+    @Override
+    public List<Friendship> getAllFriends() {
+        
+        return crudRepository.findAll();
+    }
 
     @Override
-    public List<Victimship> getAllVictims() {
+    public void create(int hero1_id, int hero2_id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void create(int predator_id, int victim_id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int count(int predator_id, int victim_id) {
+    public int count(int hero1_id, int hero2_id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

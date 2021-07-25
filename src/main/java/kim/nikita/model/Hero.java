@@ -5,15 +5,22 @@
  */
 package kim.nikita.model;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
 /**
  *
  * @author Никита
  */
-public class Hero extends AbstractNamedEntity{
+
+@Entity
+@Table(name="heroes")
+@NamedQuery(name="GET_ALL_HEROES",query="SELECT h FROM Hero h ORDER BY h.name")
+public class Hero extends AbstractNamedEntity implements Serializable{
     
     
-    private Integer id;
-    private String name;
     
     
     public Hero()

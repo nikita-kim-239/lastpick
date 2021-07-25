@@ -1,21 +1,4 @@
-<html>
-<head>
-    <meta http-equiv="Content-Type"
-          content="text/html; charset=UTF-8">
-    <title>Dota Pick</title>
-    <style>
-        body{
-            margin:20px;
-        }
-        
-    </style>
-    <script language="javascript">
-        
-        
-         
-
-        
-      function addHeroSelect(){  
+function addHeroSelect(){  
         
         var heroes=["Abaddon","Alchemist","Ancient Apparition","Anti-Mage","Arc Warden","Axe","Bane","Batrider","Beastmaster","Bloodseeker","Bounty Hunter","Brewmaster","Bristleback","Broodmother","Centaur Warrunner","Chaos Knight","Chen","Clinkz","Clockwerk","Crystal Maiden","Dark Seer","Dark Willow","Dawnbreaker","Dazzle","Death Prophet","Disruptor","Doom","Dragon Knight","Drow Ranger","Earth Spirit","Earthshaker","Elder Titan","Ember Spirit","Enchantress","Enigma","Faceless Void","Grimstroke","Gyrocopter","Hoodwink","Huskar","Invoker","Io","Jakiro","Juggernaut","Keeper of the Light","Kunkka","Legion Commander","Leshrac","Lich","Lifestealer","Lina","Lion","Lone Druid","Luna","Lycan","Magnus","Mars","Medusa","Meepo","Mirana","Monkey King","Morphling","Naga Siren","Nature`s Prophet","Necrophos","Night Stalker","Nyx Assassin","Ogre Magi","Omniknight","Oracle","Outworld Destroyer","Pangolier","Phantom Assassin","Phantom Lancer","Phoenix","Puck","Pudge","Pugna","Queen of Pain","Razor","Riki","Rubick","Sand King","Shadow Demon","Shadow Fiend","Shadow Shaman","Silencer","Skywrath Mage","Slardar","Slark","Snapfire","Sniper","Spectre","Spirit Breaker","Storm Spirit","Sven","Techies","Templar Assassin","Terrorblade","Tidehunter","Timbersaw","Tinker","Tiny","Treant Protector","Troll Warlord","Tusk","Underlord","Undying","Ursa","Vengeful Spirit","Venomancer","Viper","Visage","Void Spirit","Warlock","Weaver","Windranger","Winter Wyvern","Witch Doctor","Wraith King","Zeus"];
     
@@ -73,51 +56,4 @@
                 selectAlly4.append(el9);
                
             }
-      }      
-      
-     
-    </script>  
-    
-</head>
-<body onLoad="addHeroSelect()">
-    <a href="friendship">Friendship</a>
-    <br/>
-    <a href="victimship">Victimship</a>
-    <br/>
-    <form action="result" method="post">
-        <select id="selectEnemy1" name="enemy1">
-          <option disabled>Выберите героя</option>
-        </select>
-        <select id="selectEnemy2" name="enemy2">
-          <option disabled>Выберите героя</option>
-        </select>
-        <select id="selectEnemy3" name="enemy3">
-          <option disabled>Выберите героя</option>
-        </select>
-       <select id="selectEnemy4" name="enemy4">
-          <option disabled>Выберите героя</option>
-        </select>
-       <select id="selectEnemy5" name="enemy5">
-          <option disabled>Выберите героя</option>
-        </select>
-      <br/>
-      <p>Friends</p>
-       <select id="selectAlly1" name="ally1">
-           <option disabled>Выберите героя</option>
-        </select>
-       <select id="selectAlly2" name="ally2">
-          <option disabled>Выберите героя</option>
-        </select>
-       <select id="selectAlly3" name="ally3">
-          <option disabled>Выберите героя</option>    
-        </select>
-       <select id="selectAlly4" name="ally4">
-          <option disabled>Выберите героя</option>
-        </select>
-      <br/>
-
-      <input type="submit"     value="Get result"/>
-    </form>
-      
-</body>
-</html>
+      }     

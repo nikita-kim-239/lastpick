@@ -89,7 +89,7 @@ public class DotaFriendshipHelp {
 
                             for (Friendship f:friendship)
                             {
-                                bw.write("insert into friendship (id,hero1_id,hero2_id) values (\""+f.getId()+","+f.getHero1().getId()+","+f.getHero2().getId()+"\");\n");
+                                bw.write("new Friendship ("+f.getId()+", new Hero ("+f.getHero1().getId()+",\""+f.getHero1().getName()+"\" ) , new Hero ("+f.getHero2().getId()+",\""+f.getHero2().getName()+"\" )), ");
 
                             }
                     }

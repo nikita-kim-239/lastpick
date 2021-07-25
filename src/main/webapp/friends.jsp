@@ -13,15 +13,7 @@
         <title>Friends
         </title>
          
-        <style>
-            body{
-                margin:20px;
-            }
-            table
-            {
-                margin:auto
-            }
-        </style>
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         
