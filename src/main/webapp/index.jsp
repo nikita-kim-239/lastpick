@@ -1,24 +1,25 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta http-equiv="Content-Type"
           content="text/html; charset=UTF-8">
-    <title>Dota Pick</title>
+    <title>Lastpick</title>
      <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
       
-    <script src="/js/index.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
     
 
 </head>
+
+
 <body onload="addIndexHeroSelect()">
     <a href="friendship">Friendship</a>
     <br/>
     <a href="victimship">Victimship</a>
     <br/>
-    <form action="results" method="post">
+    
         <p>Enemies</p>
         <select id="selectEnemy1" name="enemy1">
           <option disabled>Выберите героя</option>
@@ -51,8 +52,10 @@
         </select>
       <br/>
 
-      <input type="submit"     value="Get result"/>
-    </form>
+      <input type="button" onclick="createTable()" value="Get results">
     
+    
+    
+    <div id="output"></div>
 </body>
 </html>

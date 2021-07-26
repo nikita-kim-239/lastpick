@@ -80,28 +80,7 @@ public class RootController {
         }
     
     
-    @PostMapping("/results")
-    public ModelAndView getResult(
-                HttpServletRequest request
-                ) {
-        
-        List <Integer> friends = new ArrayList<>();
-        friends.add(Integer.parseInt(request.getParameter("ally1")));
-        friends.add(Integer.parseInt(request.getParameter("ally2")));
-        friends.add(Integer.parseInt(request.getParameter("ally3")));
-        friends.add(Integer.parseInt(request.getParameter("ally4")));
-       
-        List <Integer> enemies = new ArrayList<>();
-        enemies.add(Integer.parseInt(request.getParameter("enemy1")));
-        enemies.add(Integer.parseInt(request.getParameter("enemy2")));
-        enemies.add(Integer.parseInt(request.getParameter("enemy3")));
-        enemies.add(Integer.parseInt(request.getParameter("enemy4")));
-        enemies.add(Integer.parseInt(request.getParameter("enemy5")));
-        log.info("get all  result");
-        ModelAndView mav = new ModelAndView("results");
-        mav.addObject("results",heroService.getResult(friends,enemies));
-        return mav;
-    }
+    
     
   
     @PostMapping("/createFriendship")

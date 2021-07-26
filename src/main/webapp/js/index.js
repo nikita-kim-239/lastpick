@@ -1,5 +1,4 @@
 
-
 function addIndexHeroSelect(){  
         
     
@@ -22,6 +21,7 @@ function addIndexHeroSelect(){
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                var heroes = JSON.parse(xhr.responseText);
+               
             for (var i=0;i<heroes.length;i++)
             {   
                 
@@ -138,4 +138,71 @@ function addVictimHeroSelect(){
         };
         
         xhr.send();
+}
+
+
+function createTable() {
+    
+        var selectEnemy1=document.getElementById("selectEnemy1");
+        var selectEnemy2=document.getElementById("selectEnemy2");
+        var selectEnemy3=document.getElementById("selectEnemy3");
+        var selectEnemy4=document.getElementById("selectEnemy4");
+        var selectEnemy5=document.getElementById("selectEnemy5");
+        var selectAlly1=document.getElementById("selectAlly1");
+        var selectAlly2=document.getElementById("selectAlly2");
+        var selectAlly3=document.getElementById("selectAlly3");
+        var selectAlly4=document.getElementById("selectAlly4");
+        var enemy1Id=selectEnemy1.value;
+        var enemy2Id=selectEnemy2.value;
+        var enemy3Id=selectEnemy3.value;
+        var enemy4Id=selectEnemy4.value;
+        var enemy5Id=selectEnemy5.value;
+        var ally1Id=selectAlly1.value;
+        var ally2Id=selectAlly2.value;
+        var ally3Id=selectAlly3.value;
+        var ally4Id=selectAlly4.value;
+
+        var xhr = new XMLHttpRequest();
+        var url = "http://localhost:8080/rest/results?";
+        url+="enemy1="+enemy1Id+"&";
+        url+="enemy2="+enemy2Id+"&";
+        url+="enemy3="+enemy3Id+"&";
+        url+="enemy4="+enemy4Id+"&";
+        url+="enemy5="+enemy5Id+"&";
+        url+="ally1="+ally1Id+"&";
+        url+="ally2="+ally2Id+"&";
+        url+="ally3="+ally3Id+"&";
+        url+="ally4="+ally4Id;
+         
+        xhr.open("GET", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+               var result= JSON.parse(xhr.responseText);
+               
+               var output=document.getElementById("output");
+               
+               output.innerHtml="";
+               table = document.createElement('table');
+               table.style.border="1px solid black"
+                
+                for (var i=0;i<result.length;i++)
+                    {
+                        var row=table.insertRow(i);
+                        var cellName = row.insertCell(0);
+                        var textName = document.createTextNode(result[i].name);
+                        cellName.appendChild(textName);
+                        var cellScore=row.insertCell(1);
+                        var textScore = document.createTextNode(result[i].score);
+                        cellScore.appendChild(textScore);
+                        
+                    }
+             
+            output.appendChild(table);
+           }
+
+        };
+        
+        xhr.send();
+        
 }
