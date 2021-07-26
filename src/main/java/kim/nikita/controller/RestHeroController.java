@@ -6,11 +6,13 @@
 package kim.nikita.controller;
 
 import java.util.List;
+import kim.nikita.model.Friendship;
 import kim.nikita.model.Hero;
 import kim.nikita.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestHeroController {
     
     
-    static final String REST_URL = "/rest/heroes";
+    static final String REST_URL = "/rest";
     
     private final HeroService heroService;
     
@@ -30,10 +32,12 @@ public class RestHeroController {
        this.heroService = heroService;
    }
     
-   @GetMapping
+   @GetMapping("/heroes")
    public List<Hero> getAllHeroes()
     {
         return heroService.getAllHeroes();
     }
+   
+   
     
 }

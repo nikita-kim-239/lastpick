@@ -5,19 +5,20 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Victimship Form</title>
         <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
-        <script src="/js/victim.js"></script>
+        <script src="/js/index.js"></script>
         
         
         
         
     </head>
-    <body onload="addHeroSelect()">
+    <body onload="addVictimHeroSelect()">
         <form action="createVictimship" method="post">
             <p>Predator</p>
             

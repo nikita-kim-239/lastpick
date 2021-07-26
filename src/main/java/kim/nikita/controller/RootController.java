@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 
 
@@ -102,10 +104,32 @@ public class RootController {
     }
     
   
+    @PostMapping("/createFriendship")
+    public View createFriendship(HttpServletRequest request) {
+        
+        Integer hero1=Integer.parseInt(request.getParameter("hero1"));
+        Integer hero2=Integer.parseInt(request.getParameter("hero2"));
+        log.info("create Friendship between "+hero1+" and "+hero2);
+        heroService.createFriendship(hero1,hero2);
+        
+        RedirectView redirect = new RedirectView("/friendship");
+        redirect.setExposeModelAttributes(false);
+        return redirect;
+    }
     
     
-    
-    
+    @PostMapping("/createVictimship")
+    public View createVictimship(HttpServletRequest request) {
+        
+        Integer predatorId=Integer.parseInt(request.getParameter("predator"));
+        Integer victimId=Integer.parseInt(request.getParameter("victim"));
+        log.info("create Victimship between "+predatorId+" and "+victimId);
+        heroService.createVictimship(predatorId,victimId);
+        
+        RedirectView redirect = new RedirectView("/victimship");
+        redirect.setExposeModelAttributes(false);
+        return redirect;
+    }
     
     
     

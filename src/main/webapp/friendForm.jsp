@@ -12,9 +12,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Friendship Form</title>
         <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
-        <script src="/js/friend.js"></script>
+        <script src="/js/index.js"></script>
     </head>
-    <body onload="addHeroSelect()">
+    <body onload="addFriendsHeroSelect()">
         
         <form action="createFriendship" method="post">
             <p>Hero1</p>
@@ -32,7 +32,7 @@
             
             <br/>
 
-            <input type="submit"  value="Create"/>
+            <input type="submit"  onclick="createFriendship()" value="Create"/>
         </form>
         
     </body>

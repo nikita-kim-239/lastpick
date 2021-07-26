@@ -1,18 +1,9 @@
-function addHeroSelect(){  
+
+
+function addIndexHeroSelect(){  
         
     
     
-        
-        
-        var request = new XMLHttpRequest();
-        
-        request.open("GET", "http://localhost:8080/rest/heroes", false);
-        	
-        request.send();
-        
-        
-        var heroes=JSON.parse(request.responseText);
-        
         var selectEnemy1=document.getElementById("selectEnemy1");
         var selectEnemy2=document.getElementById("selectEnemy2");
         var selectEnemy3=document.getElementById("selectEnemy3");
@@ -23,9 +14,19 @@ function addHeroSelect(){
         var selectAlly3=document.getElementById("selectAlly3");
         var selectAlly4=document.getElementById("selectAlly4");
         
-        for (var i=0;i<heroes.length;i++)
-            {
+       
+        var xhr = new XMLHttpRequest();
+        var url = "http://localhost:8080/rest/heroes";
+        xhr.open("GET", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+               var heroes = JSON.parse(xhr.responseText);
+            for (var i=0;i<heroes.length;i++)
+            {   
+                
                 var hero=heroes[i].name;
+            
                 var el1=document.createElement("option");
                 el1.text=hero;
                 el1.value=i+1;
@@ -63,5 +64,78 @@ function addHeroSelect(){
                 selectAlly3.append(el8);
                 selectAlly4.append(el9);
                
+            }  
+                
             }
+        };
+        xhr.send();     
       }     
+
+
+function addFriendsHeroSelect(){  
+        
+        
+        var selectHero1=document.getElementById("selectHero1");
+        var selectHero2=document.getElementById("selectHero2");
+        
+        var xhr = new XMLHttpRequest();
+        var url = "http://localhost:8080/rest/heroes";
+        xhr.open("GET", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+               var heroes = JSON.parse(xhr.responseText);
+            for (var i=0;i<heroes.length;i++)
+            {   
+                
+                var hero=heroes[i].name;
+ 
+                var el1=document.createElement("option");
+                el1.text=hero;
+                el1.value=i+1;
+                var el2=document.createElement("option");
+                el2.text=hero;
+                el2.value=i+1;
+ 
+                selectHero1.append(el1);
+                selectHero2.append(el2);
+                              
+            }
+            }      
+        };
+        
+        xhr.send();
+        }
+
+function addVictimHeroSelect(){  
+        
+        var selectPredator=document.getElementById("selectPredator");
+        var selectVictim=document.getElementById("selectVictim");
+    
+        var xhr = new XMLHttpRequest();
+        var url = "http://localhost:8080/rest/heroes";
+        xhr.open("GET", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+               var heroes = JSON.parse(xhr.responseText);
+            for (var i=0;i<heroes.length;i++)
+            {   
+                
+                var hero=heroes[i].name;
+                var el1=document.createElement("option");
+                el1.text=hero;
+                el1.value=i+1;
+                var el2=document.createElement("option");
+                el2.text=hero;
+                el2.value=i+1;              
+                selectPredator.append(el1);
+                selectVictim.append(el2);
+                              
+            }
+        } 
+
+        };
+        
+        xhr.send();
+}

@@ -13,7 +13,7 @@
     
 
 </head>
-<body onLoad="addHeroSelect()">
+<body onload="addIndexHeroSelect()">
     <a href="friendship">Friendship</a>
     <br/>
     <a href="victimship">Victimship</a>
