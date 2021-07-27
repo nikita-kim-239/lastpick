@@ -182,9 +182,17 @@ function createTable() {
                
                var output=document.getElementById("output");
                
-               output.innerHtml="";
-               table = document.createElement('table');
-               table.style.border="1px solid black"
+               var tables=output.childNodes;
+               if (tables.length>0)
+               {
+               
+               var table=output.firstChild;
+               
+               output.removeChild(table);
+                }
+               
+               var table = document.createElement('table');
+               table.setAttribute('class','table table-primary');
                 
                 for (var i=0;i<result.length;i++)
                     {
