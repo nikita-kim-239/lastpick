@@ -61,6 +61,6 @@
     
     
    </div>
-    <div class="container" id="output"></div>
+    <div class="row" id="output"></div>
 </body>
 </html>

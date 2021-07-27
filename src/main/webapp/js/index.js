@@ -180,33 +180,88 @@ function createTable() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                var result= JSON.parse(xhr.responseText);
                
+               var desirableHeroes=result.filter(hero=>hero.score>0);
+               var neutralHeroes=result.filter(hero=>hero.score===0);
+               var undesirableHeroes=result.filter(hero=>hero.score<0);
+               
                var output=document.getElementById("output");
+               
+               
                
                var tables=output.childNodes;
                if (tables.length>0)
                {
-               
-               var table=output.firstChild;
-               
+               for (var table of tables)                          
                output.removeChild(table);
-                }
-               
-               var table = document.createElement('table');
-               table.setAttribute('class','table table-primary');
                 
-                for (var i=0;i<result.length;i++)
+                }
+               var divOfDesirableHeroes = document.createElement('div');
+               divOfDesirableHeroes.setAttribute('class','col-md-3');
+               var tableOfDesirableHeroes = document.createElement('table');
+               tableOfDesirableHeroes.setAttribute('class','table table-success');
+                
+                for (var i=0;i<desirableHeroes.length;i++)
                     {
-                        var row=table.insertRow(i);
+                        var row=tableOfDesirableHeroes.insertRow(i);
                         var cellName = row.insertCell(0);
-                        var textName = document.createTextNode(result[i].name);
+                        var textName = document.createTextNode(desirableHeroes[i].name);
                         cellName.appendChild(textName);
                         var cellScore=row.insertCell(1);
-                        var textScore = document.createTextNode(result[i].score);
+                        var textScore = document.createTextNode(desirableHeroes[i].score);
+                        cellScore.appendChild(textScore);
+                        
+                    }
+              
+            
+            divOfDesirableHeroes.appendChild(tableOfDesirableHeroes);
+            output.appendChild(divOfDesirableHeroes);
+            
+            console.log('Desirable heroes: '+desirableHeroes);
+            
+            var divOfNeutralHeroes = document.createElement('div');
+               divOfNeutralHeroes.setAttribute('class','col-md-3');
+            var tableOfNeutralHeroes = document.createElement('table');
+               tableOfNeutralHeroes.setAttribute('class','table table-primary');
+                
+                for (var i=0;i<neutralHeroes.length;i++)
+                    {
+                        var row=tableOfNeutralHeroes.insertRow(i);
+                        var cellName = row.insertCell(0);
+                        var textName = document.createTextNode(neutralHeroes[i].name);
+                        cellName.appendChild(textName);
+                        var cellScore=row.insertCell(1);
+                        var textScore = document.createTextNode(neutralHeroes[i].score);
                         cellScore.appendChild(textScore);
                         
                     }
              
-            output.appendChild(table);
+            console.log('Neutral heroes: '+neutralHeroes); 
+            
+            divOfNeutralHeroes.appendChild(tableOfNeutralHeroes); 
+            output.appendChild(divOfNeutralHeroes); 
+            
+            
+            
+            var divOfUndesirableHeroes = document.createElement('div');
+               divOfUndesirableHeroes.setAttribute('class','col-md-3');
+            var tableOfUndesirableHeroes = document.createElement('table');
+               tableOfUndesirableHeroes.setAttribute('class','table table-danger');
+                
+                for (var i=0;i<undesirableHeroes.length;i++)
+                    {
+                        var row=tableOfUndesirableHeroes.insertRow(i);
+                        var cellName = row.insertCell(0);
+                        var textName = document.createTextNode(undesirableHeroes[i].name);
+                        cellName.appendChild(textName);
+                        var cellScore=row.insertCell(1);
+                        var textScore = document.createTextNode(undesirableHeroes[i].score);
+                        cellScore.appendChild(textScore);
+                        
+                    }
+            divOfUndesirableHeroes.appendChild(tableOfUndesirableHeroes);  
+            output.appendChild(divOfUndesirableHeroes); 
+            
+            console.log('Undesirable heroes: '+undesirableHeroes);
            }
 
         };

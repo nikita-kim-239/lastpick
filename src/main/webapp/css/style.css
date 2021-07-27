@@ -1,11 +1,15 @@
  body{
          margin:20px;
      }
-table{
+  
+
+button
+    {
+         
+         margin:20px;
+     }     
         
-        margin:auto;
-        
-        
-     }
-   
-        
+table
+{
+    margin:10px;
+}

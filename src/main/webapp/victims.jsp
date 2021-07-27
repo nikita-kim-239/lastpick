@@ -14,7 +14,7 @@
 </head>
 
     <body>
-        
+      <div class="container">  
         <a href="createVictimship" class="btn btn-primary btn-md" role="button">Create Victimship</a>
         <br/>
         
@@ -36,7 +36,7 @@
                 </tr>
             </c:forEach>
         </table>
-        
+      </div>   
         
     </body>
 </html>
