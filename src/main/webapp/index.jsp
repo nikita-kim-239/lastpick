@@ -55,11 +55,11 @@
            <select id="selectAlly4" name="ally4">
               <option disabled>Выберите героя</option>
             </select>
+          
+          <button type="button" onclick="createTable()"  class="btn btn-info btn-md">Get results</button>   
+          
           <br/>
-
-          <button type="button" onclick="createTable()"  class="btn btn-info btn-md">Get results</button>
-    
-    
+          
    </div>
     <div class="row" id="output"></div>
 </body>

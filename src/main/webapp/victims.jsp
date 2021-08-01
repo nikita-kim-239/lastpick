@@ -7,35 +7,70 @@
           content="text/html; charset=UTF-8">
     <title>Lastpick</title>
     <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">  
-    <script src="/js/index.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/js/victims.js"></script>
     
 
 </head>
 
-    <body>
-      <div class="container">  
-        <a href="createVictimship" class="btn btn-primary btn-md" role="button">Create Victimship</a>
-        <br/>
+<body onload="initializePage()">
+    
+    
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Create Victimship</h4>
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                    </div>
+                    <div class="modal-body">
+                         <p>Predator</p>
+
+                        <select id="selectPredator" name="predator">
+                            <option disabled>Выберите героя</option>
+                        </select>
+
+                        <br/>
+                        <p>Victim</p>
+
+                        <select id="selectVictim" name="victim">
+                            <option disabled>Выберите героя</option>
+                        </select>
+
+                        <br/>
+                    </div>
+                    <div class="modal-footer" >
+                        <button type="button" class="btn btn-primary" id="save">Save changes</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
         
-        <table border="1" cellpadding="5" class="table table-primary caption-top" >
-            <caption><h2>List of Victimship</h2></caption>
-            <tr>
-   
+        
+        <button  class="btn btn-primary btn-md" type="button" data-toggle="modal" data-target="#modal" id="myBtn">Create Victimship</button>
+    
+    
+      <div class="container">  
+        
+        <br/>
+
+            <table border="1" cellpadding="5" class="table table-primary" id="tableOfVictims">
                 
-                <th>Predator</th>
-                <th>Victim</th>
-                
-            </tr>
-            <c:forEach var="victimship" items="${victims}">
-            <jsp:useBean id="victimship" class="kim.nikita.model.Victimship" scope="request"/>
                 <tr>
-                   
-                    <td><c:out value="${victimship.predator.name}"/></td>
-                    <td><c:out value="${victimship.victim.name}"/></td>
+
+
+                    <th>Predator</th>
+                    <th>Victim</th>
+
                 </tr>
-            </c:forEach>
-        </table>
+                
+            </table>
       </div>   
         
     </body>

@@ -1,4 +1,6 @@
 
+
+
 function addIndexHeroSelect(){  
         
     
@@ -72,40 +74,12 @@ function addIndexHeroSelect(){
       }     
 
 
-function addFriendsHeroSelect(){  
-        
-        
-        var selectHero1=document.getElementById("selectHero1");
-        var selectHero2=document.getElementById("selectHero2");
-        
-        var xhr = new XMLHttpRequest();
-        var url = "http://localhost:8080/rest/heroes";
-        xhr.open("GET", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-               var heroes = JSON.parse(xhr.responseText);
-            for (var i=0;i<heroes.length;i++)
-            {   
-                
-                var hero=heroes[i].name;
- 
-                var el1=document.createElement("option");
-                el1.text=hero;
-                el1.value=i+1;
-                var el2=document.createElement("option");
-                el2.text=hero;
-                el2.value=i+1;
- 
-                selectHero1.append(el1);
-                selectHero2.append(el2);
-                              
-            }
-            }      
-        };
-        
-        xhr.send();
-        }
+
+
+
+
+
+
 
 function addVictimHeroSelect(){  
         
@@ -181,7 +155,7 @@ function createTable() {
                var result= JSON.parse(xhr.responseText);
                
                var desirableHeroes=result.filter(hero=>hero.score>0);
-               var neutralHeroes=result.filter(hero=>hero.score===0);
+               
                var undesirableHeroes=result.filter(hero=>hero.score<0);
                
                var output=document.getElementById("output");
@@ -196,7 +170,7 @@ function createTable() {
                 
                 }
                var divOfDesirableHeroes = document.createElement('div');
-               divOfDesirableHeroes.setAttribute('class','col-md-3');
+               divOfDesirableHeroes.setAttribute('class','col-md-6');
                var tableOfDesirableHeroes = document.createElement('table');
                tableOfDesirableHeroes.setAttribute('class','table table-success');
                 
@@ -216,34 +190,12 @@ function createTable() {
             divOfDesirableHeroes.appendChild(tableOfDesirableHeroes);
             output.appendChild(divOfDesirableHeroes);
             
-            console.log('Desirable heroes: '+desirableHeroes);
             
-            var divOfNeutralHeroes = document.createElement('div');
-               divOfNeutralHeroes.setAttribute('class','col-md-3');
-            var tableOfNeutralHeroes = document.createElement('table');
-               tableOfNeutralHeroes.setAttribute('class','table table-primary');
-                
-                for (var i=0;i<neutralHeroes.length;i++)
-                    {
-                        var row=tableOfNeutralHeroes.insertRow(i);
-                        var cellName = row.insertCell(0);
-                        var textName = document.createTextNode(neutralHeroes[i].name);
-                        cellName.appendChild(textName);
-                        var cellScore=row.insertCell(1);
-                        var textScore = document.createTextNode(neutralHeroes[i].score);
-                        cellScore.appendChild(textScore);
-                        
-                    }
-             
-            console.log('Neutral heroes: '+neutralHeroes); 
-            
-            divOfNeutralHeroes.appendChild(tableOfNeutralHeroes); 
-            output.appendChild(divOfNeutralHeroes); 
             
             
             
             var divOfUndesirableHeroes = document.createElement('div');
-               divOfUndesirableHeroes.setAttribute('class','col-md-3');
+               divOfUndesirableHeroes.setAttribute('class','col-md-6');
             var tableOfUndesirableHeroes = document.createElement('table');
                tableOfUndesirableHeroes.setAttribute('class','table table-danger');
                 
@@ -261,7 +213,7 @@ function createTable() {
             divOfUndesirableHeroes.appendChild(tableOfUndesirableHeroes);  
             output.appendChild(divOfUndesirableHeroes); 
             
-            console.log('Undesirable heroes: '+undesirableHeroes);
+            
            }
 
         };

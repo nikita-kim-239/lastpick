@@ -18,7 +18,7 @@ insert into heroes (name) values ('Brewmaster');
 insert into heroes (name) values ('Bristleback');
 insert into heroes (name) values ('Broodmother');
 insert into heroes (name) values ('Centaur Warrunner');
-insert into heroes (name) values ('Chaoes Knight');
+insert into heroes (name) values ('Chaos Knight');
 insert into heroes (name) values ('Chen');
 insert into heroes (name) values ('Clinkz');
 insert into heroes (name) values ('Clockwerk');
