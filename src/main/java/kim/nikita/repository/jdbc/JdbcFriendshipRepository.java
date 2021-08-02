@@ -26,7 +26,7 @@ public class JdbcFriendshipRepository implements FriendshipRepository{
       private static final String URL = "jdbc:postgresql://127.0.0.1:5432/dotapick";
       private static final String USER = "postgres";
       private static final String PASS = "postgres";
-      private static final String SELECT_ALL_QUERY = "select F.id,F.hero1_id,F.hero2_id,H1.name as hero1_name,H2.name as hero2_name from friendship as F join heroes as H1 on H1.id=F.hero1_id join heroes as H2 on H2.id=F.hero2_id order by H1.name,H2.name";
+      private static final String SELECT_ALL_QUERY = "select F.id,F.hero1_id,F.hero2_id,H1.name as hero1_name,H2.name as hero2_name from friendship as F join heroes as H1 on H1.id=F.hero1_id join heroes as H2 on H2.id=F.hero2_id order by F.id DESC";
       private static final String INSERT_FRIENDS_QUERY = "insert into friendship (hero1_id,hero2_id) values (?,?)";
       private static final String SELECT_COUNT = "select count(*) from friendship where hero1_id=? and hero2_id=? or hero1_id=? and hero2_id=?";
     

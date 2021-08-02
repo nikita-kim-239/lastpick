@@ -148,11 +148,20 @@ function createTable() {
         url+="ally3="+ally3Id+"&";
         url+="ally4="+ally4Id;
          
-        xhr.open("GET", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-               var result= JSON.parse(xhr.responseText);
+         
+          $.ajax({
+            url:url,
+            type:"GET",
+            dataType: 'json',
+            contentType: "application/json",
+            success: function( ){
+              console.log('Success');
+              
+            }   
+        }).done(function(data){
+         
+              
+               var result=data;
                
                var desirableHeroes=result.filter(hero=>hero.score>0);
                
@@ -162,18 +171,16 @@ function createTable() {
                
                
                
-               var tables=output.childNodes;
-               if (tables.length>0)
-               {
-               for (var table of tables)                          
-               output.removeChild(table);
+              while (output.firstChild) {
+                    output.removeChild(output.firstChild);
+                  }
+               
                 
-                }
                var divOfDesirableHeroes = document.createElement('div');
                divOfDesirableHeroes.setAttribute('class','col-md-6');
                var tableOfDesirableHeroes = document.createElement('table');
-               tableOfDesirableHeroes.setAttribute('class','table table-success');
-                
+               tableOfDesirableHeroes.setAttribute('class','table');
+               tableOfDesirableHeroes.setAttribute('style','background-color: green'); 
                 for (var i=0;i<desirableHeroes.length;i++)
                     {
                         var row=tableOfDesirableHeroes.insertRow(i);
@@ -197,8 +204,8 @@ function createTable() {
             var divOfUndesirableHeroes = document.createElement('div');
                divOfUndesirableHeroes.setAttribute('class','col-md-6');
             var tableOfUndesirableHeroes = document.createElement('table');
-               tableOfUndesirableHeroes.setAttribute('class','table table-danger');
-                
+               tableOfUndesirableHeroes.setAttribute('class','table');
+                tableOfUndesirableHeroes.setAttribute('style','background-color: red');
                 for (var i=0;i<undesirableHeroes.length;i++)
                     {
                         var row=tableOfUndesirableHeroes.insertRow(i);
@@ -213,11 +220,13 @@ function createTable() {
             divOfUndesirableHeroes.appendChild(tableOfUndesirableHeroes);  
             output.appendChild(divOfUndesirableHeroes); 
             
+        }).fail(function(jqXHR, textStatus, errorThrown){
             
-           }
-
-        };
+            alert(jqXHR.responseText);
+            
+            
+        });
         
-        xhr.send();
+        
         
 }

@@ -27,7 +27,7 @@ public class JdbcVictimshipRepository implements VictimshipRepository{
       private static final String USER = "postgres";
       private static final String PASS = "postgres";
       
-      private static final String SELECT_ALL = "select V.id,V.predator_id,V.victim_id,H1.name as predator_name,H2.name as victim_name from victimship as V join heroes as H1 on H1.id=V.predator_id join heroes as H2 on H2.id=V.victim_id";
+      private static final String SELECT_ALL = "select V.id,V.predator_id,V.victim_id,H1.name as predator_name,H2.name as victim_name from victimship as V join heroes as H1 on H1.id=V.predator_id join heroes as H2 on H2.id=V.victim_id order by V.id DESC";
       private static final String INSERT_ENEMIES_QUERY = "insert into victimship (predator_id,victim_id) values (?,?)";
       private static final String SELECT_COUNT = "select count(*) from victimship where predator_id=? and victim_id=?";
     

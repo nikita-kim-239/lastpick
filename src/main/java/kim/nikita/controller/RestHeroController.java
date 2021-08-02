@@ -7,15 +7,22 @@ package kim.nikita.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import kim.nikita.model.Friendship;
 import kim.nikita.model.Hero;
 import kim.nikita.model.JsonClassWithId;
 import kim.nikita.model.Result;
 import kim.nikita.model.Victimship;
 import kim.nikita.service.HeroService;
+import kim.nikita.util.exception.AlreadyExistException;
+import kim.nikita.util.exception.NoHeroesException;
+import kim.nikita.util.exception.RoundCounterException;
+import kim.nikita.util.exception.SameHeroesException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -58,21 +65,38 @@ public class RestHeroController {
                                 @RequestParam(name="ally1") Integer ally1,
                                 @RequestParam(name="ally2") Integer ally2,
                                 @RequestParam(name="ally3") Integer ally3,
-                                @RequestParam(name="ally4") Integer ally4
-                                )    
+                                @RequestParam(name="ally4") Integer ally4,
+                                 HttpServletRequest request, HttpServletResponse response
+                                )    throws IOException
     {
         List<Integer> friends=new ArrayList<>();
         List<Integer> enemies=new ArrayList<>();
-        friends.add(ally1);
-        friends.add(ally2);
-        friends.add(ally3);
-        friends.add(ally4);
-        enemies.add(enemy1);
-        enemies.add(enemy2);
-        enemies.add(enemy3);
-        enemies.add(enemy4);
-        enemies.add(enemy5);
-        return heroService.getResult(friends,enemies);
+        if (ally1!=0) friends.add(ally1);
+        if (ally2!=0) friends.add(ally2);
+        if (ally3!=0) friends.add(ally3);
+        if (ally4!=0) friends.add(ally4);
+        if (enemy1!=0) enemies.add(enemy1);
+        if (enemy2!=0) enemies.add(enemy2);
+        if (enemy3!=0) enemies.add(enemy3);
+        if (enemy4!=0) enemies.add(enemy4);
+        if (enemy5!=0) enemies.add(enemy5);
+        System.out.println("enemies: "+enemies);
+        System.out.println("friends: "+friends);
+        List<Result> results=null;
+        response.setCharacterEncoding("UTF-8");
+        try{
+        results= heroService.getResult(friends,enemies);
+        }
+        catch(NoHeroesException e)
+        {
+            response.getWriter().println(e.getMessage());
+        }
+        catch(SameHeroesException e)
+        {
+            response.getWriter().println(e.getMessage());
+        }
+        
+        return results;
     }
    
    
@@ -84,11 +108,12 @@ public class RestHeroController {
    
     
    @PostMapping("/friendship")
-   public void createFriendship(@RequestBody String heroes)
+   public void createFriendship(@RequestBody String heroes,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
              
             
             ObjectMapper mapper = new ObjectMapper();
+            response.setCharacterEncoding("UTF-8");
             try{
             JsonClassWithId [] arrayOfHeroes = mapper.readValue(heroes,JsonClassWithId[].class);
              heroService.createFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
@@ -98,6 +123,14 @@ public class RestHeroController {
             catch(JsonProcessingException e)
             {
                 e.printStackTrace();
+            }
+            catch(AlreadyExistException e)
+            {
+                response.getWriter().println(e.getMessage());
+            }
+            catch (SameHeroesException e)
+            {
+                response.getWriter().println(e.getMessage());
             }
             
         }
@@ -111,11 +144,12 @@ public class RestHeroController {
    
     
    @PostMapping("/victimship")
-   public void createVictimship(@RequestBody String heroes)
+   public void createVictimship(@RequestBody String heroes,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
              
             
             ObjectMapper mapper = new ObjectMapper();
+            response.setCharacterEncoding("UTF-8");
             try{
             JsonClassWithId [] arrayOfHeroes = mapper.readValue(heroes,JsonClassWithId[].class);
              heroService.createVictimship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
@@ -125,6 +159,18 @@ public class RestHeroController {
             catch(JsonProcessingException e)
             {
                 e.printStackTrace();
+            }
+            catch(AlreadyExistException e)
+            {
+                response.getWriter().println(e.getMessage());
+            }
+            catch (RoundCounterException e)
+            {
+                response.getWriter().println(e.getMessage());
+            }
+            catch(SameHeroesException e)
+            {
+                response.getWriter().println(e.getMessage());
             }
             
         }

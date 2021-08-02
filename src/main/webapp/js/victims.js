@@ -23,21 +23,26 @@ $(document).ready(function(){
             url:"http://localhost:8080/rest/victimship",
             type:"POST",
             data:JSON.stringify(heroes),
-            contentType: "application/json",
+            contentType:"application/json",
+            dataType:"json",
             success: function( ){
-              console.log('Success');
-              
-            }   
-        }).done(function(){
-            var table=document.getElementById("tableOfVictims");
+                var table=document.getElementById("tableOfVictims");
             
-            var row=table.insertRow(1);
-            var cellName1 = row.insertCell(0);
-            var hero1Name = document.createTextNode(predatorname);
-            cellName1.appendChild(hero1Name);
-            var cellName2=row.insertCell(1);
-            var hero2Name = document.createTextNode(victimname);
-            cellName2.appendChild(hero2Name);
+                var row=table.insertRow(1);
+                var cellName1 = row.insertCell(0);
+                var hero1Name = document.createTextNode(predatorname);
+                 cellName1.appendChild(hero1Name);
+                var cellName2=row.insertCell(1);
+                var hero2Name = document.createTextNode(victimname);
+                cellName2.appendChild(hero2Name);
+              
+            },
+            error:function(jqXHR,exception){
+                
+                alert(jqXHR.responseText);
+                
+            }
+            
         });
         
         

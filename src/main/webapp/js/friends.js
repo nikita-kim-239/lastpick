@@ -25,13 +25,11 @@ $(document).ready(function(){
             url:"http://localhost:8080/rest/friendship",
             type:"POST",
             data:JSON.stringify(heroes),
-            contentType: "application/json",
+            contentType:"application/json",
+            dataType:"json",
             success: function( ){
               console.log('Success');
-              
-            }   
-        }).done(function(){
-            var table=document.getElementById("tableOfFriends");
+              var table=document.getElementById("tableOfFriends");
             
             var row=table.insertRow(1);
             var cellName1 = row.insertCell(0);
@@ -40,6 +38,12 @@ $(document).ready(function(){
             var cellName2=row.insertCell(1);
             var hero2Name = document.createTextNode(hero2name);
             cellName2.appendChild(hero2Name);
+              
+            },
+            error:function(jqXHR,exception){
+                console.log(jqXHR.responseText);
+                alert(jqXHR.responseText);
+            }
         });
         
         

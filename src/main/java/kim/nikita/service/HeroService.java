@@ -10,10 +10,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import kim.nikita.model.Friendship;
 import kim.nikita.model.Hero;
 import kim.nikita.model.Result;
@@ -21,6 +19,10 @@ import kim.nikita.model.Victimship;
 import kim.nikita.repository.FriendshipRepository;
 import kim.nikita.repository.HeroRepository;
 import kim.nikita.repository.VictimshipRepository;
+import kim.nikita.util.exception.AlreadyExistException;
+import kim.nikita.util.exception.NoHeroesException;
+import kim.nikita.util.exception.RoundCounterException;
+import kim.nikita.util.exception.SameHeroesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,12 +60,11 @@ public class HeroService {
                     setOfHeroesId.add(i);
                 }
             
-            System.out.println("friends: "+friends);
-            System.out.println("enemies: "+enemies);
-            
+            if (setOfHeroesId.isEmpty())
+                throw new NoHeroesException("Выберите хотя бы одного героя!");
             
             if (setOfHeroesId.size()!=(friends.size()+enemies.size()))
-                throw new RuntimeException("Герои не должны повторяться!");
+                throw new SameHeroesException("Герои не должны повторяться!");
             
             
             List <Result> results=new ArrayList<>();
@@ -134,9 +135,9 @@ public class HeroService {
     public void createFriendship(int hero1_id,int hero2_id)
         {
             if (hero1_id==hero2_id) 
-                throw new RuntimeException("Герои не должны совпадать!");
+                throw new SameHeroesException("Герои не должны совпадать!");
             if (friendshipRepository.count(hero1_id, hero2_id)!=0) 
-                throw new RuntimeException("В базе данных уже есть такая запись!");
+                throw new AlreadyExistException("В базе данных уже есть такая запись!");
             
              friendshipRepository.create(hero1_id,hero2_id);
         }
@@ -144,13 +145,13 @@ public class HeroService {
     public void createVictimship(int predator_id,int victim_id)
         {
             if (predator_id==victim_id) 
-                throw new RuntimeException("Герои не должны совпадать!");
+                throw new SameHeroesException("Герои не должны совпадать!");
             
             if (victimshipRepository.count(predator_id, victim_id)!=0) 
-                throw new RuntimeException("В базе данных уже есть такая запись!");
+                throw new AlreadyExistException("В базе данных уже есть такая запись!");
             
             if (victimshipRepository.count(victim_id,predator_id)!=0)
-                throw new RuntimeException("Герои не должны контрить друг друга!");
+                throw new RoundCounterException("Герои не должны контрить друг друга!");
             
              victimshipRepository.create(predator_id,victim_id);
         }

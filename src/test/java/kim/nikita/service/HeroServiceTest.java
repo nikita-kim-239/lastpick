@@ -11,6 +11,8 @@ import kim.nikita.model.Friendship;
 import kim.nikita.model.Hero;
 import kim.nikita.model.Result;
 import kim.nikita.model.Victimship;
+import kim.nikita.util.exception.AlreadyExistException;
+import kim.nikita.util.exception.SameHeroesException;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -78,7 +80,7 @@ public class HeroServiceTest {
     
     public void testCreateFriendshipWithTheSameHeroes() {
         log.info("Testing create friendship (1,1)");
-        assertThrows(RuntimeException.class, () -> service.createFriendship(1,1));
+        assertThrows(SameHeroesException.class, () -> service.createFriendship(1,1));
     }
 
     /**
@@ -88,7 +90,7 @@ public class HeroServiceTest {
     
     public void testCreateVictimshipAlreadyInBase() {
         log.info("Testing create friendship (1,6) already in base");
-        assertThrows(RuntimeException.class, () -> service.createFriendship(1,6));
+        assertThrows(AlreadyExistException.class, () -> service.createFriendship(1,6));
     }
   
     
