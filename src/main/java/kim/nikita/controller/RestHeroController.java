@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ import kim.nikita.util.exception.AlreadyExistException;
 import kim.nikita.util.exception.NoHeroesException;
 import kim.nikita.util.exception.RoundCounterException;
 import kim.nikita.util.exception.SameHeroesException;
+import org.apache.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -39,7 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = RestHeroController.REST_URL,produces = MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
 public class RestHeroController {
     
-    
+    private static final Logger log = Logger.getLogger(RestHeroController.class);
     static final String REST_URL = "/rest";
     
     private final HeroService heroService;
@@ -90,10 +92,12 @@ public class RestHeroController {
         catch(NoHeroesException e)
         {
             response.getWriter().println(e.getMessage());
+            log.error(e.getMessage());
         }
         catch(SameHeroesException e)
         {
             response.getWriter().println(e.getMessage());
+            log.error(e.getMessage());
         }
         
         return results;
@@ -108,14 +112,14 @@ public class RestHeroController {
    
     
    @PostMapping("/friendship")
-   public void createFriendship(@RequestBody String heroes,HttpServletRequest request, HttpServletResponse response) throws IOException
+   public List<JsonClassWithId>  createFriendship(@RequestBody String heroes,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
              
             
             ObjectMapper mapper = new ObjectMapper();
-            response.setCharacterEncoding("UTF-8");
+            JsonClassWithId [] arrayOfHeroes=null;
             try{
-            JsonClassWithId [] arrayOfHeroes = mapper.readValue(heroes,JsonClassWithId[].class);
+            arrayOfHeroes = mapper.readValue(heroes,JsonClassWithId[].class);
              heroService.createFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
             
             
@@ -126,13 +130,18 @@ public class RestHeroController {
             }
             catch(AlreadyExistException e)
             {
+                response.setCharacterEncoding("UTF-8");
                 response.getWriter().println(e.getMessage());
+                log.error(e.getMessage());
             }
             catch (SameHeroesException e)
             {
+                response.setCharacterEncoding("UTF-8");
                 response.getWriter().println(e.getMessage());
+                log.error(e.getMessage());
             }
             
+           return  Arrays.asList(arrayOfHeroes);
         }
    
    
@@ -144,14 +153,14 @@ public class RestHeroController {
    
     
    @PostMapping("/victimship")
-   public void createVictimship(@RequestBody String heroes,HttpServletRequest request, HttpServletResponse response) throws IOException
+   public List<JsonClassWithId> createVictimship(@RequestBody String heroes,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
              
             
             ObjectMapper mapper = new ObjectMapper();
-            response.setCharacterEncoding("UTF-8");
+           JsonClassWithId [] arrayOfHeroes=null;
             try{
-            JsonClassWithId [] arrayOfHeroes = mapper.readValue(heroes,JsonClassWithId[].class);
+             arrayOfHeroes = mapper.readValue(heroes,JsonClassWithId[].class);
              heroService.createVictimship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
             
             
@@ -162,17 +171,24 @@ public class RestHeroController {
             }
             catch(AlreadyExistException e)
             {
+                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().println(e.getMessage());
+                log.error(e.getMessage());
             }
             catch (RoundCounterException e)
             {
+                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().println(e.getMessage());
+                log.error(e.getMessage());
             }
             catch(SameHeroesException e)
             {
+                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().println(e.getMessage());
+                log.error(e.getMessage());
             }
             
+            return Arrays.asList(arrayOfHeroes);
         }
    
    

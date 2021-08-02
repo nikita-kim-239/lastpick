@@ -23,8 +23,9 @@ $(document).ready(function(){
             url:"http://localhost:8080/rest/victimship",
             type:"POST",
             data:JSON.stringify(heroes),
-            contentType:"application/json",
-            dataType:"json",
+            contentType:'application/json',
+            dataType:'json',  
+           
             success: function( ){
                 var table=document.getElementById("tableOfVictims");
             
@@ -38,6 +39,7 @@ $(document).ready(function(){
               
             },
             error:function(jqXHR,exception){
+                
                 
                 alert(jqXHR.responseText);
                 

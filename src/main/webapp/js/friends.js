@@ -25,8 +25,8 @@ $(document).ready(function(){
             url:"http://localhost:8080/rest/friendship",
             type:"POST",
             data:JSON.stringify(heroes),
-            contentType:"application/json",
-            dataType:"json",
+            contentType:'application/json',
+            dataType:'json',     
             success: function( ){
               console.log('Success');
               var table=document.getElementById("tableOfFriends");
@@ -41,8 +41,12 @@ $(document).ready(function(){
               
             },
             error:function(jqXHR,exception){
-                console.log(jqXHR.responseText);
+                console.log(jqXHR);
+                
+                
+                
                 alert(jqXHR.responseText);
+                
             }
         });
         
