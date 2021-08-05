@@ -2,7 +2,7 @@
 
 $(document).ready(function(){
     $("#myBtn").click(function(){
-        $("#modal").modal('show');
+        $("#modalToCreate").modal('show');
     });
     
     $("#save").click(function(){
@@ -20,7 +20,7 @@ $(document).ready(function(){
        
         
         var heroes=[hero1id,hero2id];
-        console.log(JSON.stringify(heroes));
+        
         $.ajax({
             url:"http://localhost:8080/rest/friendship",
             type:"POST",
@@ -28,7 +28,7 @@ $(document).ready(function(){
             contentType:'application/json',
             dataType:'json',     
             success: function( ){
-              console.log('Success');
+              
               var table=document.getElementById("tableOfFriends");
             
             var row=table.insertRow(1);
@@ -53,7 +53,7 @@ $(document).ready(function(){
         
         
               
-        $("#modal").modal('hide');
+        $("#modalToCreate").modal('hide');
         
 //        
         
@@ -94,6 +94,21 @@ function createFriendTable(){
                         var cellName2=row.insertCell(1);
                         var hero2Name = document.createTextNode(friendship[i].hero2.name);
                         cellName2.appendChild(hero2Name);
+                        var editCell=row.insertCell(2);
+                        var editButton=document.createElement("button");
+                        editButton.setAttribute('class','btn btn-warning');
+                        var index=Number(i)+1;
+                        
+                        editButton.setAttribute('onclick','friendshipUpdate('+index+')');
+                        editButton.textContent='Редактировать';
+                        editCell.appendChild(editButton);
+                        var deleteCell=row.insertCell(3);
+                        var deleteButton=document.createElement("button");
+                        deleteButton.setAttribute('class','btn btn-danger');
+                        
+                        deleteButton.setAttribute('onclick','friendshipDelete('+index+')');
+                        deleteButton.textContent='Удалить';
+                        deleteCell.appendChild(deleteButton);
                 
                
             }  
@@ -109,6 +124,8 @@ function addFriendsHeroSelect(){
         
         var selectHero1=document.getElementById("selectHero1");
         var selectHero2=document.getElementById("selectHero2");
+        var editHero1=document.getElementById("editHero1");
+        var editHero2=document.getElementById("editHero2");
     
         var xhr = new XMLHttpRequest();
         var url = "http://localhost:8080/rest/heroes";
@@ -127,8 +144,17 @@ function addFriendsHeroSelect(){
                 var el2=document.createElement("option");
                 el2.text=hero;
                 el2.value=i+1;              
+                var el3=document.createElement("option");
+                el3.text=hero;
+                el3.value=i+1;
+                var el4=document.createElement("option");
+                el4.text=hero;
+                el4.value=i+1;
+                
                 selectHero1.append(el1);
                 selectHero2.append(el2);
+                editHero1.append(el3);
+                editHero2.append(el4);
                               
             }
         } 
@@ -142,5 +168,132 @@ function addFriendsHeroSelect(){
 }
         
         
+function friendshipUpdate(i)
+{
+    
+    
+    $("#modalToUpdate").modal('show');
+    
+    var index=Number(i);
+    
+    $("#edit").click(function(){
         
+        
+        var friendshipId={id:Number(index)};
+        var hero1id={id:$("#editHero1").val()};
+        var hero2id={id:$("#editHero2").val()};
+        var hero1=document.getElementById("editHero1");
+        var hero1children=hero1.childNodes;
+        
+       
+        var hero1idNumber=Number($("#editHero1").val());
+        var hero2idNumber=Number($("#editHero2").val());
+        var hero1name=hero1children[hero1idNumber+2].text;
+        var hero2name=hero1children[hero2idNumber+2].text;
+       
+        
+        var friendship=[friendshipId,hero1id,hero2id];
+        
+        $.ajax({
+            url:"http://localhost:8080/rest/friendship",
+            type:"PATCH",
+            data:JSON.stringify(friendship),
+            contentType:'application/json',
+            dataType:'json',     
+            success: function(){
+              
+              var table=document.getElementById("tableOfFriends");
+                        
+                        var row=table.rows[index];
+                        
+                        
+                        var cells=row.childNodes;
+                        
+                        var cellName1 = cells[0];
+                        for (var node of cellName1.childNodes)
+                            {
+                                cellName1.removeChild(node);
+                            }
+                        var hero1Name = document.createTextNode(hero1name);
+                        cellName1.appendChild(hero1Name);
+                        
+                        var cellName2 = cells[1];
+                        for (var node of cellName2.childNodes)
+                            {
+                                cellName2.removeChild(node);
+                            }
+                        var hero2Name = document.createTextNode(hero2name);
+                        cellName2.appendChild(hero2Name);
+                        
+                        
+              
+            },
+            error:function(jqXHR,exception){
+                
+                
+                
+                
+                alert(jqXHR.responseText);
+                
+            }
+        });
+        
+        
+        
+              
+        $("#modalToUpdate").modal('hide');
+        
+//        
+        
+        
+        
+    });
+}
+
+
+function friendshipDelete(i)
+{
+    $("#modalToDelete").modal('show');
+    var index=Number(i);
+    
+    $("#delete").click(function(){
+    
+        var friendshipId={id:Number(index)};
+        $.ajax({
+            url:"http://localhost:8080/rest/friendship",
+            type:"DELETE",
+            data:JSON.stringify(friendshipId),
+            contentType:'application/json',
+            dataType:'json',     
+            success: function(){
+              
+              var table=document.getElementById("tableOfFriends");
+                       
+              var tableBody=table.childNodes[1]; 
+               
+              var row=tableBody.rows[index];
+              
+              tableBody.removeChild(row);
+                        
+                        
+              
+            },
+            error:function(jqXHR,exception){
+                console.log(jqXHR);
+                
+                
+                
+                alert(jqXHR.responseText);
+                
+            }
+        });
+        
+        
+        
+              
+        $("#modalToDelete").modal('hide');
+    });
+    
+    
+}
 

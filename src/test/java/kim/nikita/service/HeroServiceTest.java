@@ -12,6 +12,7 @@ import kim.nikita.model.Hero;
 import kim.nikita.model.Result;
 import kim.nikita.model.Victimship;
 import kim.nikita.util.exception.AlreadyExistException;
+import kim.nikita.util.exception.HeroNotFoundException;
 import kim.nikita.util.exception.SameHeroesException;
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -81,6 +82,14 @@ public class HeroServiceTest {
     public void testCreateFriendshipWithTheSameHeroes() {
         log.info("Testing create friendship (1,1)");
         assertThrows(SameHeroesException.class, () -> service.createFriendship(1,1));
+    }
+    
+    
+    @Test
+    
+    public void testCreateFriendshipWithTheNoFoundHeroes() {
+        log.info("Testing create friendship (1,1000)");
+        assertThrows(HeroNotFoundException.class, () -> service.createFriendship(1,1000));
     }
 
     /**

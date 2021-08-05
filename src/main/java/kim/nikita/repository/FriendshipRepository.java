@@ -20,6 +20,9 @@ public interface FriendshipRepository {
     
     void create(int hero1_id, int hero2_id);
  
+    void update(int friendshipId,int hero1_id, int hero2_id);
+    
+    void delete(int friendshipId);
     
     int count(int hero1_id,int hero2_id);
 }

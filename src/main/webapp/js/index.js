@@ -81,38 +81,7 @@ function addIndexHeroSelect(){
 
 
 
-function addVictimHeroSelect(){  
-        
-        var selectPredator=document.getElementById("selectPredator");
-        var selectVictim=document.getElementById("selectVictim");
-    
-        var xhr = new XMLHttpRequest();
-        var url = "http://localhost:8080/rest/heroes";
-        xhr.open("GET", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-               var heroes = JSON.parse(xhr.responseText);
-            for (var i=0;i<heroes.length;i++)
-            {   
-                
-                var hero=heroes[i].name;
-                var el1=document.createElement("option");
-                el1.text=hero;
-                el1.value=i+1;
-                var el2=document.createElement("option");
-                el2.text=hero;
-                el2.value=i+1;              
-                selectPredator.append(el1);
-                selectVictim.append(el2);
-                              
-            }
-        } 
 
-        };
-        
-        xhr.send();
-}
 
 
 function createTable() {
@@ -136,7 +105,7 @@ function createTable() {
         var ally3Id=selectAlly3.value;
         var ally4Id=selectAlly4.value;
 
-        var xhr = new XMLHttpRequest();
+        
         var url = "http://localhost:8080/rest/results?";
         url+="enemy1="+enemy1Id+"&";
         url+="enemy2="+enemy2Id+"&";
@@ -153,14 +122,17 @@ function createTable() {
             url:url,
             type:"GET",
             dataType: 'json',
+            headers: { 
+            'Accept': 'application/json',
+            },
             contentType: "application/json",
             success: function( ){
               console.log('Success');
               
-            }   
+            }
         }).done(function(data){
          
-              
+              $("#error-text").text="";
                var result=data;
                
                var desirableHeroes=result.filter(hero=>hero.score>0);
@@ -221,6 +193,8 @@ function createTable() {
             output.appendChild(divOfUndesirableHeroes); 
             
         }).fail(function(jqXHR, textStatus, errorThrown){
+            
+            
             
             alert(jqXHR.responseText);
             

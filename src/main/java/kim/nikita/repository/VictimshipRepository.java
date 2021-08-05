@@ -21,4 +21,10 @@ public interface VictimshipRepository {
     void create(int predator_id,int victim_id);
     
     int count(int predator_id,int victim_id);
+    
+    void update(int victimshipId,int predator_id, int victim_id);
+    
+    void delete(int victimshipId);
+    
+    
 }

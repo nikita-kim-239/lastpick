@@ -17,7 +17,7 @@
 </head>
     <body onload="initializePage()">
         
-        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalToCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -29,26 +29,84 @@
                     <div class="modal-body">
                          <p>Герой 1</p>
 
-                        <select id="selectHero1" name="hero1">
+                        <select id="selectHero1" name="createHero1">
                             <option disabled>Выберите героя</option>
                         </select>
 
                         <br/>
                         <p>Герой 2</p>
 
-                        <select id="selectHero2" name="hero2">
+                        <select id="selectHero2" name="createHero2">
                             <option disabled>Выберите героя</option>
                         </select>
 
                         <br/>
                     </div>
                     <div class="modal-footer" >
-                        <button type="button" class="btn btn-primary" id="save">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="save">Сохранить изменения</button>
                     </div>
                     
                 </div>
             </div>
         </div>
+        
+        
+        <div class="modal fade" id="modalToUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Редактировать связку</h4>
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                    </div>
+                    <div class="modal-body">
+                         <p>Герой 1</p>
+
+                        <select id="editHero1" name="editHero1">
+                            <option disabled>Выберите героя</option>
+                        </select>
+
+                        <br/>
+                        <p>Герой 2</p>
+
+                        <select id="editHero2" name="editHero2">
+                            <option disabled>Выберите героя</option>
+                        </select>
+
+                        <br/>
+                    </div>
+                    <div class="modal-footer" >
+                        <button type="button" class="btn btn-primary" id="edit">Сохранить изменения</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="modal fade" id="modalToDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Удалить связку</h4>
+                         
+                    </div>
+                    <div class="modal-body">
+                         <p>Вы уверены?</p>
+                        <br/>
+                    </div>
+                    <div class="modal-footer" >
+                        <button type="button" class="btn btn-danger" id="delete">Да</button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            Нет
+                         </button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
         
         <nav class="navbar navbar-dark bg-primary">
           
@@ -68,7 +126,7 @@
               </div>  
               
               <div class="col-md-3">   
-              <button class="navbar-toggler" type="button" data-toggle="modal" id="myBtn" data-target="#modal" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <button class="navbar-toggler" type="button" data-toggle="modal" id="myBtn" data-target="#modalToCreate" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 Создать связку
               </button>
               </div>    
@@ -88,7 +146,8 @@
 
                     <th>Герой 1</th>
                     <th>Герой 2</th>
-
+                    <th>Редактировать</th>
+                    <th>Удалить</th>
                 </tr>
                 
             </table>

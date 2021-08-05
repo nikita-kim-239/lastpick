@@ -21,6 +21,7 @@ import kim.nikita.repository.HeroRepository;
 import kim.nikita.repository.VictimshipRepository;
 import kim.nikita.util.exception.AlreadyExistException;
 import kim.nikita.util.exception.NoHeroesException;
+import kim.nikita.util.exception.HeroNotFoundException;
 import kim.nikita.util.exception.RoundCounterException;
 import kim.nikita.util.exception.SameHeroesException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,11 +55,17 @@ public class HeroService {
             for (Integer i:friends)
                 {
                     setOfHeroesId.add(i);
+                    if (!heroRepository.isHeroExist(i))
+                        throw new HeroNotFoundException("Такого героя уже нет в базе!");
                 }
             for (Integer i:enemies)
                 {
                     setOfHeroesId.add(i);
+                    if (!heroRepository.isHeroExist(i))
+                        throw new HeroNotFoundException("Такого героя уже нет в базе!");
                 }
+            
+            
             
             if (setOfHeroesId.isEmpty())
                 throw new NoHeroesException("Выберите хотя бы одного героя!");
@@ -134,6 +141,11 @@ public class HeroService {
     
     public void createFriendship(int hero1_id,int hero2_id)
         {
+            
+            if (!heroRepository.isHeroExist(hero1_id))
+                throw new HeroNotFoundException("Такого героя уже нет в базе!");
+            if (!heroRepository.isHeroExist(hero2_id))
+                throw new HeroNotFoundException("Такого героя уже нет в базе!");
             if (hero1_id==hero2_id) 
                 throw new SameHeroesException("Герои не должны совпадать!");
             if (friendshipRepository.count(hero1_id, hero2_id)!=0) 
@@ -142,8 +154,32 @@ public class HeroService {
              friendshipRepository.create(hero1_id,hero2_id);
         }
     
+    public void updateFriendship(int friendshipId,int hero1_id,int hero2_id)
+        {
+            
+            if (!heroRepository.isHeroExist(hero1_id))
+                throw new HeroNotFoundException("Такого героя уже нет в базе!");
+            if (!heroRepository.isHeroExist(hero2_id))
+                throw new HeroNotFoundException("Такого героя уже нет в базе!");
+            if (hero1_id==hero2_id) 
+                throw new SameHeroesException("Герои не должны совпадать!");
+            if (friendshipRepository.count(hero1_id, hero2_id)!=0) 
+                throw new AlreadyExistException("В базе данных уже есть такая запись!");
+            
+             friendshipRepository.update(friendshipId,hero1_id,hero2_id);
+        }
+    
+    public void deleteFriendship(int friendshipId)
+        {
+            friendshipRepository.delete(friendshipId);
+        }
+    
     public void createVictimship(int predator_id,int victim_id)
         {
+            if (!heroRepository.isHeroExist(predator_id))
+                throw new HeroNotFoundException("Такого героя уже нет в базе!");
+            if (!heroRepository.isHeroExist(victim_id))
+                throw new HeroNotFoundException("Такого героя уже нет в базе!");
             if (predator_id==victim_id) 
                 throw new SameHeroesException("Герои не должны совпадать!");
             
@@ -155,4 +191,28 @@ public class HeroService {
             
              victimshipRepository.create(predator_id,victim_id);
         }
+    
+    public void updateVictimship(int victimshipId,int predator_id,int victim_id)
+        {
+            
+            if (!heroRepository.isHeroExist(predator_id))
+                throw new HeroNotFoundException("Такого героя уже нет в базе!");
+            if (!heroRepository.isHeroExist(victim_id))
+                throw new HeroNotFoundException("Такого героя уже нет в базе!");
+            
+            if (predator_id==victim_id) 
+                throw new SameHeroesException("Герои не должны совпадать!");
+            if (victimshipRepository.count(predator_id, victim_id)!=0) 
+                throw new AlreadyExistException("В базе данных уже есть такая запись!");
+            if (victimshipRepository.count(victim_id,predator_id)!=0)
+                throw new RoundCounterException("Герои не должны контрить друг друга!");
+            
+             victimshipRepository.update(victimshipId,predator_id,victim_id);
+        }
+    
+    public void deleteVictimship(int victimshipId)
+        {
+            victimshipRepository.delete(victimshipId);
+        }
+    
 }

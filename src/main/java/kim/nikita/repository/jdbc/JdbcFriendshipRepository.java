@@ -161,6 +161,18 @@ public class JdbcFriendshipRepository implements FriendshipRepository{
         return count;
         
     }
+
+    @Override
+    public void update(int friendshipId, int hero1_id, int hero2_id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(int friendshipId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     
     
 }

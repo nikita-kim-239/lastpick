@@ -53,6 +53,61 @@
         </div>
         
     
+        <div class="modal fade" id="modalToUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Редактировать контрпик</h4>
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                    </div>
+                    <div class="modal-body">
+                         <p>Контрпик</p>
+
+                        <select id="editPredator" name="editPredator">
+                            <option disabled>Выберите героя</option>
+                        </select>
+
+                        <br/>
+                        <p>Герой</p>
+
+                        <select id="editVictim" name="editVictim">
+                            <option disabled>Выберите героя</option>
+                        </select>
+
+                        <br/>
+                    </div>
+                    <div class="modal-footer" >
+                        <button type="button" class="btn btn-primary" id="edit">Сохранить изменения</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    
+    
+        <div class="modal fade" id="modalToDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Удалить контрпик</h4>
+                         
+                    </div>
+                    <div class="modal-body">
+                         <p>Вы уверены?</p>
+                        <br/>
+                    </div>
+                    <div class="modal-footer" >
+                        <button type="button" class="btn btn-danger" id="delete">Да</button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            Нет
+                         </button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
     
         <nav class="navbar navbar-dark bg-primary">
           
@@ -96,6 +151,8 @@
 
                     <th>Контрпик</th>
                     <th>Герой</th>
+                    <th>Редактировать</th>
+                    <th>Удалить</th>
 
                 </tr>
                 

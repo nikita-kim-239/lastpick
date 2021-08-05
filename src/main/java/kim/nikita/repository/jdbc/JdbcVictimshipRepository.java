@@ -162,6 +162,16 @@ public class JdbcVictimshipRepository implements VictimshipRepository{
         return count;
         
     }
+
+    @Override
+    public void update(int victimshipId, int predator_id, int victim_id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(int victimshipId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

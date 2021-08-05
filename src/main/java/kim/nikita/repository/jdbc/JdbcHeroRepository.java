@@ -65,5 +65,10 @@ public class JdbcHeroRepository implements HeroRepository{
 	}    
         return heroes;
     }
+
+    @Override
+    public boolean isHeroExist(int heroId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
