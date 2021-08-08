@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -28,7 +29,7 @@ public class JdbcTemplateFriendshipRepository implements FriendshipRepository{
     
     private final JdbcTemplate jdbcTemplate;
 
-   
+    
     
     
     
@@ -37,13 +38,13 @@ public class JdbcTemplateFriendshipRepository implements FriendshipRepository{
       private static final String UPDATE_FRIENDS_QUERY = "update  friendship set hero1_id=?,hero2_id=? where id=?";
       private static final String DELETE_FRIENDS_QUERY = "delete from  friendship  where id=?";
       private static final String SELECT_COUNT = "select count(*) from friendship where hero1_id=? and hero2_id=? or hero1_id=? and hero2_id=?";
-    
+      private static final String SELECT_ID="select id from friendship  where hero1_id=? and hero2_id=?";
+     
     
      @Autowired
     public JdbcTemplateFriendshipRepository(JdbcTemplate jdbcTemplate) {
  
-        this.jdbcTemplate = jdbcTemplate;
-        
+        this.jdbcTemplate = jdbcTemplate;       
     }
 
     @Override
@@ -54,15 +55,21 @@ public class JdbcTemplateFriendshipRepository implements FriendshipRepository{
     }
 
     @Override
-    public void create(int hero1_id, int hero2_id) {
+    public List<Friendship> create(int hero1_id, int hero2_id) {
+        
+        
         jdbcTemplate.update(INSERT_FRIENDS_QUERY,hero1_id,hero2_id);
+        
+        return jdbcTemplate.query(SELECT_ALL_QUERY,new FriendshipMapper());
+      
     }
     
     
     @Override
-    public void update(int friendshipId,int hero1_id,int hero2_id)
+    public List<Friendship> update(Integer friendshipId,Integer hero1_id,Integer hero2_id)
     {
         jdbcTemplate.update(UPDATE_FRIENDS_QUERY,hero1_id,hero2_id,friendshipId);
+        return jdbcTemplate.query(SELECT_ALL_QUERY,new FriendshipMapper());
     }
     
 
@@ -72,9 +79,12 @@ public class JdbcTemplateFriendshipRepository implements FriendshipRepository{
     }
 
     @Override
-    public void delete(int friendshipId) {
+    public List<Friendship> delete(int friendshipId) {
         jdbcTemplate.update(DELETE_FRIENDS_QUERY,friendshipId);
+        return jdbcTemplate.query(SELECT_ALL_QUERY,new FriendshipMapper());
     }
+
+   
     
     
    

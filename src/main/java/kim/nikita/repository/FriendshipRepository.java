@@ -18,11 +18,13 @@ public interface FriendshipRepository {
     
     List <Friendship> getAllFriends();
     
-    void create(int hero1_id, int hero2_id);
+    List<Friendship> create(int hero1_id, int hero2_id);
  
-    void update(int friendshipId,int hero1_id, int hero2_id);
+    List<Friendship> update(Integer friendshipId,Integer hero1_id,Integer hero2_id);
     
-    void delete(int friendshipId);
+    List<Friendship> delete(int friendshipId);
     
     int count(int hero1_id,int hero2_id);
+    
+  
 }

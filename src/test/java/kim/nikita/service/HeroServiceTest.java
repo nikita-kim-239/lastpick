@@ -35,6 +35,7 @@ import org.springframework.test.context.junit4.SpringRunner;
     "classpath:spring/spring-app.xml",
     "classpath:spring/spring-db.xml",
     "classpath:spring/spring-mvc.xml"
+//    "classpath:spring/spring-security.xml"
 })
 @RunWith(SpringRunner.class)
 public class HeroServiceTest {

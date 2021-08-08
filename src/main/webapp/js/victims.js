@@ -26,19 +26,15 @@ $(document).ready(function(){
             contentType:'application/json',
             dataType:'json',  
            
-            success: function( ){
-                var table=document.getElementById("tableOfVictims");
-            
-                var row=table.insertRow(1);
-                var cellName1 = row.insertCell(0);
-                var hero1Name = document.createTextNode(predatorname);
-                 cellName1.appendChild(hero1Name);
-                var cellName2=row.insertCell(1);
-                var hero2Name = document.createTextNode(victimname);
-                cellName2.appendChild(hero2Name);
+            success: function(response ){
+               
+                updateTable(response);
+                
+                
+                
               
             },
-            error:function(jqXHR,exception){
+            error:function(jqXHR){
                 
                 
                 alert(jqXHR.responseText);
@@ -62,53 +58,47 @@ function initializePage()
     
 }
 
-function createVictimTable(){
+
+
+
+function updateTable(response)
+{
     
-    
-        
-        var table=document.getElementById("tableOfVictims");
-        
-        var xhr = new XMLHttpRequest();
-        var url = "http://localhost:8080/rest/victimship";
-        xhr.open("GET", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-               var victimship = JSON.parse(xhr.responseText);
+                var table=document.getElementById("tableOfVictims"); 
                
-            for (var i=0;i<victimship.length;i++)
-            {   
+                $("#tableOfVictims tr").remove();
                 
-                        var row=table.insertRow(i+1);
-                        var cellName1 = row.insertCell(0);
-                        var predatorName = document.createTextNode(victimship[i].predator.name);
-                        cellName1.appendChild(predatorName);
-                        var cellName2=row.insertCell(1);
-                        var victimName = document.createTextNode(victimship[i].victim.name);
-                        cellName2.appendChild(victimName);
-                        var editButton=document.createElement("button");
-                        editButton.setAttribute('class','btn btn-warning');
-                        var index=Number(i)+1;
-                        var editCell=row.insertCell(2);
-                        editButton.setAttribute('onclick','victimshipUpdate('+index+')');
-                        editButton.textContent='Редактировать';
-                        editCell.appendChild(editButton);
-                        var deleteCell=row.insertCell(3);
-                        var deleteButton=document.createElement("button");
-                        deleteButton.setAttribute('class','btn btn-danger');
-                        
-                        deleteButton.setAttribute('onclick','victimshipDelete('+index+')');
-                        deleteButton.textContent='Удалить';
-                        deleteCell.appendChild(deleteButton);
+                var row   = table.insertRow(0);
+                row.insertCell(0).outerHTML = "<th>Контрпик</th>";
+                row.insertCell(1).outerHTML = "<th>Герой</th>";
+                row.insertCell(2).outerHTML = "<th>Редактировать</th>";
+                row.insertCell(3).outerHTML = "<th>Удалить</th>";
                 
-               
-            }  
+               for (var i=0;i<response.length;i++)
+                {
+      
+                 row=table.insertRow(i+1);
+                var cellName1 = row.insertCell(0);
+                var hero1Name = document.createTextNode(response[i].predator.name);
+                 cellName1.appendChild(hero1Name);
+                var cellName2=row.insertCell(1);
+                var hero2Name = document.createTextNode(response[i].victim.name);
+                cellName2.appendChild(hero2Name);
+                var editCell=row.insertCell(2);
+                var editButton=document.createElement("button");
+                editButton.setAttribute('class','btn btn-warning');
                 
-            }
-        };
-        xhr.send(); 
-        
-        
+                editButton.setAttribute('onclick','victimshipUpdate('+String(response[i].id)+')');
+                editButton.textContent='Редактировать';
+                editCell.appendChild(editButton);
+                var deleteCell=row.insertCell(3);
+                var deleteButton=document.createElement("button");
+                deleteButton.setAttribute('class','btn btn-danger');
+
+                deleteButton.setAttribute('onclick','victimshipDelete('+String(response[i].id)+')');
+                deleteButton.textContent='Удалить';
+                deleteCell.appendChild(deleteButton);
+                }
 }
 
 function addVictimHeroSelect(){  
@@ -190,35 +180,16 @@ function victimshipUpdate(i)
             data:JSON.stringify(victimship),
             contentType:'application/json',
             dataType:'json',     
-            success: function(){
+            success: function(response){
               
-              var table=document.getElementById("tableOfVictims");
-                        
-                        var row=table.rows[index];
-                        console.log(row);
-                        
-                        var cells=row.childNodes;
-                        
-                        var cellName1 = cells[0];
-                        for (var node of cellName1.childNodes)
-                            {
-                                cellName1.removeChild(node);
-                            }
-                        var hero1Name = document.createTextNode(hero1name);
-                        cellName1.appendChild(hero1Name);
-                        
-                        var cellName2 = cells[1];
-                        for (var node of cellName2.childNodes)
-                            {
-                                cellName2.removeChild(node);
-                            }
-                        var hero2Name = document.createTextNode(hero2name);
-                        cellName2.appendChild(hero2Name);
+              
+                        updateTable(response);
+                       
                         
                         
               
             },
-            error:function(jqXHR,exception){
+            error:function(jqXHR){
     
                 alert(jqXHR.responseText);
                 
@@ -254,20 +225,14 @@ function victimshipDelete(i)
             data:JSON.stringify(victimshipId),
             contentType:'application/json',
             dataType:'json',     
-            success: function(){
+            success: function(response){
               
-              var table=document.getElementById("tableOfVictims");
-                       
-              var tableBody=table.childNodes[1]; 
-               
-              var row=tableBody.rows[index];
-              
-              tableBody.removeChild(row);
-                        
+                
+                    updateTable(response);
                         
               
             },
-            error:function(jqXHR,exception){
+            error:function(jqXHR){
          
                 alert(jqXHR.responseText);
                 

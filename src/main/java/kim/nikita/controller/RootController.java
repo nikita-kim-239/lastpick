@@ -13,14 +13,12 @@ import kim.nikita.service.HeroService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
+
+
 
 
 
@@ -56,7 +54,7 @@ public class RootController {
         
         log.info("get all  friends");
         ModelAndView mav = new ModelAndView("friends");
-        mav.addObject("friends",heroService.getAllFriends());
+        mav.addObject("friendships",heroService.getAllFriends());
         return mav;
     }
     
@@ -68,7 +66,7 @@ public class RootController {
         
         log.info("get all  victims");
         ModelAndView mav = new ModelAndView("victims");
-        mav.addObject("victims",heroService.getAllVictims());
+        mav.addObject("victimships",heroService.getAllVictims());
         return mav;
     }
     

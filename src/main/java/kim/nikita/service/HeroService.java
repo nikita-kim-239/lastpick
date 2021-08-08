@@ -139,7 +139,7 @@ public class HeroService {
             return victimshipRepository.getAllVictims();
         }
     
-    public void createFriendship(int hero1_id,int hero2_id)
+    public List <Friendship> createFriendship(int hero1_id,int hero2_id)
         {
             
             if (!heroRepository.isHeroExist(hero1_id))
@@ -151,10 +151,12 @@ public class HeroService {
             if (friendshipRepository.count(hero1_id, hero2_id)!=0) 
                 throw new AlreadyExistException("В базе данных уже есть такая запись!");
             
-             friendshipRepository.create(hero1_id,hero2_id);
+            return friendshipRepository.create(hero1_id,hero2_id);
+            
+            
         }
     
-    public void updateFriendship(int friendshipId,int hero1_id,int hero2_id)
+    public List <Friendship> updateFriendship(Integer friendshipId,Integer hero1_id,Integer hero2_id)
         {
             
             if (!heroRepository.isHeroExist(hero1_id))
@@ -166,15 +168,16 @@ public class HeroService {
             if (friendshipRepository.count(hero1_id, hero2_id)!=0) 
                 throw new AlreadyExistException("В базе данных уже есть такая запись!");
             
-             friendshipRepository.update(friendshipId,hero1_id,hero2_id);
+             return friendshipRepository.update(friendshipId,hero1_id,hero2_id);
+             
         }
     
-    public void deleteFriendship(int friendshipId)
+    public List <Friendship> deleteFriendship(int friendshipId)
         {
-            friendshipRepository.delete(friendshipId);
+           return friendshipRepository.delete(friendshipId);
         }
     
-    public void createVictimship(int predator_id,int victim_id)
+    public List<Victimship> createVictimship(int predator_id,int victim_id)
         {
             if (!heroRepository.isHeroExist(predator_id))
                 throw new HeroNotFoundException("Такого героя уже нет в базе!");
@@ -189,10 +192,10 @@ public class HeroService {
             if (victimshipRepository.count(victim_id,predator_id)!=0)
                 throw new RoundCounterException("Герои не должны контрить друг друга!");
             
-             victimshipRepository.create(predator_id,victim_id);
+             return victimshipRepository.create(predator_id,victim_id);
         }
     
-    public void updateVictimship(int victimshipId,int predator_id,int victim_id)
+    public List<Victimship> updateVictimship(int victimshipId,int predator_id,int victim_id)
         {
             
             if (!heroRepository.isHeroExist(predator_id))
@@ -207,12 +210,12 @@ public class HeroService {
             if (victimshipRepository.count(victim_id,predator_id)!=0)
                 throw new RoundCounterException("Герои не должны контрить друг друга!");
             
-             victimshipRepository.update(victimshipId,predator_id,victim_id);
+            return victimshipRepository.update(victimshipId,predator_id,victim_id);
         }
     
-    public void deleteVictimship(int victimshipId)
+    public List<Victimship> deleteVictimship(int victimshipId)
         {
-            victimshipRepository.delete(victimshipId);
+           return victimshipRepository.delete(victimshipId);
         }
     
 }

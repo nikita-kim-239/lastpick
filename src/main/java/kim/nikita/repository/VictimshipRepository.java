@@ -18,13 +18,13 @@ public interface VictimshipRepository {
     
     List <Victimship> getAllVictims();
     
-    void create(int predator_id,int victim_id);
+    List <Victimship> create(int predator_id,int victim_id);
     
     int count(int predator_id,int victim_id);
     
-    void update(int victimshipId,int predator_id, int victim_id);
+    List <Victimship> update(int victimshipId,int predator_id, int victim_id);
     
-    void delete(int victimshipId);
+    List <Victimship> delete(int victimshipId);
     
     
 }

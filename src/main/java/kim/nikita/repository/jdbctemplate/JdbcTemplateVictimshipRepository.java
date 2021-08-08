@@ -48,8 +48,9 @@ public class JdbcTemplateVictimshipRepository implements VictimshipRepository{
     }
 
     @Override
-    public void create(int predator_id, int victim_id) {
+    public List<Victimship> create(int predator_id, int victim_id) {
         jdbcTemplate.update(INSERT_ENEMIES_QUERY,predator_id,victim_id);
+        return jdbcTemplate.query(SELECT_ALL_QUERY,new VictimshipMapper());
     }
 
     @Override
@@ -58,14 +59,16 @@ public class JdbcTemplateVictimshipRepository implements VictimshipRepository{
     }
 
     @Override
-    public void update(int victimshipId,int predator_id,int victim_id)
+    public List<Victimship> update(int victimshipId,int predator_id,int victim_id)
     {
         jdbcTemplate.update(UPDATE_ENEMIES_QUERY,predator_id,victim_id,victimshipId);
+        return jdbcTemplate.query(SELECT_ALL_QUERY,new VictimshipMapper());
     }
 
     @Override
-    public void delete(int victimshipId) {
+    public List<Victimship> delete(int victimshipId) {
        jdbcTemplate.update(DELETE_ENEMIES_QUERY,victimshipId);
+       return jdbcTemplate.query(SELECT_ALL_QUERY,new VictimshipMapper());
     }
     
     

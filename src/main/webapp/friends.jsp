@@ -10,7 +10,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" ></script>
+    
     <script src="/js/friends.js"></script>
     <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
 
@@ -140,15 +141,26 @@
             <br/>
 
             <table border="1" cellpadding="5" class="table table-primary" id="tableOfFriends">
-                
+              <thead>  
                 <tr>
 
-
+                    
                     <th>Герой 1</th>
                     <th>Герой 2</th>
                     <th>Редактировать</th>
                     <th>Удалить</th>
                 </tr>
+              </thead>
+              <c:forEach items="${friendships}" var="friendship">
+                <jsp:useBean id="friendship" type="kim.nikita.model.Friendship"/>
+                <tr>
+                    
+                    <td><c:out value="${friendship.hero1.name}"/></td>
+                    <td><c:out value="${friendship.hero2.name}"/></td>
+                    <td><button onclick="friendshipUpdate(${friendship.id})" class="btn btn-warning">Редактировать</button></td>
+                    <td><button onclick="friendshipDelete(${friendship.id})" class="btn btn-danger">Удалить</button></td>               
+                </tr>
+            </c:forEach>
                 
             </table>
 

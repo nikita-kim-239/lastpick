@@ -1,6 +1,14 @@
 
 
+
+let ajaxUrl="http://localhost:8080/rest/friendship";
 $(document).ready(function(){
+    
+    
+    
+    
+    
+    
     $("#myBtn").click(function(){
         $("#modalToCreate").modal('show');
     });
@@ -9,38 +17,20 @@ $(document).ready(function(){
         
         var hero1id={id:$("#selectHero1").val()};
         var hero2id={id:$("#selectHero2").val()};
-        var hero1=document.getElementById("selectHero1");
-        var hero1children=hero1.childNodes;
-        
-       
-        var hero1idNumber=Number($("#selectHero1").val());
-        var hero2idNumber=Number($("#selectHero2").val());
-        var hero1name=hero1children[hero1idNumber+2].text;
-        var hero2name=hero1children[hero2idNumber+2].text;
-       
-        
+   
         var heroes=[hero1id,hero2id];
         
         $.ajax({
-            url:"http://localhost:8080/rest/friendship",
+            url:ajaxUrl,
             type:"POST",
             data:JSON.stringify(heroes),
             contentType:'application/json',
             dataType:'json',     
-            success: function( ){
-              
-              var table=document.getElementById("tableOfFriends");
-            
-            var row=table.insertRow(1);
-            var cellName1 = row.insertCell(0);
-            var hero1Name = document.createTextNode(hero1name);
-            cellName1.appendChild(hero1Name);
-            var cellName2=row.insertCell(1);
-            var hero2Name = document.createTextNode(hero2name);
-            cellName2.appendChild(hero2Name);
-              
+            success: function(response ){         
+                updateTable(response);
+
             },
-            error:function(jqXHR,exception){
+            error:function(jqXHR){
                 console.log(jqXHR);
                 
                 
@@ -65,60 +55,54 @@ $(document).ready(function(){
 function initializePage()
 {
     addFriendsHeroSelect();
-    createFriendTable();
+
     
 }
 
-function createFriendTable(){
+
+function updateTable(response)
+{
     
-    
-        
-        var table=document.getElementById("tableOfFriends");
-        
-        
-        var xhr = new XMLHttpRequest();
-        var url = "http://localhost:8080/rest/friendship";
-        xhr.open("GET", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-               var friendship = JSON.parse(xhr.responseText);
+                var table=document.getElementById("tableOfFriends"); 
                
-            for (var i=0;i<friendship.length;i++)
-            {   
+                $("#tableOfFriends tr").remove();
                 
-                        var row=table.insertRow(i+1);
-                        var cellName1 = row.insertCell(0);
-                        var hero1Name = document.createTextNode(friendship[i].hero1.name);
-                        cellName1.appendChild(hero1Name);
-                        var cellName2=row.insertCell(1);
-                        var hero2Name = document.createTextNode(friendship[i].hero2.name);
-                        cellName2.appendChild(hero2Name);
-                        var editCell=row.insertCell(2);
-                        var editButton=document.createElement("button");
-                        editButton.setAttribute('class','btn btn-warning');
-                        var index=Number(i)+1;
-                        
-                        editButton.setAttribute('onclick','friendshipUpdate('+index+')');
-                        editButton.textContent='Редактировать';
-                        editCell.appendChild(editButton);
-                        var deleteCell=row.insertCell(3);
-                        var deleteButton=document.createElement("button");
-                        deleteButton.setAttribute('class','btn btn-danger');
-                        
-                        deleteButton.setAttribute('onclick','friendshipDelete('+index+')');
-                        deleteButton.textContent='Удалить';
-                        deleteCell.appendChild(deleteButton);
+                var row   = table.insertRow(0);
+                row.insertCell(0).outerHTML = "<th>Герой 1</th>";
+                row.insertCell(1).outerHTML = "<th>Герой 2</th>";
+                row.insertCell(2).outerHTML = "<th>Редактировать</th>";
+                row.insertCell(3).outerHTML = "<th>Удалить</th>";
                 
-               
-            }  
+               for (var i=0;i<response.length;i++)
+                {
+      
+                 row=table.insertRow(i+1);
+                var cellName1 = row.insertCell(0);
+                var hero1Name = document.createTextNode(response[i].hero1.name);
+                 cellName1.appendChild(hero1Name);
+                var cellName2=row.insertCell(1);
+                var hero2Name = document.createTextNode(response[i].hero2.name);
+                cellName2.appendChild(hero2Name);
+                var editCell=row.insertCell(2);
+                var editButton=document.createElement("button");
+                editButton.setAttribute('class','btn btn-warning');
                 
-            }
-        };
-        xhr.send(); 
-        
-        
+                editButton.setAttribute('onclick','friendshipUpdate('+String(response[i].id)+')');
+                editButton.textContent='Редактировать';
+                editCell.appendChild(editButton);
+                var deleteCell=row.insertCell(3);
+                var deleteButton=document.createElement("button");
+                deleteButton.setAttribute('class','btn btn-danger');
+
+                deleteButton.setAttribute('onclick','friendshipDelete('+String(response[i].id)+')');
+                deleteButton.textContent='Удалить';
+                deleteCell.appendChild(deleteButton);
+                }
 }
+
+
+
+
 
 function addFriendsHeroSelect(){  
         
@@ -166,7 +150,10 @@ function addFriendsHeroSelect(){
         
         
 }
-        
+
+
+
+
         
 function friendshipUpdate(i)
 {
@@ -182,14 +169,9 @@ function friendshipUpdate(i)
         var friendshipId={id:Number(index)};
         var hero1id={id:$("#editHero1").val()};
         var hero2id={id:$("#editHero2").val()};
-        var hero1=document.getElementById("editHero1");
-        var hero1children=hero1.childNodes;
-        
-       
-        var hero1idNumber=Number($("#editHero1").val());
-        var hero2idNumber=Number($("#editHero2").val());
-        var hero1name=hero1children[hero1idNumber+2].text;
-        var hero2name=hero1children[hero2idNumber+2].text;
+     
+
+     
        
         
         var friendship=[friendshipId,hero1id,hero2id];
@@ -200,39 +182,12 @@ function friendshipUpdate(i)
             data:JSON.stringify(friendship),
             contentType:'application/json',
             dataType:'json',     
-            success: function(){
-              
-              var table=document.getElementById("tableOfFriends");
+            success: function(response){
                         
-                        var row=table.rows[index];
-                        
-                        
-                        var cells=row.childNodes;
-                        
-                        var cellName1 = cells[0];
-                        for (var node of cellName1.childNodes)
-                            {
-                                cellName1.removeChild(node);
-                            }
-                        var hero1Name = document.createTextNode(hero1name);
-                        cellName1.appendChild(hero1Name);
-                        
-                        var cellName2 = cells[1];
-                        for (var node of cellName2.childNodes)
-                            {
-                                cellName2.removeChild(node);
-                            }
-                        var hero2Name = document.createTextNode(hero2name);
-                        cellName2.appendChild(hero2Name);
-                        
-                        
-              
+                 updateTable(response);
+
             },
-            error:function(jqXHR,exception){
-                
-                
-                
-                
+            error:function(jqXHR){             
                 alert(jqXHR.responseText);
                 
             }
@@ -265,24 +220,13 @@ function friendshipDelete(i)
             data:JSON.stringify(friendshipId),
             contentType:'application/json',
             dataType:'json',     
-            success: function(){
+            success: function(response){
               
-              var table=document.getElementById("tableOfFriends");
-                       
-              var tableBody=table.childNodes[1]; 
-               
-              var row=tableBody.rows[index];
-              
-              tableBody.removeChild(row);
-                        
-                        
-              
+              updateTable(response);
+                                
             },
-            error:function(jqXHR,exception){
-                console.log(jqXHR);
-                
-                
-                
+            error:function(jqXHR){
+                console.log(jqXHR);            
                 alert(jqXHR.responseText);
                 
             }

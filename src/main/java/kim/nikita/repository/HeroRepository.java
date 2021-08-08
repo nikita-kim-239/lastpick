@@ -19,4 +19,6 @@ public interface HeroRepository {
     
     boolean isHeroExist (int heroId);
     
+    String  getHeroById(int heroId);
+    
 }

@@ -34,6 +34,8 @@ public class JdbcTemplateHeroRepository implements HeroRepository{
     
     private final String SELECT_COUNT="select count(*) from heroes where id=?";
     
+    private final String SELECT_NAME="select name from heroes where id=?";
+    
      @Autowired
     public JdbcTemplateHeroRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate=jdbcTemplate;
@@ -49,6 +51,11 @@ public class JdbcTemplateHeroRepository implements HeroRepository{
     @Override
     public boolean isHeroExist(int heroId) {
         return jdbcTemplate.queryForObject(SELECT_COUNT,Integer.class,heroId)==1;
+    }
+
+    @Override
+    public String getHeroById(int heroId) {
+       return jdbcTemplate.queryForObject(SELECT_NAME,String.class,heroId);
     }
     
 }

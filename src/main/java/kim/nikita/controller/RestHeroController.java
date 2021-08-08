@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -59,6 +60,7 @@ public class RestHeroController {
    
    public List<Hero> getAllHeroes()
     {
+        log.info("Getting all Heroes");
         return heroService.getAllHeroes();
     }
    
@@ -138,18 +140,20 @@ public class RestHeroController {
     
    @PostMapping("/friendship")
    
-   public List<JsonClassWithId>  createFriendship(@RequestBody String heroes,HttpServletRequest request, HttpServletResponse response) throws IOException
+   public List<Friendship>  createFriendship(@RequestBody String heroes,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
              
             
             ObjectMapper mapper = new ObjectMapper();
-            JsonClassWithId [] arrayOfHeroes=null;
             
+            List<Friendship> result=new ArrayList<>();
+            JsonClassWithId [] arrayOfHeroes=null;
             response.setCharacterEncoding("UTF-8");
             
             try{
             arrayOfHeroes = mapper.readValue(heroes,JsonClassWithId[].class);
-             heroService.createFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
+            
+            result=heroService.createFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
             
             
             }
@@ -185,13 +189,13 @@ public class RestHeroController {
             }
             
             
-           return  Arrays.asList(arrayOfHeroes);
+           return  result;
         }
    
    
    @PatchMapping("/friendship")
    
-   public List<JsonClassWithId>  updateFriendship(@RequestBody String friendship,HttpServletRequest request, HttpServletResponse response) throws IOException
+   public List<Friendship>  updateFriendship(@RequestBody String friendship,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
              
             
@@ -200,11 +204,12 @@ public class RestHeroController {
             
             response.setCharacterEncoding("UTF-8");
             
+            List<Friendship> result=new ArrayList<>();
             try{
             arrayOfHeroes = mapper.readValue(friendship,JsonClassWithId[].class);
-             heroService.updateFriendship(arrayOfHeroes[0].id,arrayOfHeroes[1].id, arrayOfHeroes[2].id);
+             
             
-            
+            result=heroService.updateFriendship(arrayOfHeroes[0].id,arrayOfHeroes[1].id, arrayOfHeroes[2].id);
             }
             catch(JsonProcessingException e)
             {
@@ -237,21 +242,22 @@ public class RestHeroController {
                 response.flushBuffer();
             }
             
-           return  Arrays.asList(arrayOfHeroes);
+           return  result;
         }
    
    @DeleteMapping("/friendship")
    
-   public JsonClassWithId  deleteFriendship(@RequestBody String friendship,HttpServletRequest request, HttpServletResponse response) throws IOException
+   public List<Friendship>  deleteFriendship(@RequestBody String friendship,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
              
             
             ObjectMapper mapper = new ObjectMapper();
             JsonClassWithId  json=null;
             response.setCharacterEncoding("UTF-8");
+            List<Friendship> result=new ArrayList<>();
             try{
            json = mapper.readValue(friendship,JsonClassWithId.class);
-             heroService.deleteFriendship(json.id);
+            result= heroService.deleteFriendship(json.id);
             
             
             }
@@ -268,7 +274,7 @@ public class RestHeroController {
                 response.flushBuffer();
             }
             
-           return  json;
+           return  result;
         }
    
    
@@ -282,17 +288,17 @@ public class RestHeroController {
     
    @PostMapping("/victimship")
    
-   public List<JsonClassWithId> createVictimship(@RequestBody String heroes,HttpServletRequest request, HttpServletResponse response) throws IOException
+   public List<Victimship> createVictimship(@RequestBody String heroes,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
              
             
             ObjectMapper mapper = new ObjectMapper();
            JsonClassWithId [] arrayOfHeroes=null;
-           
+           List <Victimship> result=new ArrayList<>();
            response.setCharacterEncoding("UTF-8");
             try{
              arrayOfHeroes = mapper.readValue(heroes,JsonClassWithId[].class);
-             heroService.createVictimship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
+            result= heroService.createVictimship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
             
             
             }
@@ -336,22 +342,23 @@ public class RestHeroController {
                 response.flushBuffer();
             }
             
-            return Arrays.asList(arrayOfHeroes);
+            return result;
         }
    
    @PatchMapping("/victimship")
   
-   public List<JsonClassWithId>  updateVictimship(@RequestBody String victimship,HttpServletRequest request, HttpServletResponse response) throws IOException
+   public List<Victimship>  updateVictimship(@RequestBody String victimship,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
              
             
             ObjectMapper mapper = new ObjectMapper();
             JsonClassWithId [] arrayOfHeroes=null;
             response.setCharacterEncoding("UTF-8");
+            List <Victimship> result=new ArrayList<>();
            
             try{
             arrayOfHeroes = mapper.readValue(victimship,JsonClassWithId[].class);
-             heroService.updateVictimship(arrayOfHeroes[0].id,arrayOfHeroes[1].id, arrayOfHeroes[2].id);
+            result= heroService.updateVictimship(arrayOfHeroes[0].id,arrayOfHeroes[1].id, arrayOfHeroes[2].id);
             
             
             }
@@ -387,22 +394,22 @@ public class RestHeroController {
             
             
             
-           return  Arrays.asList(arrayOfHeroes);
+           return  result;
         }
    
    @DeleteMapping("/victimship")
    
-   public JsonClassWithId  deleteVictimship(@RequestBody String victimship,HttpServletRequest request, HttpServletResponse response) throws IOException
+   public List<Victimship>  deleteVictimship(@RequestBody String victimship,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
              
             
             ObjectMapper mapper = new ObjectMapper();
             JsonClassWithId  json=null;
             response.setCharacterEncoding("UTF-8");
-           
+           List <Victimship> result=new ArrayList<>();
             try{
            json = mapper.readValue(victimship,JsonClassWithId.class);
-             heroService.deleteVictimship(json.id);
+             result=heroService.deleteVictimship(json.id);
             
             
             }
@@ -419,7 +426,7 @@ public class RestHeroController {
                 response.flushBuffer();
             }
             
-           return  json;
+           return  result;
         }
    
    
