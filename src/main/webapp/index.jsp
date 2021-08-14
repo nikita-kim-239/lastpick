@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <head>
@@ -25,7 +26,28 @@
           <div class="container">
             <div class="row">
             
-               <div class="col-md-3"> 
+                
+                <sec:authorize access="isAnonymous()">
+                    
+                    <form class="form-inline my-2 row" id="login_form" action="spring_security_check" method="post">
+                                <div class="col-md-4">
+                                <input class="form-control mr-1" type="text" placeholder="Email" name="username">
+                                </div>
+                                <div class="col-md-4">
+                                <input class="form-control mr-1" type="password" placeholder="Password" name="password">
+                                </div>
+                                <div class="col-md-4">
+                                <button class="btn btn-success" type="submit">
+                                    <span class="fa fa-sign-in">Зайти</span>
+                                </button>
+                                </div>
+                                
+                    </form>  
+                    
+                </sec:authorize>
+                
+            <sec:authorize access="isAuthenticated()">    
+              <div class="col-md-3"> 
                 <a href="friendship" class="navbar-brand" >Связки</a>
                </div>
                
@@ -41,12 +63,20 @@
                 <a class="navbar-brand" href="logout">
                     Выйти
                 </a>
-              </div>      
+              </div> 
+                
+            </sec:authorize>  
+                
                 
             </div>    
           </div> 
       </nav>  
-       
+    
+    
+    
+    
+    
+    
     
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
