@@ -25,17 +25,24 @@
           <div class="container">
             <div class="row">
             
-               <div class="col-md-4"> 
+               <div class="col-md-3"> 
                 <a href="friendship" class="navbar-brand" >Связки</a>
                </div>
                
-              <div class="col-md-4">   
+              <div class="col-md-3">   
                 <a href="victimship" class="navbar-brand" >Контрпики</a>
               </div>   
               
-              <div class="col-md-4">    
+              <div class="col-md-3">    
                 <a href="heroes" class="navbar-brand" >Герои</a>
               </div>   
+              
+             <div class="col-md-3">    
+                <a class="navbar-brand" href="logout">
+                    Выйти
+                </a>
+              </div>      
+                
             </div>    
           </div> 
       </nav>  
