@@ -41,10 +41,12 @@ public class RootController {
     
     
    @GetMapping("/heroes")
-    public String getHeroes()
+    public ModelAndView getHeroes()
         {
             log.info("get heroes");
-            return "heroes";
+            ModelAndView mav = new ModelAndView("heroes");
+            mav.addObject("heroes",heroService.getAllHeroes());
+            return mav;
         }   
     
     

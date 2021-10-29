@@ -32,8 +32,18 @@ public class Friendship extends AbstractBaseEntity implements Serializable{
     @JoinColumn (name="hero2_id")
     private Hero hero2;
 
-    
-    public Friendship(int id,Hero hero1,Hero hero2)
+
+    private Integer positionInTable;
+
+    public Integer getPositionInTable() {
+        return positionInTable;
+    }
+
+    public void setPositionInTable(Integer positionInTable) {
+        this.positionInTable = positionInTable;
+    }
+
+    public Friendship(int id, Hero hero1, Hero hero2)
         {
             this.id=id;
             this.hero1=hero1;

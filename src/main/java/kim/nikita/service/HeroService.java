@@ -19,11 +19,7 @@ import kim.nikita.model.Victimship;
 import kim.nikita.repository.FriendshipRepository;
 import kim.nikita.repository.HeroRepository;
 import kim.nikita.repository.VictimshipRepository;
-import kim.nikita.util.exception.AlreadyExistException;
-import kim.nikita.util.exception.NoHeroesException;
-import kim.nikita.util.exception.HeroNotFoundException;
-import kim.nikita.util.exception.RoundCounterException;
-import kim.nikita.util.exception.SameHeroesException;
+import kim.nikita.util.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +35,21 @@ public class HeroService {
     @Autowired
     private FriendshipRepository friendshipRepository;
     
-    
+
+    public Hero createHero(Hero hero)
+        {
+
+            if (heroRepository.isHeroExistWithName(hero.getName()))
+                throw new AlreadyExistException("Такой герой уже есть в базе!");
+            if ((hero.getName().length()<2)||(hero.getName().length()>30))
+                throw new BadNameException("Плохое имя!");
+
+            return heroRepository.createHero(hero);
+
+
+
+        }
+
     public List <Hero> getAllHeroes()
         {
             return heroRepository.getAllHeroes();
@@ -174,7 +184,8 @@ public class HeroService {
     
     public List <Friendship> deleteFriendship(int friendshipId)
         {
-           return friendshipRepository.delete(friendshipId);
+
+            return friendshipRepository.delete(friendshipId);
         }
     
     public List<Victimship> createVictimship(int predator_id,int victim_id)

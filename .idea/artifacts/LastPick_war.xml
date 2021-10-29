@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="LastPick:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>LastPick</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Dota.war">
+      <element id="artifact" artifact-name="LastPick:war exploded" />
+    </root>
+  </artifact>
+</component>

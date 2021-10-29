@@ -33,14 +33,21 @@ public class Hero extends AbstractNamedEntity implements Serializable{
             super(id,name);
         }
 
-    
-    
+    public Hero(Integer id, String name, Integer positionInTable) {
+        super(id, name);
+        this.positionInTable = positionInTable;
+    }
 
-   
-   
+    public Integer positionInTable;
 
-    
-   
-    
-    
+    public Integer getPositionInTable() {
+        return positionInTable;
+    }
+
+    public void setPositionInTable(Integer positionInTable) {
+        this.positionInTable = positionInTable;
+    }
+
+
+
 }

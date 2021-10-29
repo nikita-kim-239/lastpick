@@ -33,8 +33,14 @@ public class JdbcTemplateHeroRepository implements HeroRepository{
     private final String SELECT_ALL_HEROES="SELECT * FROM heroes ORDER BY name";
     
     private final String SELECT_COUNT="select count(*) from heroes where id=?";
-    
+
+    private final String SELECT_COUNT_BY_NAME="select count(*) from heroes where name=?";
+
     private final String SELECT_NAME="select name from heroes where id=?";
+
+    private final String CREATE_HERO="INSERT INTO heroes (name) values (?)";
+
+    private final String GET_POSITION="select count(*) from heroes where name<?";
     
      @Autowired
     public JdbcTemplateHeroRepository(JdbcTemplate jdbcTemplate) {
@@ -54,8 +60,21 @@ public class JdbcTemplateHeroRepository implements HeroRepository{
     }
 
     @Override
+    public boolean isHeroExistWithName(String name) {
+        return jdbcTemplate.queryForObject(SELECT_COUNT_BY_NAME,Integer.class,name)==1;
+    }
+
+    @Override
     public String getHeroById(int heroId) {
        return jdbcTemplate.queryForObject(SELECT_NAME,String.class,heroId);
     }
-    
+
+    @Override
+    public Hero createHero(Hero hero) {
+        jdbcTemplate.update(CREATE_HERO,hero.getName());
+        Integer position=jdbcTemplate.queryForObject(GET_POSITION,Integer.class,hero.getName());
+        hero.setPositionInTable(position);
+        return hero;
+    }
+
 }

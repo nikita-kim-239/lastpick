@@ -16,11 +16,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kim.nikita.model.Friendship;
-import kim.nikita.model.Hero;
-import kim.nikita.model.JsonClassWithId;
-import kim.nikita.model.Result;
-import kim.nikita.model.Victimship;
+import kim.nikita.model.*;
 import kim.nikita.service.HeroService;
 import kim.nikita.util.exception.AlreadyExistException;
 import kim.nikita.util.exception.NoHeroesException;
@@ -63,6 +59,29 @@ public class RestHeroController {
         log.info("Getting all Heroes");
         return heroService.getAllHeroes();
     }
+
+    @PostMapping("/heroes")
+    public Hero createHero(@RequestBody String jsonHero,HttpServletRequest request, HttpServletResponse response) throws IOException{
+
+            ObjectMapper mapper = new ObjectMapper();
+            Hero hero=new Hero();
+            JsonClassWithName jsonClassWithName=new JsonClassWithName();
+            try {
+                 jsonClassWithName = mapper.readValue(jsonHero, JsonClassWithName.class);
+            }
+            catch(Exception e)
+                {
+                    log.error(e.getMessage());
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.getWriter().println(e.getMessage());
+                    response.flushBuffer();
+                }
+            hero.setName(jsonClassWithName.name);
+            log.info("create hero with name "+hero.getName());
+
+            return heroService.createHero(hero);
+
+        }
    
    
    @GetMapping("/results")
@@ -89,8 +108,7 @@ public class RestHeroController {
         if (enemy3!=0) enemies.add(enemy3);
         if (enemy4!=0) enemies.add(enemy4);
         if (enemy5!=0) enemies.add(enemy5);
-        System.out.println("enemies: "+enemies);
-        System.out.println("friends: "+friends);
+
         List<Result> results=null;
         
         
@@ -98,7 +116,7 @@ public class RestHeroController {
         try{
         results= heroService.getResult(friends,enemies);
         }
-        catch(NoHeroesException e)
+        catch(Exception e)
         {
             
             log.error(e.getMessage());
@@ -106,22 +124,7 @@ public class RestHeroController {
             response.getWriter().println(e.getMessage());
             response.flushBuffer();
         }
-        catch(SameHeroesException e)
-        {
-            
-            log.error(e.getMessage());
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println(e.getMessage());
-            response.flushBuffer();
-        }
-        catch(HeroNotFoundException e)
-        {
-            
-            log.error(e.getMessage());
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println(e.getMessage());
-            response.flushBuffer();
-        }
+
         
         return results;
     }
@@ -140,56 +143,35 @@ public class RestHeroController {
     
    @PostMapping("/friendship")
    
-   public List<Friendship>  createFriendship(@RequestBody String heroes,HttpServletRequest request, HttpServletResponse response) throws IOException
+   public List <Friendship>  createFriendship(@RequestBody String heroes,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
-             
-            
+
+
             ObjectMapper mapper = new ObjectMapper();
-            
+
             List<Friendship> result=new ArrayList<>();
             JsonClassWithId [] arrayOfHeroes=null;
             response.setCharacterEncoding("UTF-8");
-            
+
             try{
-            arrayOfHeroes = mapper.readValue(heroes,JsonClassWithId[].class);
-            
-            result=heroService.createFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
-            
-            
+                arrayOfHeroes = mapper.readValue(heroes,JsonClassWithId[].class);
+
+                result=heroService.createFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
+
+
             }
-            catch(JsonProcessingException e)
+            catch(Exception e)
             {
-                e.printStackTrace();
-            }
-            catch(AlreadyExistException e)
-            {
-                
+
                 log.error(e.getMessage());
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 response.getWriter().println(e.getMessage());
                 response.flushBuffer();
             }
-            catch (SameHeroesException e)
-            {
-                
-                
-                log.error(e.getMessage());
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                response.getWriter().println(e.getMessage());
-                response.flushBuffer();
-                
-            }
-            catch(HeroNotFoundException e)
-            {
-                
-                log.error(e.getMessage());
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                response.getWriter().println(e.getMessage());
-                response.flushBuffer();
-            }
-            
-            
-           return  result;
+
+
+
+            return  result;
         }
    
    
@@ -246,7 +228,6 @@ public class RestHeroController {
         }
    
    @DeleteMapping("/friendship")
-   
    public List<Friendship>  deleteFriendship(@RequestBody String friendship,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
              

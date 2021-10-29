@@ -53,10 +53,9 @@ public class HeroServiceTest {
     }
     
     @Test
-    @Ignore
+
     public void testGetAllHeroes() {
         log.info("Testing get all heroes");
-        
         assertEquals(TestData.heroes,service.getAllHeroes());
                
            
@@ -65,21 +64,18 @@ public class HeroServiceTest {
     
     
     @Test
-    @Ignore
+
     public void testGetFriendship() {
         log.info("Testing friendship");
-        
         assertEquals(TestData.friends,service.getAllFriends());
            
     }
 
     
 
-    /**
-     * Test of createFriendship method, of class HeroService.
-     */
+
     @Test
-    @Ignore
+
     public void testCreateFriendshipWithTheSameHeroes() {
         log.info("Testing create friendship (1,1)");
         assertThrows(SameHeroesException.class, () -> service.createFriendship(1,1));
@@ -87,7 +83,7 @@ public class HeroServiceTest {
     
     
     @Test
-    @Ignore
+
     public void testCreateFriendshipWithTheNoFoundHeroes() {
         log.info("Testing create friendship (1,1000)");
         assertThrows(HeroNotFoundException.class, () -> service.createFriendship(1,1000));
@@ -97,7 +93,7 @@ public class HeroServiceTest {
      * Test of createVictimship method, of class HeroService.
      */
     @Test
-    @Ignore
+
     public void testCreateVictimshipAlreadyInBase() {
         log.info("Testing create friendship (1,6) already in base");
         assertThrows(AlreadyExistException.class, () -> service.createFriendship(1,6));

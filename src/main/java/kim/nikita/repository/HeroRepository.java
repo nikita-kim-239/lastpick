@@ -18,7 +18,12 @@ public interface HeroRepository {
     List <Hero> getAllHeroes();
     
     boolean isHeroExist (int heroId);
+
+    boolean isHeroExistWithName(String name);
     
     String  getHeroById(int heroId);
+
+    Hero createHero(Hero hero);
+
     
 }
