@@ -27,7 +27,7 @@ $(document).ready(function() {
 
             }
         });
-        $("#modalToCreate").modal('hide');
+        $("#modal").modal('hide');
     });
 
 
@@ -42,6 +42,7 @@ function createHero(response)
 {
 
 
+    console.log(response);
     var position=response.positionInTable;
     var table=document.getElementById("tableOfHeroes");
     var row=table.insertRow(position+1);
@@ -53,14 +54,14 @@ function createHero(response)
     var editButton=document.createElement("button");
     editButton.setAttribute('class','btn btn-warning');
 
-    editButton.setAttribute('onclick','friendshipUpdate('+String(response.id)+')');
+    editButton.setAttribute('onclick','heroUpdate('+String(response.id)+')');
     editButton.textContent='Редактировать';
     editCell.appendChild(editButton);
     var deleteCell=row.insertCell(2);
     var deleteButton=document.createElement("button");
     deleteButton.setAttribute('class','btn btn-danger');
 
-    deleteButton.setAttribute('onclick','friendshipDelete('+String(response.id)+')');
+    deleteButton.setAttribute('onclick','heroDelete('+String(response.id)+')');
     deleteButton.textContent='Удалить';
     deleteCell.appendChild(deleteButton);
 

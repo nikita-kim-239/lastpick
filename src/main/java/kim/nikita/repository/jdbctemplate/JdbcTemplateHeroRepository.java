@@ -5,6 +5,8 @@
  */
 package kim.nikita.repository.jdbctemplate;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 import javax.sql.DataSource;
 import kim.nikita.model.Hero;
@@ -15,6 +17,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -41,7 +45,9 @@ public class JdbcTemplateHeroRepository implements HeroRepository{
     private final String CREATE_HERO="INSERT INTO heroes (name) values (?)";
 
     private final String GET_POSITION="select count(*) from heroes where name<?";
-    
+
+    private final String GET_ID="select id from heroes where name=?";
+
      @Autowired
     public JdbcTemplateHeroRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate=jdbcTemplate;
@@ -71,9 +77,14 @@ public class JdbcTemplateHeroRepository implements HeroRepository{
 
     @Override
     public Hero createHero(Hero hero) {
+
+
+
         jdbcTemplate.update(CREATE_HERO,hero.getName());
         Integer position=jdbcTemplate.queryForObject(GET_POSITION,Integer.class,hero.getName());
         hero.setPositionInTable(position);
+        Integer id=jdbcTemplate.queryForObject(GET_ID,Integer.class,hero.getName());
+        hero.setId(id);
         return hero;
     }
 

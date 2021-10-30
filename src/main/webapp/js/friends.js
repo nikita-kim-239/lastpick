@@ -39,16 +39,9 @@ $(document).ready(function(){
                 
             }
         });
-        
-        
-        
-              
+
         $("#modalToCreate").modal('hide');
-        
-//        
-        
-        
-        
+
     });
 });
 

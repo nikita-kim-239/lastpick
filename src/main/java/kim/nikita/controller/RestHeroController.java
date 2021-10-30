@@ -18,11 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kim.nikita.model.*;
 import kim.nikita.service.HeroService;
-import kim.nikita.util.exception.AlreadyExistException;
-import kim.nikita.util.exception.NoHeroesException;
-import kim.nikita.util.exception.HeroNotFoundException;
-import kim.nikita.util.exception.RoundCounterException;
-import kim.nikita.util.exception.SameHeroesException;
+import kim.nikita.util.exception.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -65,15 +61,30 @@ public class RestHeroController {
 
             ObjectMapper mapper = new ObjectMapper();
             Hero hero=new Hero();
+            response.setCharacterEncoding("UTF-8");
             JsonClassWithName jsonClassWithName=new JsonClassWithName();
             try {
                  jsonClassWithName = mapper.readValue(jsonHero, JsonClassWithName.class);
             }
-            catch(Exception e)
+            catch(JsonProcessingException e)
                 {
                     log.error(e.getMessage());
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     response.getWriter().println(e.getMessage());
+                    response.flushBuffer();
+                }
+            catch(BadNameException e1)
+                {
+                    log.error(e1.getMessage());
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.getWriter().println(e1.getMessage());
+                    response.flushBuffer();
+                }
+            catch (AlreadyExistException e2)
+                {
+                    log.error(e2.getMessage());
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.getWriter().println(e2.getMessage());
                     response.flushBuffer();
                 }
             hero.setName(jsonClassWithName.name);

@@ -2,5 +2,8 @@ log
 heroes.txt
 friendship.txt
 victimship.txt
+target
+.idea
+LastPick.iml
 /nbproject/
 nb-configuration.xml
