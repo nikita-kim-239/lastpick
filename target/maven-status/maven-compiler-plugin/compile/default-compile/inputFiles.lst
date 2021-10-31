@@ -6,6 +6,7 @@ C:\Java\Lastpick\lastpick\src\main\java\kim\nikita\DotaFriendshipHelp.java
 C:\Java\Lastpick\lastpick\src\main\java\kim\nikita\util\exception\NoHeroesException.java
 C:\Java\Lastpick\lastpick\src\main\java\kim\nikita\repository\jdbctemplate\JdbcTemplateVictimshipRepository.java
 C:\Java\Lastpick\lastpick\src\main\java\kim\nikita\model\JsonClassWithId.java
+C:\Java\Lastpick\lastpick\src\main\java\kim\nikita\model\JsonClassWithNameAndId.java
 C:\Java\Lastpick\lastpick\src\main\java\kim\nikita\model\Victimship.java
 C:\Java\Lastpick\lastpick\src\main\java\kim\nikita\repository\HeroRepository.java
 C:\Java\Lastpick\lastpick\src\main\java\kim\nikita\service\HeroService.java

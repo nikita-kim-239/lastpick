@@ -44,9 +44,12 @@ public class JdbcTemplateHeroRepository implements HeroRepository{
 
     private final String CREATE_HERO="INSERT INTO heroes (name) values (?)";
 
-    private final String GET_POSITION="select count(*) from heroes where name<?";
 
-    private final String GET_ID="select id from heroes where name=?";
+
+    private final String DELETE_HERO="delete from heroes where id=?";
+
+    private final String UPDATE_HERO="update heroes set name=? where id=?";
+
 
      @Autowired
     public JdbcTemplateHeroRepository(JdbcTemplate jdbcTemplate) {
@@ -67,7 +70,7 @@ public class JdbcTemplateHeroRepository implements HeroRepository{
 
     @Override
     public boolean isHeroExistWithName(String name) {
-        return jdbcTemplate.queryForObject(SELECT_COUNT_BY_NAME,Integer.class,name)==1;
+        return jdbcTemplate.queryForObject(SELECT_COUNT_BY_NAME,Integer.class,name)!=0;
     }
 
     @Override
@@ -76,16 +79,19 @@ public class JdbcTemplateHeroRepository implements HeroRepository{
     }
 
     @Override
-    public Hero createHero(Hero hero) {
+    public void deleteHero(int heroId) {
+         jdbcTemplate.update(DELETE_HERO,heroId);
+    }
 
-
-
+    @Override
+    public void createHero(Hero hero) {
         jdbcTemplate.update(CREATE_HERO,hero.getName());
-        Integer position=jdbcTemplate.queryForObject(GET_POSITION,Integer.class,hero.getName());
-        hero.setPositionInTable(position);
-        Integer id=jdbcTemplate.queryForObject(GET_ID,Integer.class,hero.getName());
-        hero.setId(id);
-        return hero;
+
+    }
+
+    @Override
+    public void updateHero(Hero hero) {
+        jdbcTemplate.update(UPDATE_HERO,hero.getName(),hero.getId());
     }
 
 }

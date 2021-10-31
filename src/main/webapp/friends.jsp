@@ -22,7 +22,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Создать связку</h4>
+                        <h4 class="modal-title" id="myModalLabel1">Создать связку</h4>
                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -56,7 +56,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Редактировать связку</h4>
+                        <h4 class="modal-title" id="myModalLabel2">Редактировать связку</h4>
                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -90,7 +90,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Удалить связку</h4>
+                        <h4 class="modal-title" id="myModalLabel3">Удалить связку</h4>
                          
                     </div>
                     <div class="modal-body">

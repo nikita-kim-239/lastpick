@@ -16,7 +16,8 @@ CREATE TABLE heroes(
 CREATE TABLE friendship(
     id INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     hero1_id integer not null references heroes(id) on delete cascade,
-    hero2_id integer not null references heroes(id) on delete cascade
+    hero2_id integer not null references heroes(id) on delete cascade,
+    friends boolean not null 
 );
 
 CREATE TABLE victimship(

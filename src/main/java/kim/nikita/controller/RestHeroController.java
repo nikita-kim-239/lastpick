@@ -22,16 +22,7 @@ import kim.nikita.util.exception.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -57,7 +48,7 @@ public class RestHeroController {
     }
 
     @PostMapping("/heroes")
-    public Hero createHero(@RequestBody String jsonHero,HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public List<Hero> createHero(@RequestBody String jsonHero,HttpServletRequest request, HttpServletResponse response) throws IOException{
 
             ObjectMapper mapper = new ObjectMapper();
             Hero hero=new Hero();
@@ -68,30 +59,101 @@ public class RestHeroController {
             }
             catch(JsonProcessingException e)
                 {
-                    log.error(e.getMessage());
+                    log.debug(e.getMessage());
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     response.getWriter().println(e.getMessage());
                     response.flushBuffer();
                 }
-            catch(BadNameException e1)
-                {
-                    log.error(e1.getMessage());
-                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    response.getWriter().println(e1.getMessage());
-                    response.flushBuffer();
-                }
-            catch (AlreadyExistException e2)
-                {
-                    log.error(e2.getMessage());
-                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    response.getWriter().println(e2.getMessage());
-                    response.flushBuffer();
-                }
+
             hero.setName(jsonClassWithName.name);
             log.info("create hero with name "+hero.getName());
+            try {
+                heroService.createHero(hero);
+            }
+            catch(BadNameException e1)
+            {
+                log.debug(e1.getMessage());
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().println(e1.getMessage());
+                response.flushBuffer();
+            }
+            catch (AlreadyExistException e2) {
+                log.debug(e2.getMessage());
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().println(e2.getMessage());
+                response.flushBuffer();
+            }
+            return getAllHeroes();
 
-            return heroService.createHero(hero);
+        }
 
+    @PatchMapping("/heroes")
+    public List<Hero> updateHero(@RequestBody String jsonHero,HttpServletRequest request, HttpServletResponse response) throws IOException{
+        ObjectMapper mapper = new ObjectMapper();
+        Hero hero=new Hero();
+        response.setCharacterEncoding("UTF-8");
+        JsonClassWithNameAndId jsonClassWithNameAndId=new JsonClassWithNameAndId();
+        try {
+            jsonClassWithNameAndId = mapper.readValue(jsonHero, JsonClassWithNameAndId.class);
+        }
+        catch(JsonProcessingException e)
+        {
+            log.debug(e.getMessage());
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().println(e.getMessage());
+            response.flushBuffer();
+        }
+
+
+        hero.setId(jsonClassWithNameAndId.id);
+        hero.setName(jsonClassWithNameAndId.name);
+        try {
+            heroService.updateHero(hero);
+        }
+        catch(BadNameException e1)
+        {
+            log.debug(e1.getMessage());
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().println(e1.getMessage());
+            response.flushBuffer();
+        }
+        catch (AlreadyExistException e2)
+        {
+            log.debug(e2.getMessage());
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().println(e2.getMessage());
+            response.flushBuffer();
+        }
+        log.info("update hero with id "+hero.getId()+" to name "+hero.getName());
+        return getAllHeroes();
+    }
+
+    @DeleteMapping("/heroes")
+    public List<Hero> deleteHero(@RequestBody String json,HttpServletRequest request, HttpServletResponse response) throws IOException
+        {
+            response.setCharacterEncoding("UTF-8");
+            JsonClassWithId jsonClassWithId=null;
+
+            ObjectMapper objectMapper=new ObjectMapper();
+            try{
+                jsonClassWithId=objectMapper.readValue(json,JsonClassWithId.class);
+
+            }
+            catch(JsonProcessingException e)
+                {
+                    e.printStackTrace();
+                }
+            try {
+                heroService.deleteHero(jsonClassWithId.id);
+            }
+            catch(HeroNotFoundException e)
+            {
+                log.debug(e.getMessage());
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().println(e.getMessage());
+                response.flushBuffer();
+            }
+            return getAllHeroes();
         }
    
    
@@ -130,7 +192,7 @@ public class RestHeroController {
         catch(Exception e)
         {
             
-            log.error(e.getMessage());
+            log.debug(e.getMessage());
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().println(e.getMessage());
             response.flushBuffer();
@@ -145,7 +207,6 @@ public class RestHeroController {
    
    
    @GetMapping("/friendship")
-   
    public List<Friendship> getAllFriends()
     {
         return heroService.getAllFriends();
@@ -160,14 +221,14 @@ public class RestHeroController {
 
             ObjectMapper mapper = new ObjectMapper();
 
-            List<Friendship> result=new ArrayList<>();
+
             JsonClassWithId [] arrayOfHeroes=null;
             response.setCharacterEncoding("UTF-8");
 
             try{
                 arrayOfHeroes = mapper.readValue(heroes,JsonClassWithId[].class);
 
-                result=heroService.createFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
+                heroService.createFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
 
 
             }
@@ -182,12 +243,11 @@ public class RestHeroController {
 
 
 
-            return  result;
+            return  getAllFriends();
         }
    
    
    @PatchMapping("/friendship")
-   
    public List<Friendship>  updateFriendship(@RequestBody String friendship,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
              
@@ -197,12 +257,12 @@ public class RestHeroController {
             
             response.setCharacterEncoding("UTF-8");
             
-            List<Friendship> result=new ArrayList<>();
+
             try{
             arrayOfHeroes = mapper.readValue(friendship,JsonClassWithId[].class);
              
             
-            result=heroService.updateFriendship(arrayOfHeroes[0].id,arrayOfHeroes[1].id, arrayOfHeroes[2].id);
+            heroService.updateFriendship(arrayOfHeroes[0].id,arrayOfHeroes[1].id, arrayOfHeroes[2].id);
             }
             catch(JsonProcessingException e)
             {
@@ -226,16 +286,8 @@ public class RestHeroController {
                 response.getWriter().println(e.getMessage());
                 response.flushBuffer();
             }
-            catch(HeroNotFoundException e)
-            {
-                
-                log.error(e.getMessage());
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                response.getWriter().println(e.getMessage());
-                response.flushBuffer();
-            }
-            
-           return  result;
+
+           return  getAllFriends();
         }
    
    @DeleteMapping("/friendship")
@@ -246,10 +298,10 @@ public class RestHeroController {
             ObjectMapper mapper = new ObjectMapper();
             JsonClassWithId  json=null;
             response.setCharacterEncoding("UTF-8");
-            List<Friendship> result=new ArrayList<>();
+
             try{
            json = mapper.readValue(friendship,JsonClassWithId.class);
-            result= heroService.deleteFriendship(json.id);
+            heroService.deleteFriendship(json.id);
             
             
             }
@@ -257,22 +309,15 @@ public class RestHeroController {
             {
                 e.printStackTrace();
             }
-            catch(HeroNotFoundException e)
-            {
-                
-                log.error(e.getMessage());
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                response.getWriter().println(e.getMessage());
-                response.flushBuffer();
-            }
+
             
-           return  result;
+           return  getAllFriends();
         }
    
    
    @GetMapping("/victimship")
    
-   public List<Victimship> getAllVictim()
+   public List<Victimship> getAllVictims()
     {
         return heroService.getAllVictims();
     }
@@ -286,11 +331,11 @@ public class RestHeroController {
             
             ObjectMapper mapper = new ObjectMapper();
            JsonClassWithId [] arrayOfHeroes=null;
-           List <Victimship> result=new ArrayList<>();
+
            response.setCharacterEncoding("UTF-8");
             try{
              arrayOfHeroes = mapper.readValue(heroes,JsonClassWithId[].class);
-            result= heroService.createVictimship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
+             heroService.createVictimship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
             
             
             }
@@ -325,16 +370,9 @@ public class RestHeroController {
                 response.getWriter().println(e.getMessage());
                 response.flushBuffer();
             }
-            catch(HeroNotFoundException e)
-            {
-                
-                log.error(e.getMessage());
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                response.getWriter().println(e.getMessage());
-                response.flushBuffer();
-            }
+
             
-            return result;
+            return getAllVictims();
         }
    
    @PatchMapping("/victimship")
@@ -346,11 +384,11 @@ public class RestHeroController {
             ObjectMapper mapper = new ObjectMapper();
             JsonClassWithId [] arrayOfHeroes=null;
             response.setCharacterEncoding("UTF-8");
-            List <Victimship> result=new ArrayList<>();
+
            
             try{
             arrayOfHeroes = mapper.readValue(victimship,JsonClassWithId[].class);
-            result= heroService.updateVictimship(arrayOfHeroes[0].id,arrayOfHeroes[1].id, arrayOfHeroes[2].id);
+            heroService.updateVictimship(arrayOfHeroes[0].id,arrayOfHeroes[1].id, arrayOfHeroes[2].id);
             
             
             }
@@ -375,18 +413,8 @@ public class RestHeroController {
                 response.getWriter().println(e.getMessage());
                 response.flushBuffer();
             }
-            catch(HeroNotFoundException e)
-            {
-                
-                log.error(e.getMessage());
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                response.getWriter().println(e.getMessage());
-                response.flushBuffer();
-            }
-            
-            
-            
-           return  result;
+
+           return  getAllVictims();
         }
    
    @DeleteMapping("/victimship")
@@ -398,10 +426,10 @@ public class RestHeroController {
             ObjectMapper mapper = new ObjectMapper();
             JsonClassWithId  json=null;
             response.setCharacterEncoding("UTF-8");
-           List <Victimship> result=new ArrayList<>();
             try{
-           json = mapper.readValue(victimship,JsonClassWithId.class);
-             result=heroService.deleteVictimship(json.id);
+
+            json = mapper.readValue(victimship,JsonClassWithId.class);
+            heroService.deleteVictimship(json.id);
             
             
             }
@@ -409,16 +437,9 @@ public class RestHeroController {
             {
                 log.error(e.getMessage());
             }
-            catch(HeroNotFoundException e)
-            {
-                
-                log.error(e.getMessage());
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                response.getWriter().println(e.getMessage());
-                response.flushBuffer();
-            }
+
             
-           return  result;
+           return  getAllVictims();
         }
    
    

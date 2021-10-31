@@ -58,20 +58,20 @@ public class JdbcTemplateFriendshipRepository implements FriendshipRepository{
     }
 
     @Override
-    public List <Friendship> create(int hero1_id, int hero2_id) {
+    public void create(int hero1_id, int hero2_id) {
 
         jdbcTemplate.update(INSERT_FRIENDS_QUERY,hero1_id,hero2_id);
 
-        return jdbcTemplate.query(SELECT_ALL_QUERY,new FriendshipMapper());
+
       
     }
     
     
     @Override
-    public List <Friendship> update(Integer friendshipId,Integer hero1_id,Integer hero2_id)
+    public void update(Integer friendshipId,Integer hero1_id,Integer hero2_id)
     {
         jdbcTemplate.update(UPDATE_FRIENDS_QUERY,hero1_id,hero2_id,friendshipId);
-        return jdbcTemplate.query(SELECT_ALL_QUERY,new FriendshipMapper());
+
     }
     
 
@@ -81,9 +81,9 @@ public class JdbcTemplateFriendshipRepository implements FriendshipRepository{
     }
 
     @Override
-    public List <Friendship> delete(int friendshipId) {
+    public void delete(int friendshipId) {
          jdbcTemplate.update(DELETE_FRIENDS_QUERY,friendshipId);
-         return jdbcTemplate.query(SELECT_ALL_QUERY,new FriendshipMapper());
+
     }
 
 

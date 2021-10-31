@@ -23,7 +23,9 @@ public interface HeroRepository {
     
     String  getHeroById(int heroId);
 
-    Hero createHero(Hero hero);
+    void deleteHero(int heroId);
 
-    
+    void createHero(Hero hero);
+
+    void updateHero(Hero hero);
 }

@@ -23,7 +23,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Создать контрпик</h4>
+                        <h4 class="modal-title" id="myModalLabel1">Создать контрпик</h4>
                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -57,7 +57,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Редактировать контрпик</h4>
+                        <h4 class="modal-title" id="myModalLabel2">Редактировать контрпик</h4>
                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -91,7 +91,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Удалить контрпик</h4>
+                        <h4 class="modal-title" id="myModalLabel3">Удалить контрпик</h4>
                          
                     </div>
                     <div class="modal-body">
