@@ -36,7 +36,9 @@ public class FriendshipMapper implements RowMapper{
             hero2.setId(rs.getInt("hero2_id"));
             hero2.setName(rs.getString("hero2_name"));
             friendship.setHero2(hero2);
-            
+
+            friendship.setFriends(rs.getBoolean("friends"));
+
             return friendship;
         }
     

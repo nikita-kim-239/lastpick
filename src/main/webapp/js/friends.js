@@ -17,8 +17,8 @@ $(document).ready(function(){
         
         var hero1id={id:$("#selectHero1").val()};
         var hero2id={id:$("#selectHero2").val()};
-   
-        var heroes=[hero1id,hero2id];
+        var friends=!$("#antifriends").val();
+        var heroes=[hero1id,hero2id,{friends:friends}];
         
         $.ajax({
             url:ajaxUrl,
@@ -27,7 +27,7 @@ $(document).ready(function(){
             contentType:'application/json',
             dataType:'json',     
             success: function(response ){         
-                createFriendship(response);
+                updateTable(response);
 
             },
             error:function(jqXHR){
@@ -54,7 +54,7 @@ function initializePage()
 }
 
 
-function createFriendship(response)
+function updateTable(response)
 {
 
 
@@ -71,11 +71,15 @@ function createFriendship(response)
 
         for (let i=0;i<response.length;i++) {
             row = table.insertRow(i + 1);
+            if (response[i].friends)
+            row.setAttribute('class','table-success');
+            else
+                row.setAttribute('class','table-danger');
             var cellName1 = row.insertCell(0);
-            var hero1Name = document.createTextNode(response.hero1.name);
+            var hero1Name = document.createTextNode(response[i].hero1.name);
             cellName1.appendChild(hero1Name);
             var cellName2 = row.insertCell(1);
-            var hero2Name = document.createTextNode(response.hero2.name);
+            var hero2Name = document.createTextNode(response[i].hero2.name);
             cellName2.appendChild(hero2Name);
             var editCell = row.insertCell(2);
             var editButton = document.createElement("button");
@@ -164,12 +168,13 @@ function friendshipUpdate(i)
         var friendshipId={id:Number(index)};
         var hero1id={id:$("#editHero1").val()};
         var hero2id={id:$("#editHero2").val()};
+        var friends={friends:!$("#antifriends2").val()};
      
 
      
        
         
-        var friendship=[friendshipId,hero1id,hero2id];
+        var friendship=[friendshipId,hero1id,hero2id,friends];
         
         $.ajax({
             url:"http://localhost:8080/rest/friendship",

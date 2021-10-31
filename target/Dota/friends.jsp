@@ -28,6 +28,10 @@
                           </button>
                     </div>
                     <div class="modal-body">
+
+                        <input type="checkbox" id="antifriends" name="antifriends">
+                        <label for="antifriends">Антидрузья</label>
+
                          <p>Герой 1</p>
 
                         <select id="selectHero1" name="createHero1">
@@ -62,6 +66,10 @@
                           </button>
                     </div>
                     <div class="modal-body">
+
+                        <input type="checkbox" id="antifriends2" name="antifriends">
+                        <label for="antifriends">Антидрузья</label>
+
                          <p>Герой 1</p>
 
                         <select id="editHero1" name="editHero1">
@@ -153,7 +161,7 @@
               </thead>
               <c:forEach items="${friendships}" var="friendship">
                 <jsp:useBean id="friendship" type="kim.nikita.model.Friendship"/>
-                <tr>
+                <tr class="${friendship.friends ? 'table-success':'table-danger'}">
                     
                     <td><c:out value="${friendship.hero1.name}"/></td>
                     <td><c:out value="${friendship.hero2.name}"/></td>

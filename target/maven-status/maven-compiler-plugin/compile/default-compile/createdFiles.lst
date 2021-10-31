@@ -1,3 +1,2 @@
-kim\nikita\model\JsonClassWithNameAndId.class
 kim\nikita\util\exception\BadNameException.class
-kim\nikita\model\JsonClassWithName.class
+kim\nikita\model\JsonClass.class

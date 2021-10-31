@@ -44,7 +44,7 @@ public class HeroServiceTest {
     @Test
     public void testCreateFriendshipWithTheSameHeroes() {
         log.info("Testing create friendship (1,1)");
-        assertThrows(SameHeroesException.class, () -> service.createFriendship(1,1));
+        assertThrows(SameHeroesException.class, () -> service.createFriendship(1,1,true));
     }
     
     

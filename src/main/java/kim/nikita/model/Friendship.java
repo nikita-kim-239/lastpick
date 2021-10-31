@@ -20,7 +20,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="friendship")
-@NamedQuery(name="GET_ALL_FRIENDS",query="select f from Friendship f join f.hero1 h1 join f.hero2 h2 where h1.id=:f.hero1_id and h2.id=:f.hero2_id")
 public class Friendship extends AbstractBaseEntity implements Serializable{
     
 
@@ -33,14 +32,19 @@ public class Friendship extends AbstractBaseEntity implements Serializable{
     private Hero hero2;
 
 
-    private Integer positionInTable;
+    private Boolean friends;
 
-    public Integer getPositionInTable() {
-        return positionInTable;
+    public Friendship(Hero hero1, Hero hero2, Boolean friends) {
+        this.hero1 = hero1;
+        this.hero2 = hero2;
+        this.friends = friends;
     }
 
-    public void setPositionInTable(Integer positionInTable) {
-        this.positionInTable = positionInTable;
+    public Friendship(Integer id, Hero hero1, Hero hero2, Boolean friends) {
+        super(id);
+        this.hero1 = hero1;
+        this.hero2 = hero2;
+        this.friends = friends;
     }
 
     public Friendship(int id, Hero hero1, Hero hero2)
@@ -80,7 +84,12 @@ public class Friendship extends AbstractBaseEntity implements Serializable{
     public void setHero2(Hero hero2) {
         this.hero2 = hero2;
     }
-    
-    
-    
+
+    public Boolean getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Boolean friends) {
+        this.friends = friends;
+    }
 }

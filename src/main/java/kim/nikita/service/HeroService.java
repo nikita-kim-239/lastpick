@@ -112,8 +112,12 @@ public class HeroService {
  
             for (Friendship f:friendship)
                 {
-                    arrayOfFriendship[f.getHero1().getId()][f.getHero2().getId()]=1;
-                    arrayOfFriendship[f.getHero2().getId()][f.getHero1().getId()]=1;
+
+                        arrayOfFriendship[f.getHero1().getId()][f.getHero2().getId()] = (f.getFriends())? 1:-1;
+                        arrayOfFriendship[f.getHero2().getId()][f.getHero1().getId()] = (f.getFriends())? 1:-1;
+
+
+
                 }
            
             for (Victimship v:victimship)
@@ -130,7 +134,7 @@ public class HeroService {
             int countOfFriends=0;        
                     for (Integer i : friends)
                     {
-                        if (arrayOfFriendship[hero.getId()][i]==1) countOfFriends++;
+                            countOfFriends+=arrayOfFriendship[hero.getId()][i];
                     }
             //находим количество врагов среди врагов
             int countOfEnemies=0;
@@ -165,7 +169,7 @@ public class HeroService {
             return victimshipRepository.getAllVictims();
         }
     
-    public void createFriendship(int hero1_id,int hero2_id)
+    public void createFriendship(int hero1_id,int hero2_id,boolean friends)
         {
             
 
@@ -174,12 +178,12 @@ public class HeroService {
             if (friendshipRepository.count(hero1_id, hero2_id)!=0) 
                 throw new AlreadyExistException("В базе данных уже есть такая запись!");
             
-             friendshipRepository.create(hero1_id,hero2_id);
+             friendshipRepository.create(hero1_id,hero2_id,friends);
             
             
         }
     
-    public void updateFriendship(Integer friendshipId,Integer hero1_id,Integer hero2_id)
+    public void updateFriendship(Integer friendshipId,Integer hero1_id,Integer hero2_id,Boolean friends)
         {
             
 
@@ -188,7 +192,7 @@ public class HeroService {
             if (friendshipRepository.count(hero1_id, hero2_id)!=0) 
                 throw new AlreadyExistException("В базе данных уже есть такая запись!");
             
-              friendshipRepository.update(friendshipId,hero1_id,hero2_id);
+              friendshipRepository.update(friendshipId,hero1_id,hero2_id,friends);
              
         }
     

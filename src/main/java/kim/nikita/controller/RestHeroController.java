@@ -11,7 +11,6 @@ import java.io.IOException;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,9 +52,9 @@ public class RestHeroController {
             ObjectMapper mapper = new ObjectMapper();
             Hero hero=new Hero();
             response.setCharacterEncoding("UTF-8");
-            JsonClassWithName jsonClassWithName=new JsonClassWithName();
+            JsonClass jsonClass=new JsonClass();
             try {
-                 jsonClassWithName = mapper.readValue(jsonHero, JsonClassWithName.class);
+                 jsonClass = mapper.readValue(jsonHero, JsonClass.class);
             }
             catch(JsonProcessingException e)
                 {
@@ -65,7 +64,7 @@ public class RestHeroController {
                     response.flushBuffer();
                 }
 
-            hero.setName(jsonClassWithName.name);
+            hero.setName(jsonClass.name);
             log.info("create hero with name "+hero.getName());
             try {
                 heroService.createHero(hero);
@@ -92,9 +91,9 @@ public class RestHeroController {
         ObjectMapper mapper = new ObjectMapper();
         Hero hero=new Hero();
         response.setCharacterEncoding("UTF-8");
-        JsonClassWithNameAndId jsonClassWithNameAndId=new JsonClassWithNameAndId();
+        JsonClass jsonClass=new JsonClass();
         try {
-            jsonClassWithNameAndId = mapper.readValue(jsonHero, JsonClassWithNameAndId.class);
+            jsonClass = mapper.readValue(jsonHero, JsonClass.class);
         }
         catch(JsonProcessingException e)
         {
@@ -105,8 +104,8 @@ public class RestHeroController {
         }
 
 
-        hero.setId(jsonClassWithNameAndId.id);
-        hero.setName(jsonClassWithNameAndId.name);
+        hero.setId(jsonClass.id);
+        hero.setName(jsonClass.name);
         try {
             heroService.updateHero(hero);
         }
@@ -132,11 +131,11 @@ public class RestHeroController {
     public List<Hero> deleteHero(@RequestBody String json,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
             response.setCharacterEncoding("UTF-8");
-            JsonClassWithId jsonClassWithId=null;
+            JsonClass jsonClass=null;
 
             ObjectMapper objectMapper=new ObjectMapper();
             try{
-                jsonClassWithId=objectMapper.readValue(json,JsonClassWithId.class);
+                jsonClass=objectMapper.readValue(json,JsonClass.class);
 
             }
             catch(JsonProcessingException e)
@@ -144,7 +143,7 @@ public class RestHeroController {
                     e.printStackTrace();
                 }
             try {
-                heroService.deleteHero(jsonClassWithId.id);
+                heroService.deleteHero(jsonClass.id);
             }
             catch(HeroNotFoundException e)
             {
@@ -222,13 +221,13 @@ public class RestHeroController {
             ObjectMapper mapper = new ObjectMapper();
 
 
-            JsonClassWithId [] arrayOfHeroes=null;
+            JsonClass [] arrayOfHeroes=null;
             response.setCharacterEncoding("UTF-8");
 
             try{
-                arrayOfHeroes = mapper.readValue(heroes,JsonClassWithId[].class);
+                arrayOfHeroes = mapper.readValue(heroes,JsonClass[].class);
 
-                heroService.createFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
+                heroService.createFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id,arrayOfHeroes[2].friends);
 
 
             }
@@ -253,16 +252,16 @@ public class RestHeroController {
              
             
             ObjectMapper mapper = new ObjectMapper();
-            JsonClassWithId [] arrayOfHeroes=null;
+            JsonClass [] arrayOfHeroes=null;
             
             response.setCharacterEncoding("UTF-8");
             
 
             try{
-            arrayOfHeroes = mapper.readValue(friendship,JsonClassWithId[].class);
+            arrayOfHeroes = mapper.readValue(friendship,JsonClass[].class);
              
             
-            heroService.updateFriendship(arrayOfHeroes[0].id,arrayOfHeroes[1].id, arrayOfHeroes[2].id);
+            heroService.updateFriendship(arrayOfHeroes[0].id,arrayOfHeroes[1].id, arrayOfHeroes[2].id,arrayOfHeroes[3].friends);
             }
             catch(JsonProcessingException e)
             {
@@ -296,11 +295,11 @@ public class RestHeroController {
              
             
             ObjectMapper mapper = new ObjectMapper();
-            JsonClassWithId  json=null;
+            JsonClass  json=null;
             response.setCharacterEncoding("UTF-8");
 
             try{
-           json = mapper.readValue(friendship,JsonClassWithId.class);
+           json = mapper.readValue(friendship,JsonClass.class);
             heroService.deleteFriendship(json.id);
             
             
@@ -330,11 +329,11 @@ public class RestHeroController {
              
             
             ObjectMapper mapper = new ObjectMapper();
-           JsonClassWithId [] arrayOfHeroes=null;
+           JsonClass [] arrayOfHeroes=null;
 
            response.setCharacterEncoding("UTF-8");
             try{
-             arrayOfHeroes = mapper.readValue(heroes,JsonClassWithId[].class);
+             arrayOfHeroes = mapper.readValue(heroes,JsonClass[].class);
              heroService.createVictimship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
             
             
@@ -382,12 +381,12 @@ public class RestHeroController {
              
             
             ObjectMapper mapper = new ObjectMapper();
-            JsonClassWithId [] arrayOfHeroes=null;
+            JsonClass [] arrayOfHeroes=null;
             response.setCharacterEncoding("UTF-8");
 
            
             try{
-            arrayOfHeroes = mapper.readValue(victimship,JsonClassWithId[].class);
+            arrayOfHeroes = mapper.readValue(victimship,JsonClass[].class);
             heroService.updateVictimship(arrayOfHeroes[0].id,arrayOfHeroes[1].id, arrayOfHeroes[2].id);
             
             
@@ -424,11 +423,11 @@ public class RestHeroController {
              
             
             ObjectMapper mapper = new ObjectMapper();
-            JsonClassWithId  json=null;
+            JsonClass  json=null;
             response.setCharacterEncoding("UTF-8");
             try{
 
-            json = mapper.readValue(victimship,JsonClassWithId.class);
+            json = mapper.readValue(victimship,JsonClass.class);
             heroService.deleteVictimship(json.id);
             
             

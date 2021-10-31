@@ -309,4 +309,5 @@ insert into friendship (hero1_id,hero2_id,friends) values (98,21,true);
 insert into friendship (hero1_id,hero2_id,friends) values (98,70,true);
 insert into friendship (hero1_id,hero2_id,friends) values (119,58,true);
 
-
+insert into friendship (hero1_id, hero2_id, friends) values (86,103,false);
+insert into friendship (hero1_id, hero2_id, friends) values (94,59,false);
