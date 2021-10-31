@@ -1,6 +1,7 @@
 DELETE FROM victimship;
 DELETE FROM friendship;
 DELETE FROM heroes;
+DELETE FROM users;
 ALTER SEQUENCE global_seq RESTART WITH 1;
 
 insert into heroes (name) values ('Abaddon');
@@ -331,3 +332,6 @@ insert into victimship (victim_id,predator_id) values (27,74);
 insert into victimship (victim_id,predator_id) values (79,4);
 
 insert into victimship (victim_id,predator_id) values (60,94);
+
+
+insert into users (username,password) values ('user','password');

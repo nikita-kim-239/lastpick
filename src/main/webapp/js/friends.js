@@ -17,7 +17,7 @@ $(document).ready(function(){
         
         var hero1id={id:$("#selectHero1").val()};
         var hero2id={id:$("#selectHero2").val()};
-        var friends=!$("#antifriends").val();
+        var friends=$("#antifriends").val();
         var heroes=[hero1id,hero2id,{friends:friends}];
         
         $.ajax({
@@ -168,7 +168,7 @@ function friendshipUpdate(i)
         var friendshipId={id:Number(index)};
         var hero1id={id:$("#editHero1").val()};
         var hero2id={id:$("#editHero2").val()};
-        var friends={friends:!$("#antifriends2").val()};
+        var friends={friends:$("#antifriends2").val()};
      
 
      

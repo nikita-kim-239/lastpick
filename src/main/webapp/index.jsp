@@ -30,7 +30,7 @@
                     
                     <form class="form-inline my-2 row" id="login_form" action="spring_security_check" method="post">
                                 <div class="col-md-4">
-                                <input class="form-control mr-1" type="text" placeholder="Email" name="username">
+                                <input class="form-control mr-1" type="text" placeholder="Login" name="login">
                                 </div>
                                 <div class="col-md-4">
                                 <input class="form-control mr-1" type="password" placeholder="Password" name="password">
@@ -163,5 +163,12 @@
           
    </div>
     <div class="row" id="output"></div>
+    <br/>
+      <c:if test="${param.error}">
+          <div class="error">${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</div>
+      </c:if>
+      <c:if test="${not empty param.message}">
+          <div class="message">"${param.message}"</div>
+      </c:if>
 </body>
 </html>
