@@ -151,11 +151,12 @@ function createTable() {
                var divOfDesirableHeroes = document.createElement('div');
                divOfDesirableHeroes.setAttribute('class','col-md-6');
                var tableOfDesirableHeroes = document.createElement('table');
-               tableOfDesirableHeroes.setAttribute('class','table');
-               tableOfDesirableHeroes.setAttribute('style','background-color: green'); 
+              tableOfDesirableHeroes.setAttribute('class','table');
+
                 for (var i=0;i<desirableHeroes.length;i++)
                     {
                         var row=tableOfDesirableHeroes.insertRow(i);
+                        row.setAttribute('class','bg-success');
                         var cellName = row.insertCell(0);
                         var textName = document.createTextNode(desirableHeroes[i].name);
                         cellName.appendChild(textName);
@@ -176,11 +177,12 @@ function createTable() {
             var divOfUndesirableHeroes = document.createElement('div');
                divOfUndesirableHeroes.setAttribute('class','col-md-6');
             var tableOfUndesirableHeroes = document.createElement('table');
-               tableOfUndesirableHeroes.setAttribute('class','table');
-                tableOfUndesirableHeroes.setAttribute('style','background-color: red');
+              tableOfUndesirableHeroes.setAttribute('class','table');
+
                 for (var i=0;i<undesirableHeroes.length;i++)
                     {
                         var row=tableOfUndesirableHeroes.insertRow(i);
+                        row.setAttribute('class','bg-danger');
                         var cellName = row.insertCell(0);
                         var textName = document.createTextNode(undesirableHeroes[i].name);
                         cellName.appendChild(textName);
