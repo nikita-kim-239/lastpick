@@ -149,8 +149,8 @@
                 <tr>
 
 
-                    <th>Контрпик</th>
                     <th>Герой</th>
+                    <th>Контрпик</th>
                     <th>Редактировать</th>
                     <th>Удалить</th>
 
@@ -159,8 +159,8 @@
                 <jsp:useBean id="victimship" type="kim.nikita.model.Victimship"/>
                 <tr>
                     
-                    <td><c:out value="${victimship.predator.name}"/></td>
                     <td><c:out value="${victimship.victim.name}"/></td>
+                    <td><c:out value="${victimship.predator.name}"/></td>
                     <td><button onclick="victimshipUpdate(${victimship.id})" class="btn btn-warning">Редактировать</button></td>
                     <td><button onclick="victimshipDelete(${victimship.id})" class="btn btn-danger">Удалить</button></td>               
                 </tr>
