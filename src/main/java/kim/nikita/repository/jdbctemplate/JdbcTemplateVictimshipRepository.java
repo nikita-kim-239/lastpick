@@ -28,7 +28,7 @@ public class JdbcTemplateVictimshipRepository implements VictimshipRepository{
     
     
     
-    private static final String SELECT_ALL_QUERY = "select V.id,V.predator_id,V.victim_id,H1.name as victim_name,H2.name as predator_name from victimship as V join heroes as H1 on H1.id=V.victim_id join heroes as H2 on H2.id=V.predator_id order by victim_name,predator_name";
+    private static final String SELECT_ALL_QUERY = "select V.id,V.predator_id,V.victim_id,H1.name as victim_name,H2.name as predator_name from victimship as V join heroes as H1 on H1.id=V.victim_id join heroes as H2 on H2.id=V.predator_id order by predator_name,victim_name";
       private static final String INSERT_ENEMIES_QUERY = "insert into victimship (predator_id,victim_id) values (?,?)";
       private static final String SELECT_COUNT = "select count(*) from victimship where predator_id=? and victim_id=?";
     private static final String UPDATE_ENEMIES_QUERY = "update  victimship set predator_id=?,victim_id=? where id=?";

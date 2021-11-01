@@ -39,14 +39,14 @@ public class RestHeroController {
    }
     
    @GetMapping("/heroes")
-   
    public List<Hero> getAllHeroes()
     {
         log.info("Getting all Heroes");
         return heroService.getAllHeroes();
     }
 
-    @PostMapping("/heroes")
+
+    @PostMapping("/admin/heroes")
     public List<Hero> createHero(@RequestBody String jsonHero,HttpServletRequest request, HttpServletResponse response) throws IOException{
 
             ObjectMapper mapper = new ObjectMapper();
@@ -86,7 +86,7 @@ public class RestHeroController {
 
         }
 
-    @PatchMapping("/heroes")
+    @PatchMapping("/admin/heroes")
     public List<Hero> updateHero(@RequestBody String jsonHero,HttpServletRequest request, HttpServletResponse response) throws IOException{
         ObjectMapper mapper = new ObjectMapper();
         Hero hero=new Hero();
@@ -127,7 +127,7 @@ public class RestHeroController {
         return getAllHeroes();
     }
 
-    @DeleteMapping("/heroes")
+    @DeleteMapping("/admin/heroes")
     public List<Hero> deleteHero(@RequestBody String json,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
             response.setCharacterEncoding("UTF-8");
@@ -157,29 +157,53 @@ public class RestHeroController {
    
    
    @GetMapping("/results")
-   public List<Result> getResults(@RequestParam(name="enemy1") Integer enemy1,
-                                @RequestParam(name="enemy2") Integer enemy2,
-                                @RequestParam(name="enemy3") Integer enemy3,
-                                @RequestParam(name="enemy4") Integer enemy4,
-                                @RequestParam(name="enemy5") Integer enemy5,
-                                @RequestParam(name="ally1") Integer ally1,
-                                @RequestParam(name="ally2") Integer ally2,
-                                @RequestParam(name="ally3") Integer ally3,
-                                @RequestParam(name="ally4") Integer ally4,
-                                HttpServletRequest request, HttpServletResponse response
+   public List<Result> getResults(@RequestParam(value="enemy1", required=true) String enemy1,
+                                  @RequestParam(value="enemy2", required=true) String enemy2,
+                                  @RequestParam(value="enemy3", required=true) String enemy3,
+                                  @RequestParam(value="enemy4", required=true) String enemy4,
+                                  @RequestParam(value="enemy5", required=true) String enemy5,
+                                  @RequestParam(value="ally1", required=true) String ally1,
+                                  @RequestParam(value="ally2", required=true) String ally2,
+                                  @RequestParam(value="ally3", required=true) String ally3,
+                                  @RequestParam(value="ally4", required=true) String ally4,
+                                  HttpServletRequest request, HttpServletResponse response
                                 )    throws IOException
     {
         List<Integer> friends=new ArrayList<>();
         List<Integer> enemies=new ArrayList<>();
-        if (ally1!=0) friends.add(ally1);
-        if (ally2!=0) friends.add(ally2);
-        if (ally3!=0) friends.add(ally3);
-        if (ally4!=0) friends.add(ally4);
-        if (enemy1!=0) enemies.add(enemy1);
-        if (enemy2!=0) enemies.add(enemy2);
-        if (enemy3!=0) enemies.add(enemy3);
-        if (enemy4!=0) enemies.add(enemy4);
-        if (enemy5!=0) enemies.add(enemy5);
+
+
+            Integer enemy1Id=Integer.parseInt(enemy1);
+            Integer enemy2Id=Integer.parseInt(enemy2);
+            Integer enemy3Id=Integer.parseInt(enemy3);
+            Integer enemy4Id=Integer.parseInt(enemy4);
+            Integer enemy5Id=Integer.parseInt(enemy5);
+            Integer ally1Id=Integer.parseInt(ally1);
+            Integer ally2Id=Integer.parseInt(ally2);
+            Integer ally3Id=Integer.parseInt(ally3);
+            Integer ally4Id=Integer.parseInt(ally4);
+
+
+
+
+
+
+            if (enemy1Id!=0) enemies.add(enemy1Id);
+            if (enemy2Id!=0) enemies.add(enemy2Id);
+            if (enemy3Id!=0) enemies.add(enemy3Id);
+            if (enemy4Id!=0) enemies.add(enemy4Id);
+            if (enemy5Id!=0) enemies.add(enemy5Id);
+            if (ally1Id!=0) friends.add(ally1Id);
+            if (ally2Id!=0) friends.add(ally2Id);
+            if (ally3Id!=0) friends.add(ally3Id);
+            if (ally4Id!=0) friends.add(ally4Id);
+
+
+
+
+
+
+
 
         List<Result> results=null;
         
@@ -205,15 +229,14 @@ public class RestHeroController {
    
    
    
-   @GetMapping("/friendship")
+   @GetMapping("/admin/friendship")
    public List<Friendship> getAllFriends()
     {
         return heroService.getAllFriends();
     }
    
     
-   @PostMapping("/friendship")
-   
+   @PostMapping("/admin/friendship")
    public List <Friendship>  createFriendship(@RequestBody String heroes,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
 
@@ -246,7 +269,7 @@ public class RestHeroController {
         }
    
    
-   @PatchMapping("/friendship")
+   @PatchMapping("/admin/friendship")
    public List<Friendship>  updateFriendship(@RequestBody String friendship,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
              
@@ -289,7 +312,7 @@ public class RestHeroController {
            return  getAllFriends();
         }
    
-   @DeleteMapping("/friendship")
+   @DeleteMapping("/admin/friendship")
    public List<Friendship>  deleteFriendship(@RequestBody String friendship,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
              
@@ -314,7 +337,7 @@ public class RestHeroController {
         }
    
    
-   @GetMapping("/victimship")
+   @GetMapping("/admin/victimship")
    
    public List<Victimship> getAllVictims()
     {
@@ -322,7 +345,7 @@ public class RestHeroController {
     }
    
     
-   @PostMapping("/victimship")
+   @PostMapping("/admin/victimship")
    
    public List<Victimship> createVictimship(@RequestBody String heroes,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
@@ -374,7 +397,7 @@ public class RestHeroController {
             return getAllVictims();
         }
    
-   @PatchMapping("/victimship")
+   @PatchMapping("/admin/victimship")
   
    public List<Victimship>  updateVictimship(@RequestBody String victimship,HttpServletRequest request, HttpServletResponse response) throws IOException
         {
@@ -416,7 +439,7 @@ public class RestHeroController {
            return  getAllVictims();
         }
    
-   @DeleteMapping("/victimship")
+   @DeleteMapping("/admin/victimship")
    
    public List<Victimship>  deleteVictimship(@RequestBody String victimship,HttpServletRequest request, HttpServletResponse response) throws IOException
         {

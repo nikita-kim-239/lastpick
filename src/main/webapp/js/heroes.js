@@ -1,3 +1,6 @@
+const adminUrl="http://localhost:8080/rest/admin/heroes";
+
+
 $(document).ready(function() {
     $("#myBtn").click(function () {
         $("#modal").modal('show');
@@ -10,7 +13,7 @@ $(document).ready(function() {
         const object={};
         object.name=heroToBeCreatedName;
         $.ajax({
-            url: "http://localhost:8080/rest/heroes",
+            url: adminUrl,
             type: "POST",
             data: JSON.stringify(object),
             contentType: 'application/json',
@@ -52,7 +55,7 @@ function heroUpdate (id)
         object.name=heroToBeUpdatedName;
         object.id=Number(id);;
         $.ajax({
-            url: "http://localhost:8080/rest/heroes",
+            url: adminUrl,
             type: "PATCH",
             data: JSON.stringify(object),
             contentType: 'application/json',
@@ -83,7 +86,7 @@ function heroDelete (id)
 
         var object={id:Number(id)};
         $.ajax({
-            url:"http://localhost:8080/rest/heroes",
+            url:adminUrl,
             type:"DELETE",
             data:JSON.stringify(object),
             contentType:'application/json',

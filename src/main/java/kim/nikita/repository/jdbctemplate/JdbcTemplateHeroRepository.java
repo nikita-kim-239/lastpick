@@ -32,7 +32,7 @@ public class JdbcTemplateHeroRepository implements HeroRepository{
         
     private final JdbcTemplate jdbcTemplate;
 
-    
+
     
     private final String SELECT_ALL_HEROES="SELECT * FROM heroes ORDER BY name";
     
@@ -62,6 +62,8 @@ public class JdbcTemplateHeroRepository implements HeroRepository{
     public List<Hero> getAllHeroes() {
         return jdbcTemplate.query(SELECT_ALL_HEROES,new HeroMapper() );
     }
+
+
 
     @Override
     public boolean isHeroExist(int heroId) {

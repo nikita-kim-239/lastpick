@@ -1,3 +1,7 @@
+const ajaxUrl="http://localhost:8080/rest/admin/victimship";
+const heroesUrl="http://localhost:8080/rest/heroes";
+
+
 $(document).ready(function(){
     $("#myBtn").click(function(){
         $("#modal").modal('show');
@@ -20,7 +24,7 @@ $(document).ready(function(){
         var heroes=[predatorid,victimid];
         
         $.ajax({
-            url:"http://localhost:8080/rest/victimship",
+            url:ajaxUrl,
             type:"POST",
             data:JSON.stringify(heroes),
             contentType:'application/json',
@@ -54,7 +58,7 @@ $(document).ready(function(){
 function initializePage()
 {
     addVictimHeroSelect();
-    createVictimTable();
+
     
 }
 
@@ -109,7 +113,7 @@ function addVictimHeroSelect(){
         var editVictim=document.getElementById("editVictim");
     
         var xhr = new XMLHttpRequest();
-        var url = "http://localhost:8080/rest/heroes";
+        var url = heroesUrl;
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function () {
@@ -121,16 +125,16 @@ function addVictimHeroSelect(){
                 var hero=heroes[i].name;
                 var el1=document.createElement("option");
                 el1.text=hero;
-                el1.value=i+1;
+                el1.value=heroes[i].id;
                 var el2=document.createElement("option");
                 el2.text=hero;
-                el2.value=i+1;  
+                el2.value=heroes[i].id;
                 var el3=document.createElement("option");
                 el3.text=hero;
-                el3.value=i+1;
+                el3.value=heroes[i].id;
                 var el4=document.createElement("option");
                 el4.text=hero;
-                el4.value=i+1;  
+                el4.value=heroes[i].id;
                 selectPredator.append(el1);
                 selectVictim.append(el2);
                 editPredator.append(el3);
@@ -175,7 +179,7 @@ function victimshipUpdate(i)
         var victimship=[victimshipId,hero1id,hero2id];
         
         $.ajax({
-            url:"http://localhost:8080/rest/victimship",
+            url:ajaxUrl,
             type:"PATCH",
             data:JSON.stringify(victimship),
             contentType:'application/json',
@@ -220,7 +224,7 @@ function victimshipDelete(i)
     
         var victimshipId={id:Number(index)};
         $.ajax({
-            url:"http://localhost:8080/rest/victimship",
+            url:ajaxUrl,
             type:"DELETE",
             data:JSON.stringify(victimshipId),
             contentType:'application/json',

@@ -16,6 +16,7 @@ public interface HeroRepository {
     
     
     List <Hero> getAllHeroes();
+
     
     boolean isHeroExist (int heroId);
 

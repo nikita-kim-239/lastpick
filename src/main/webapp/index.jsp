@@ -168,7 +168,7 @@
           <div class="error">${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</div>
       </c:if>
       <c:if test="${not empty param.message}">
-          <div class="message">"${param.message}"</div>
+          <div class="message">${param.message}</div>
       </c:if>
 </body>
 </html>

@@ -1,3 +1,4 @@
+const simpleUrl="http://localhost:8080/rest/";
 
 
 
@@ -17,8 +18,8 @@ function addIndexHeroSelect(){
         
        
         var xhr = new XMLHttpRequest();
-        var url = "http://localhost:8080/rest/heroes";
-        xhr.open("GET", url, true);
+
+        xhr.open("GET", simpleUrl+"heroes", true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
@@ -31,31 +32,31 @@ function addIndexHeroSelect(){
             
                 var el1=document.createElement("option");
                 el1.text=hero;
-                el1.value=i+1;
+                el1.value=heroes[i].id;
                 var el2=document.createElement("option");
                 el2.text=hero;
-                el2.value=i+1;
+                el2.value=heroes[i].id;
                 var el3=document.createElement("option");
                 el3.text=hero;
-                el3.value=i+1;
+                el3.value=heroes[i].id;
                 var el4=document.createElement("option");
                 el4.text=hero;
-                el4.value=i+1;
+                el4.value=heroes[i].id;
                 var el5=document.createElement("option");
                 el5.text=hero;
-                el5.value=i+1;
+                el5.value=heroes[i].id;
                 var el6=document.createElement("option");
                 el6.text=hero;
-                el6.value=i+1;
+                el6.value=heroes[i].id;
                 var el7=document.createElement("option");
                 el7.text=hero;
-                el7.value=i+1;
+                el7.value=heroes[i].id;
                 var el8=document.createElement("option");
                 el8.text=hero;
-                el8.value=i+1;
+                el8.value=heroes[i].id;
                 var el9=document.createElement("option");
                 el9.text=hero;
-                el9.value=i+1;
+                el9.value=heroes[i].id;
                 selectEnemy1.append(el1);
                 selectEnemy2.append(el2);
                 selectEnemy3.append(el3);
@@ -106,33 +107,34 @@ function createTable() {
         var ally4Id=selectAlly4.value;
 
         
-        var url = "http://localhost:8080/rest/results?";
-        url+="enemy1="+enemy1Id+"&";
-        url+="enemy2="+enemy2Id+"&";
-        url+="enemy3="+enemy3Id+"&";
-        url+="enemy4="+enemy4Id+"&";
-        url+="enemy5="+enemy5Id+"&";
-        url+="ally1="+ally1Id+"&";
-        url+="ally2="+ally2Id+"&";
-        url+="ally3="+ally3Id+"&";
-        url+="ally4="+ally4Id;
-         
+
+    var url = simpleUrl+"results?";
+    url+="enemy1="+enemy1Id+"&";
+    url+="enemy2="+enemy2Id+"&";
+    url+="enemy3="+enemy3Id+"&";
+    url+="enemy4="+enemy4Id+"&";
+    url+="enemy5="+enemy5Id+"&";
+    url+="ally1="+ally1Id+"&";
+    url+="ally2="+ally2Id+"&";
+    url+="ally3="+ally3Id+"&";
+    url+="ally4="+ally4Id;
          
           $.ajax({
             url:url,
             type:"GET",
-            dataType: 'json',
-            headers: { 
-            'Accept': 'application/json',
-            },
-            contentType: "application/json",
+
+              contentType: "application/json",
+              dataType:"json",
+
+
+
             success: function( ){
               console.log('Success');
               
             }
         }).done(function(data){
          
-              $("#error-text").text="";
+
                var result=data;
                
                var desirableHeroes=result.filter(hero=>hero.score>0);
@@ -194,13 +196,12 @@ function createTable() {
             divOfUndesirableHeroes.appendChild(tableOfUndesirableHeroes);  
             output.appendChild(divOfUndesirableHeroes); 
             
-        }).fail(function(jqXHR, textStatus, errorThrown){
+        }).fail(function(jqXHR){
             
             
             
             alert(jqXHR.responseText);
-            
-            
+
         });
         
         

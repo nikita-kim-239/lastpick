@@ -70,7 +70,8 @@ public class HeroService {
         {
             return heroRepository.getAllHeroes();
         }
-    
+
+
     
     public List <Result> getResult(List<Integer> friends,List<Integer> enemies)
         {
@@ -104,11 +105,20 @@ public class HeroService {
             List <Friendship> friendship=friendshipRepository.getAllFriends();
             List <Victimship> victimship=victimshipRepository.getAllVictims();
             List <Hero> heroes=heroRepository.getAllHeroes();
+
+            Integer  maxHeroId=0;
+
+            for (Hero hero :heroes)
+                {
+                    if (hero.getId()>maxHeroId)
+                        maxHeroId=hero.getId();
+                }
+
+            maxHeroId++;
+
+            int [][] arrayOfFriendship=new int[maxHeroId][maxHeroId];
             
-            int length=heroes.size()+1;
-            int [][] arrayOfFriendship=new int[length][length];
-            
-            int [][] arrayOfVictimship=new int[length][length];
+            int [][] arrayOfVictimship=new int[maxHeroId][maxHeroId];
  
             for (Friendship f:friendship)
                 {
@@ -125,7 +135,7 @@ public class HeroService {
                     arrayOfVictimship[v.getPredator().getId()][v.getVictim().getId()]=1;
                     
                 }
-            
+            //фильтруем список героев, чтобы в него не входили исходные герои
             List <Hero> filteredHeroes=heroes.stream().filter(h->(!friends.contains(h.getId()))&&(!enemies.contains(h.getId()))).collect(Collectors.toList());
             
             for (Hero hero:filteredHeroes)

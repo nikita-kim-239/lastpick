@@ -1,7 +1,8 @@
 
 
 
-let ajaxUrl="http://localhost:8080/rest/friendship";
+const ajaxUrl="http://localhost:8080/rest/admin/friendship";
+const heroesUrl="http://localhost:8080/rest/heroes";
 $(document).ready(function(){
     
     
@@ -17,7 +18,8 @@ $(document).ready(function(){
         
         var hero1id={id:$("#selectHero1").val()};
         var hero2id={id:$("#selectHero2").val()};
-        var friends=$("#antifriends").val();
+        var friends=$("#antifriends").is(":checked");
+        friends=!friends;
         var heroes=[hero1id,hero2id,{friends:friends}];
         
         $.ajax({
@@ -111,8 +113,8 @@ function addFriendsHeroSelect(){
         var editHero2=document.getElementById("editHero2");
     
         var xhr = new XMLHttpRequest();
-        var url = "http://localhost:8080/rest/heroes";
-        xhr.open("GET", url, true);
+
+        xhr.open("GET", heroesUrl, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
@@ -123,16 +125,16 @@ function addFriendsHeroSelect(){
                 var hero=heroes[i].name;
                 var el1=document.createElement("option");
                 el1.text=hero;
-                el1.value=i+1;
+                el1.value=heroes[i].id;
                 var el2=document.createElement("option");
                 el2.text=hero;
-                el2.value=i+1;              
+                el2.value=heroes[i].id;
                 var el3=document.createElement("option");
                 el3.text=hero;
-                el3.value=i+1;
+                el3.value=heroes[i].id;
                 var el4=document.createElement("option");
                 el4.text=hero;
-                el4.value=i+1;
+                el4.value=heroes[i].id;
                 
                 selectHero1.append(el1);
                 selectHero2.append(el2);
@@ -168,16 +170,18 @@ function friendshipUpdate(i)
         var friendshipId={id:Number(index)};
         var hero1id={id:$("#editHero1").val()};
         var hero2id={id:$("#editHero2").val()};
-        var friends={friends:$("#antifriends2").val()};
+        var friends=$("#antifriends2").is(":checked");
+        friends=!friends;
+
      
 
      
        
         
-        var friendship=[friendshipId,hero1id,hero2id,friends];
+        var friendship=[friendshipId,hero1id,hero2id, {friends:friends}];
         
         $.ajax({
-            url:"http://localhost:8080/rest/friendship",
+            url:ajaxUrl,
             type:"PATCH",
             data:JSON.stringify(friendship),
             contentType:'application/json',
@@ -215,7 +219,7 @@ function friendshipDelete(i)
     
         var friendshipId={id:Number(index)};
         $.ajax({
-            url:"http://localhost:8080/rest/friendship",
+            url:ajaxUrl,
             type:"DELETE",
             data:JSON.stringify(friendshipId),
             contentType:'application/json',
