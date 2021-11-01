@@ -10,17 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class RootControllerTest extends AbstractControllerTest{
 
-    @Test
-    public void getHeroes() throws Exception {
 
-        perform(get("/heroes")
-                .with(userAuth(new User("user","password"))))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(view().name("heroes"))
-                .andExpect(forwardedUrl("/heroes.jsp"));
-
-    }
 
     @Test
     public void failedAuth() throws Exception{

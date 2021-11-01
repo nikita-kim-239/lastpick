@@ -334,4 +334,4 @@ insert into victimship (victim_id,predator_id) values (79,4);
 insert into victimship (victim_id,predator_id) values (60,94);
 
 
-insert into users (username,password) values ('user','password');
+insert into users (username,password) values ('nikita','{bcrypt}$2a$10$TZz7S3VRKZ1r9CA/eauSLeBtdom8Dncjx4qXp2N.v3JQkWxL0cO.6');

@@ -16,9 +16,9 @@
         <intercept-url pattern="/rest/admin/**" access="isAuthenticated()"/>
         <csrf disabled="true"/>
     </http>
-    
 
-    <beans:bean name="noopEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder"/>
+
+    <beans:bean class="org.springframework.security.crypto.factory.PasswordEncoderFactories" id="passwordEncoder" factory-method="createDelegatingPasswordEncoder"/>
     
     <http>
         <intercept-url pattern="/" access="permitAll()"/>
@@ -37,7 +37,7 @@
     
     <authentication-manager>
         <authentication-provider user-service-ref="userService">
-            <password-encoder ref="noopEncoder"/>
+            <password-encoder ref="passwordEncoder"/>
         </authentication-provider>
     </authentication-manager>
 </beans:beans> 
