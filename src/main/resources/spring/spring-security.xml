@@ -12,8 +12,8 @@
         <http-basic/>
 
 
-        <intercept-url pattern="/**" access="permitAll()"/>
-
+        <intercept-url pattern="/rest/**" access="permitAll()"/>
+        <intercept-url pattern="/rest/admin/**" access="isAuthenticated()"/>
         <csrf disabled="true"/>
     </http>
     
