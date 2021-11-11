@@ -1,5 +1,5 @@
-const ajaxUrl="http://lastpick.herokuapp.com/rest/admin/victimship";
-const heroesUrl="http://lastpick.herokuapp.com/rest/heroes";
+const ajaxUrl="https://lastpick.herokuapp.com/rest/admin/victimship";
+const heroesUrl="https://lastpick.herokuapp.com/rest/heroes";
 
 
 $(document).ready(function(){

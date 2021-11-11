@@ -1,4 +1,4 @@
-const simpleUrl="http://lastpick.herokuapp.com/rest/";
+const simpleUrl="https://lastpick.herokuapp.com/rest/";
 
 
 
