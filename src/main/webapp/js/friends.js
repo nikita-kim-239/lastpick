@@ -1,8 +1,8 @@
 
 
 
-const ajaxUrl="http://localhost:8080/rest/admin/friendship";
-const heroesUrl="http://localhost:8080/heroes";
+const ajaxUrl="http://lastpick.herokuapp.com/rest/admin/friendship";
+const heroesUrl="http://lastpick.herokuapp.com/heroes";
 $(document).ready(function(){
     
     

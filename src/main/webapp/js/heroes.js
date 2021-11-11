@@ -1,4 +1,4 @@
-const adminUrl="http://localhost:8080/rest/admin/heroes";
+const adminUrl="http://lastpick.herokuapp.com/rest/admin/heroes";
 
 
 $(document).ready(function() {

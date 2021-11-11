@@ -1,4 +1,4 @@
-const simpleUrl="http://localhost:8080/rest/";
+const simpleUrl="http://lastpick.herokuapp.com/rest/";
 
 
 
