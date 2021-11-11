@@ -14,7 +14,7 @@
 
         <intercept-url pattern="/rest/**" access="permitAll()"/>
         <intercept-url pattern="/rest/admin/**" access="isAuthenticated()"/>
-        <csrf disabled="true"/>
+
     </http>
 
 
@@ -29,7 +29,7 @@
                     authentication-failure-url="/?error=true"
                     login-processing-url="/spring_security_check"/>
         <logout logout-success-url="/"/>
-<!--        <csrf disabled="true"/>-->
+
     </http>
 
 

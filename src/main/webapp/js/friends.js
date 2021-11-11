@@ -2,7 +2,7 @@
 
 
 const ajaxUrl="http://localhost:8080/rest/admin/friendship";
-const heroesUrl="http://localhost:8080/rest/heroes";
+const heroesUrl="http://localhost:8080/heroes";
 $(document).ready(function(){
     
     

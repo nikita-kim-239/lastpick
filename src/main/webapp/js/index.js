@@ -20,6 +20,9 @@ function addIndexHeroSelect(){
         var xhr = new XMLHttpRequest();
 
         xhr.open("GET", simpleUrl+"heroes", true);
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        xhr.setRequestHeader(header, token);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
