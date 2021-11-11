@@ -149,6 +149,7 @@
 
   <build>
     <finalName>Dota</finalName>
+      <defaultGoal>package</defaultGoal>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -171,6 +172,10 @@
         <plugin>
           <artifactId>maven-war-plugin</artifactId>
           <version>3.3.1</version>
+            <configuration>
+                <goal>war:inplace</goal>
+                <outputDirectory>artifacts</outputDirectory>
+            </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
@@ -185,7 +190,35 @@
             <artifactId>maven-jar-plugin</artifactId>
             <version>3.2.0</version>
         </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-dependency-plugin</artifactId>
+              <version>2.5.1</version>
+              <configuration>
+                  <outputDirectory>
+                      ${project.build.directory}/artifacts/
+                  </outputDirectory>
+              </configuration>
+              <executions>
+                  <execution>
+                      <phase>package</phase>
+                      <goals><goal>copy</goal></goals>
+                      <configuration>
+                          <artifactItems>
+                              <artifactItem>
+                                  <groupId>com.heroku</groupId>
+                                  <artifactId>webapp-runner</artifactId>
+                                  <version>9.0.52.0</version>
+                                  <destFileName>webapp-runner-9.0.52.0.jar</destFileName>
+                              </artifactItem>
+                          </artifactItems>
+                          <outputDirectory>artifacts</outputDirectory>
+                      </configuration>
+                  </execution>
+              </executions>
+          </plugin>
       </plugins>
+
     </pluginManagement>
   </build>
 </project>

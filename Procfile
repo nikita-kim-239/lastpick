@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -jar artifacts/webapp-runner-9.0.52.0.jar --port $PORT artifacts/*.war
