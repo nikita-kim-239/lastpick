@@ -119,7 +119,6 @@ function addFriendsHeroSelect(){
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
         xhr.setRequestHeader(header, token);
-        xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader('Accept', 'application/json, text/javascript');
         xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
         xhr.onreadystatechange = function () {
