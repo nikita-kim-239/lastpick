@@ -2,7 +2,7 @@
 
 
 const ajaxUrl="https://lastpick.herokuapp.com/rest/admin/friendship";
-const heroesUrl="https://lastpick.herokuapp.com/heroes";
+const heroesUrl="https://lastpick.herokuapp.com/rest/heroes";
 $(document).ready(function(){
     
     

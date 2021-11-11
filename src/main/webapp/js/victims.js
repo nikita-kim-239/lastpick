@@ -11,16 +11,6 @@ $(document).ready(function(){
         
         var predatorid={id:$("#selectPredator").val()};
         var victimid={id:$("#selectVictim").val()};
-        
-        var hero1=document.getElementById("selectPredator");
-        var hero1children=hero1.childNodes;
-       
-        var predatoridNumber=Number($("#selectPredator").val());
-        var victimidNumber=Number($("#selectVictim").val());
-        var predatorname=hero1children[predatoridNumber+2].text;
-        var victimname=hero1children[victimidNumber+2].text;
-       
-        
         var heroes=[predatorid,victimid];
         
         $.ajax({
@@ -113,13 +103,12 @@ function addVictimHeroSelect(){
         var editVictim=document.getElementById("editVictim");
     
         var xhr = new XMLHttpRequest();
-        var url = heroesUrl;
-        xhr.open("GET", url, true);
+
+        xhr.open("GET", heroesUrl, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
         xhr.setRequestHeader(header, token);
-        xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader('Accept', 'application/json, text/javascript');
         xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
         xhr.onreadystatechange = function () {
