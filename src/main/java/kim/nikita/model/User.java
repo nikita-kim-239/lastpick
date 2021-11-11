@@ -1,8 +1,16 @@
 package kim.nikita.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
+
+
 public class User extends AbstractBaseEntity{
+
+
 
     private String login;
 

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
@@ -14,6 +15,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/index.js"></script>
     <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
 </head>
 
@@ -28,7 +31,7 @@
                 
                 <sec:authorize access="isAnonymous()">
                     
-                    <form class="form-inline my-2 row" id="login_form" action="spring_security_check" method="post">
+                    <form:form class="form-inline my-2 row" id="login_form" action="spring_security_check" method="post">
                                 <div class="col-md-4">
                                 <input class="form-control mr-1" type="text" placeholder="Login" name="login">
                                 </div>
@@ -41,7 +44,7 @@
                                 </button>
                                 </div>
                                 
-                    </form>  
+                    </form:form>
                     
                 </sec:authorize>
                 
@@ -59,9 +62,11 @@
               </div>   
               
              <div class="col-md-3">    
-                <a class="navbar-brand" href="logout">
-                    Выйти
-                </a>
+                <form:form action="logout" method="post">
+                    <button class="btn btn-primary" type="submit">
+                        <span class="fa fa-sign-out">Выйти</span>
+                    </button>
+                </form:form>
               </div> 
                 
             </sec:authorize>  

@@ -18,17 +18,14 @@ import javax.persistence.Table;
  *
  * @author Никита
  */
-@Entity
-@Table(name="friendship")
+
 public class Friendship extends AbstractBaseEntity implements Serializable{
     
 
-      @ManyToOne (fetch=FetchType.LAZY)
-    @JoinColumn (name="hero1_id")
+
     private Hero hero1;
     
-    @ManyToOne (fetch=FetchType.LAZY)
-    @JoinColumn (name="hero2_id")
+
     private Hero hero2;
 
 

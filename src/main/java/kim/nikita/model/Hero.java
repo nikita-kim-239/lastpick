@@ -15,9 +15,7 @@ import javax.persistence.Table;
  * @author Никита
  */
 
-@Entity
-@Table(name="heroes")
-@NamedQuery(name="GET_ALL_HEROES",query="SELECT h FROM Hero h ORDER BY h.name")
+
 public class Hero extends AbstractNamedEntity implements Serializable{
     
     

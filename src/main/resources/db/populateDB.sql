@@ -60,6 +60,7 @@ insert into heroes (name) values ('Lone Druid');
 insert into heroes (name) values ('Luna');
 insert into heroes (name) values ('Lycan');
 insert into heroes (name) values ('Magnus');
+insert into heroes (name) values ('Marci');
 insert into heroes (name) values ('Mars');
 insert into heroes (name) values ('Medusa');
 insert into heroes (name) values ('Meepo');
@@ -311,7 +312,7 @@ insert into friendship (hero1_id,hero2_id,friends) values (98,70,true);
 insert into friendship (hero1_id,hero2_id,friends) values (119,58,true);
 
 
-insert into heroes (name) values ('Marci');
+
 
 insert into victimship (victim_id,predator_id) values (73,31);
 insert into victimship (victim_id,predator_id) values (73,60);
@@ -323,14 +324,9 @@ insert into victimship (victim_id,predator_id) values (73,65);
 insert into victimship (victim_id,predator_id) values (73,54);
 insert into victimship (victim_id,predator_id) values (73,101);
 insert into victimship (victim_id,predator_id) values (73,16);
-
-
 insert into victimship (victim_id,predator_id) values (27,120);
 insert into victimship (victim_id,predator_id) values (27,74);
-
-
 insert into victimship (victim_id,predator_id) values (79,4);
-
 insert into victimship (victim_id,predator_id) values (60,94);
 
 

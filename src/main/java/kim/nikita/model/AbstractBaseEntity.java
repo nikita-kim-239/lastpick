@@ -11,8 +11,6 @@ import org.springframework.data.domain.Persistable;
 import org.springframework.util.Assert;
 
 
-@MappedSuperclass
-@Access(AccessType.FIELD)
 public abstract class AbstractBaseEntity implements Persistable<Integer>{
  
     @Id
