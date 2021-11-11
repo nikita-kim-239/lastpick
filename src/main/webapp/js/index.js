@@ -24,6 +24,8 @@ function addIndexHeroSelect(){
         var header = $("meta[name='_csrf_header']").attr("content");
         xhr.setRequestHeader(header, token);
         xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader('Accept', 'application/json, text/javascript');
+        xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                var heroes = JSON.parse(xhr.responseText);
