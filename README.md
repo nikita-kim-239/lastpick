@@ -21,5 +21,5 @@ Bootstrap
 Есть один пользователь - ADMIN. ADMIN может изменять список героев, связок и контрпиков, обновляя таким образом БД.
 
 Демо на heroku:
-lastpick.herokuapp.com
+https://lastpick.herokuapp.com
 
