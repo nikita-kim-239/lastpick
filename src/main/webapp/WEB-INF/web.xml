@@ -46,7 +46,7 @@
 
     <filter>
         <filter-name>CorsFilter</filter-name>
-        <filter-class>kim.nikita.util.CorsFilter</filter-class>
+        <filter-class>kim.nikita.controller.CorsFilter</filter-class>
     </filter>
 
     <filter-mapping>

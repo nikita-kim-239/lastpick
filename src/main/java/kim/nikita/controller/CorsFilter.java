@@ -1,5 +1,7 @@
-package kim.nikita.util;
+package kim.nikita.controller;
 
+
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -12,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-
+@Component
 public class CorsFilter implements Filter {
 
 
