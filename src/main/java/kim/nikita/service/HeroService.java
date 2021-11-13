@@ -123,8 +123,8 @@ public class HeroService {
             for (Friendship f:friendship)
                 {
 
-                        arrayOfFriendship[f.getHero1().getId()][f.getHero2().getId()] = (f.getFriends())? 1:-1;
-                        arrayOfFriendship[f.getHero2().getId()][f.getHero1().getId()] = (f.getFriends())? 1:-1;
+                        arrayOfFriendship[f.getHero1().getId()][f.getHero2().getId()] = (f.getFriends())? 1:-5;
+                        arrayOfFriendship[f.getHero2().getId()][f.getHero1().getId()] = (f.getFriends())? 1:-5;
 
 
 
