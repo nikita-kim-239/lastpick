@@ -29,7 +29,7 @@
                     authentication-failure-url="/?error=true"
                     login-processing-url="/spring_security_check"/>
         <logout logout-success-url="/"/>
-        <cors />
+
     </http>
 
 
