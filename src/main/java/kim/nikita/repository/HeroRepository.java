@@ -6,23 +6,23 @@
 package kim.nikita.repository;
 
 import java.util.List;
+
 import kim.nikita.model.Hero;
 
 /**
- *
  * @author Никита
  */
 public interface HeroRepository {
-    
-    
-    List <Hero> getAllHeroes();
 
-    
-    boolean isHeroExist (int heroId);
+
+    List<Hero> getAllHeroes();
+
+
+    boolean isHeroExist(int heroId);
 
     boolean isHeroExistWithName(String name);
-    
-    String  getHeroById(int heroId);
+
+    String getHeroById(int heroId);
 
     void deleteHero(int heroId);
 

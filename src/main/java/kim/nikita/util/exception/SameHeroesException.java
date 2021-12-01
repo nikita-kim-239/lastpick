@@ -9,27 +9,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- *
  * @author Никита
  */
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class SameHeroesException extends RuntimeException{
-    
-    public SameHeroesException()
-        {}
-    
-    public SameHeroesException(String message)
-        {
-            super(message);
-        }
-    public SameHeroesException(Throwable cause)
-        {
-            super(cause);
-        }
-    
-    public SameHeroesException(String message,Throwable cause)
-        {
-            super(message,cause);
-        }
-    
+public class SameHeroesException extends RuntimeException {
+
+    public SameHeroesException() {
+    }
+
+    public SameHeroesException(String message) {
+        super(message);
+    }
+
+    public SameHeroesException(Throwable cause) {
+        super(cause);
+    }
+
+    public SameHeroesException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }

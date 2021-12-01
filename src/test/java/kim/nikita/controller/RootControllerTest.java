@@ -8,20 +8,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class RootControllerTest extends AbstractControllerTest{
-
+public class RootControllerTest extends AbstractControllerTest {
 
 
     @Test
-    public void failedAuth() throws Exception{
+    public void failedAuth() throws Exception {
         perform(get("/heroes"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("http://localhost/"));
     }
-
-
-
 
 
 }

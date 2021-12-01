@@ -1,14 +1,14 @@
-const adminUrl="https://lastpick.herokuapp.com/rest/admin/heroes";
+const adminUrl = "https://lastpick.herokuapp.com/rest/admin/heroes";
 
 
-$(document).ready(function() {
+$(document).ready(function () {
 
 
     $(function () {
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
 
-        $(document).ajaxSend(function(e, xhr, options) {
+        $(document).ajaxSend(function (e, xhr, options) {
             xhr.setRequestHeader(header, token);
         });
     });
@@ -20,9 +20,9 @@ $(document).ready(function() {
 
     $("#save").click(function () {
 
-        const heroToBeCreatedName =document.getElementById("heroInput").value;
-        const object={};
-        object.name=heroToBeCreatedName;
+        const heroToBeCreatedName = document.getElementById("heroInput").value;
+        const object = {};
+        object.name = heroToBeCreatedName;
         $.ajax({
             url: adminUrl,
             type: "POST",
@@ -48,23 +48,17 @@ $(document).ready(function() {
 });
 
 
-
-
-
-
-
-
-function heroUpdate (id)
-{
+function heroUpdate(id) {
 
 
     $("#modalToUpdate").modal('show');
     $("#edit").click(function () {
 
-        const heroToBeUpdatedName =document.getElementById("heroInput2").value;
-        const object={};
-        object.name=heroToBeUpdatedName;
-        object.id=Number(id);;
+        const heroToBeUpdatedName = document.getElementById("heroInput2").value;
+        const object = {};
+        object.name = heroToBeUpdatedName;
+        object.id = Number(id);
+        ;
         $.ajax({
             url: adminUrl,
             type: "PATCH",
@@ -87,25 +81,24 @@ function heroUpdate (id)
     });
 }
 
-function heroDelete (id)
-{
+function heroDelete(id) {
 
     $("#modalToDelete").modal('show');
 
 
-    $("#delete").click(function(){
+    $("#delete").click(function () {
 
-        var object={id:Number(id)};
+        var object = {id: Number(id)};
         $.ajax({
-            url:adminUrl,
-            type:"DELETE",
-            data:JSON.stringify(object),
-            contentType:'application/json',
-            dataType:'json',
-            success: function(response){
+            url: adminUrl,
+            type: "DELETE",
+            data: JSON.stringify(object),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (response) {
                 updateTable(response);
             },
-            error:function(jqXHR){
+            error: function (jqXHR) {
                 console.log(jqXHR);
                 alert(jqXHR.responseText);
 
@@ -116,39 +109,37 @@ function heroDelete (id)
 
 }
 
-function updateTable(response)
-{
+function updateTable(response) {
 
-    var table=document.getElementById("tableOfHeroes");
+    var table = document.getElementById("tableOfHeroes");
 
     $("#tableOfHeroes tr").remove();
 
-    var row   = table.insertRow(0);
+    var row = table.insertRow(0);
     row.insertCell(0).outerHTML = "<th>Герой</th>";
     row.insertCell(1).outerHTML = "<th>Редактировать</th>";
     row.insertCell(2).outerHTML = "<th>Удалить</th>";
 
 
-    for (var i=0;i<response.length;i++)
-    {
+    for (var i = 0; i < response.length; i++) {
 
-        row=table.insertRow(i+1);
+        row = table.insertRow(i + 1);
         var cellName1 = row.insertCell(0);
         var heroName = document.createTextNode(response[i].name);
         cellName1.appendChild(heroName);
-        var editCell=row.insertCell(1);
-        var editButton=document.createElement("button");
-        editButton.setAttribute('class','btn btn-warning');
+        var editCell = row.insertCell(1);
+        var editButton = document.createElement("button");
+        editButton.setAttribute('class', 'btn btn-warning');
 
-        editButton.setAttribute('onclick','heroUpdate('+String(response[i].id)+')');
-        editButton.textContent='Редактировать';
+        editButton.setAttribute('onclick', 'heroUpdate(' + String(response[i].id) + ')');
+        editButton.textContent = 'Редактировать';
         editCell.appendChild(editButton);
-        var deleteCell=row.insertCell(2);
-        var deleteButton=document.createElement("button");
-        deleteButton.setAttribute('class','btn btn-danger');
+        var deleteCell = row.insertCell(2);
+        var deleteButton = document.createElement("button");
+        deleteButton.setAttribute('class', 'btn btn-danger');
 
-        deleteButton.setAttribute('onclick','heroDelete('+String(response[i].id)+')');
-        deleteButton.textContent='Удалить';
+        deleteButton.setAttribute('onclick', 'heroDelete(' + String(response[i].id) + ')');
+        deleteButton.textContent = 'Удалить';
         deleteCell.appendChild(deleteButton);
     }
 }

@@ -6,25 +6,24 @@
 package kim.nikita.repository;
 
 import java.util.List;
+
 import kim.nikita.model.Friendship;
 
 /**
- *
  * @author Никита
  */
 public interface FriendshipRepository {
-    
-    
-    
-    List <Friendship> getAllFriends();
-    
-    void create(int hero1_id, int hero2_id,Boolean friends);
 
-    void update(Integer friendshipId,Integer hero1_id,Integer hero2_id,Boolean friends);
+
+    List<Friendship> getAllFriends();
+
+    void create(int hero1_id, int hero2_id, Boolean friends);
+
+    void update(Integer friendshipId, Integer hero1_id, Integer hero2_id, Boolean friends);
 
     void delete(int friendshipId);
-    
-    int count(int hero1_id,int hero2_id);
-    
-  
+
+    int count(int hero1_id, int hero2_id);
+
+
 }

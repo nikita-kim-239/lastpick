@@ -11,24 +11,19 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
- *
  * @author Никита
  */
 
 
-public class Hero extends AbstractNamedEntity implements Serializable{
-    
-    
-    
-    
-    public Hero()
-        {
-        }
-    
-    
-    public Hero(Integer id,String name)
-        {
-            super(id,name);
-        }
+public class Hero extends AbstractNamedEntity implements Serializable {
+
+
+    public Hero() {
+    }
+
+
+    public Hero(Integer id, String name) {
+        super(id, name);
+    }
 
 }

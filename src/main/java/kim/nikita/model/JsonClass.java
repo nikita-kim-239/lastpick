@@ -12,8 +12,7 @@ public class JsonClass {
 
     public Boolean friends;
 
-    public JsonClass()
-    {
+    public JsonClass() {
 
     }
 

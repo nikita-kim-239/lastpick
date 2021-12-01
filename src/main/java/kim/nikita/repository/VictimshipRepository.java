@@ -6,25 +6,24 @@
 package kim.nikita.repository;
 
 import java.util.List;
+
 import kim.nikita.model.Victimship;
 
 /**
- *
  * @author Никита
  */
 public interface VictimshipRepository {
-    
-    
-    
-    List <Victimship> getAllVictims();
-    
-    void create(int predator_id,int victim_id);
-    
-    int count(int predator_id,int victim_id);
 
-    void update(int victimshipId,int predator_id, int victim_id);
+
+    List<Victimship> getAllVictims();
+
+    void create(int predator_id, int victim_id);
+
+    int count(int predator_id, int victim_id);
+
+    void update(int victimshipId, int predator_id, int victim_id);
 
     void delete(int victimshipId);
-    
-    
+
+
 }

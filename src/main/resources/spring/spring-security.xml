@@ -18,8 +18,9 @@
     </http>
 
 
-    <beans:bean class="org.springframework.security.crypto.factory.PasswordEncoderFactories" id="passwordEncoder" factory-method="createDelegatingPasswordEncoder"/>
-    
+    <beans:bean class="org.springframework.security.crypto.factory.PasswordEncoderFactories" id="passwordEncoder"
+                factory-method="createDelegatingPasswordEncoder"/>
+
     <http>
         <intercept-url pattern="/" access="permitAll()"/>
         <intercept-url pattern="/heroes" access="isAuthenticated()"/>
@@ -33,8 +34,6 @@
     </http>
 
 
-
-    
     <authentication-manager>
         <authentication-provider user-service-ref="userService">
             <password-encoder ref="passwordEncoder"/>

@@ -13,16 +13,16 @@ public class JdbcTemplateUserRepository implements UserRepository {
 
     private JdbcTemplate jdbcTemplate;
 
-    private final String GET_USER_BY_LOGIN="select * from users";
+    private final String GET_USER_BY_LOGIN = "select * from users";
 
     @Autowired
     public JdbcTemplateUserRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate=jdbcTemplate;
+        this.jdbcTemplate = jdbcTemplate;
 
     }
 
     @Override
     public User findByLogin(String login) {
-        return (User)jdbcTemplate.query(GET_USER_BY_LOGIN,new UserMapper()).get(0);
+        return (User) jdbcTemplate.query(GET_USER_BY_LOGIN, new UserMapper()).get(0);
     }
 }

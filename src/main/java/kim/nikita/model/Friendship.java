@@ -15,16 +15,14 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
- *
  * @author Никита
  */
 
-public class Friendship extends AbstractBaseEntity implements Serializable{
-    
+public class Friendship extends AbstractBaseEntity implements Serializable {
 
 
     private Hero hero1;
-    
+
 
     private Hero hero2;
 
@@ -44,19 +42,16 @@ public class Friendship extends AbstractBaseEntity implements Serializable{
         this.friends = friends;
     }
 
-    public Friendship(int id, Hero hero1, Hero hero2)
-        {
-            this.id=id;
-            this.hero1=hero1;
-            this.hero2=hero2;
-        }
-    
-    public Friendship()
-        {
-        }
-    
-   
-    
+    public Friendship(int id, Hero hero1, Hero hero2) {
+        this.id = id;
+        this.hero1 = hero1;
+        this.hero2 = hero2;
+    }
+
+    public Friendship() {
+    }
+
+
     public Hero getHero1() {
         return hero1;
     }

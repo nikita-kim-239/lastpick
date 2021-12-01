@@ -9,26 +9,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 
-
-
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class RoundCounterException extends RuntimeException{
-    
-    public RoundCounterException()
-        {}
-    
-    public RoundCounterException(String message)
-        {
-            super(message);
-        }
-    public RoundCounterException(Throwable cause)
-        {
-            super(cause);
-        }
-    
-    public RoundCounterException(String message,Throwable cause)
-        {
-            super(message,cause);
-        }
-    
+public class RoundCounterException extends RuntimeException {
+
+    public RoundCounterException() {
+    }
+
+    public RoundCounterException(String message) {
+        super(message);
+    }
+
+    public RoundCounterException(Throwable cause) {
+        super(cause);
+    }
+
+    public RoundCounterException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }

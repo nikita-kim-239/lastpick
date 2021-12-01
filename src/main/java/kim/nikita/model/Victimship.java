@@ -11,30 +11,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 
-public class Victimship extends AbstractBaseEntity{
+public class Victimship extends AbstractBaseEntity {
 
-   
 
     private Hero predator;
 
 
     private Hero victim;
 
-    public Victimship(int id,Hero predator,Hero victim)
-        {
-            this.id=id;
-            this.predator=predator;
-            this.victim=victim;
-            
-        }
-    
-    public Victimship()
-        {
-        }
+    public Victimship(int id, Hero predator, Hero victim) {
+        this.id = id;
+        this.predator = predator;
+        this.victim = victim;
 
-  
+    }
 
- 
+    public Victimship() {
+    }
+
+
     public Hero getPredator() {
         return predator;
     }
@@ -53,9 +48,6 @@ public class Victimship extends AbstractBaseEntity{
     public void setVictim(Hero victim) {
         this.victim = victim;
     }
-    
-    
-    
-    
+
 
 }

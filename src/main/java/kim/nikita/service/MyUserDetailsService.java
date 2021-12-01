@@ -19,11 +19,10 @@ public class MyUserDetailsService implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public MyUserDetailsService(UserRepository userRepository, PasswordEncoder passwordEncoder)
-        {
-            this.userRepository = userRepository;
-            this.passwordEncoder = passwordEncoder;
-        }
+    public MyUserDetailsService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

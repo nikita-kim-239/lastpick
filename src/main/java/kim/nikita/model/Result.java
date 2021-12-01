@@ -8,20 +8,18 @@ package kim.nikita.model;
 import java.io.Serializable;
 
 
-public class Result implements Serializable{
-    
-    public Result(String name,int score)
-        {   
-            this.name=name;
-            this.score=score;
-        }
-    
-    public Result()
-        {
-        }
-    
+public class Result implements Serializable {
+
+    public Result(String name, int score) {
+        this.name = name;
+        this.score = score;
+    }
+
+    public Result() {
+    }
+
     private String name;
-    
+
     private int score;
 
 
@@ -43,12 +41,11 @@ public class Result implements Serializable{
     public void setScore(int score) {
         this.score = score;
     }
-    
+
     @Override
-    public String toString()
-        {
-            return " { "+name+":"+score+" } ";
-        }
-    
+    public String toString() {
+        return " { " + name + ":" + score + " } ";
+    }
+
 }
 

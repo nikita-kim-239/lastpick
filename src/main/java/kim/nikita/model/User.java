@@ -7,19 +7,16 @@ import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 
-
-public class User extends AbstractBaseEntity{
-
+public class User extends AbstractBaseEntity {
 
 
     private String login;
 
     private String password;
 
-    public User()
-        {
+    public User() {
 
-        }
+    }
 
     public User(String login, String password) {
         this.login = login;

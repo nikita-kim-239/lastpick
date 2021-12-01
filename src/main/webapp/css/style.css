@@ -1,21 +1,18 @@
- body{
-    
-         background-color:#d8e2e5;
-         
-     }
-  
-a    
-    {
-       margin:10px;     
-     }
-     
-button
-    {
-         
-         margin:10px;
-     }     
-        
-table
-{
-    margin:10px;
+body {
+
+    background-color: #d8e2e5;
+
+}
+
+a {
+    margin: 10px;
+}
+
+button {
+
+    margin: 10px;
+}
+
+table {
+    margin: 10px;
 }
