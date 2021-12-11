@@ -176,7 +176,7 @@ public class HeroService {
     public void updateFriendship(Integer friendshipId, Integer hero1_id, Integer hero2_id, Boolean friends) {
 
 
-        if (hero1_id == hero2_id)
+        if (hero1_id.equals(hero2_id))
             throw new SameHeroesException("Герои не должны совпадать!");
         if (friendshipRepository.count(hero1_id, hero2_id) != 0)
             throw new AlreadyExistException("В базе данных уже есть такая запись!");

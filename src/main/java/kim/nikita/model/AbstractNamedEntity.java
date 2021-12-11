@@ -6,9 +6,7 @@
 package kim.nikita.model;
 
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+
 
 
 public abstract class AbstractNamedEntity extends AbstractBaseEntity {

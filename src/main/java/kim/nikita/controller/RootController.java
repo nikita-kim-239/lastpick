@@ -5,11 +5,7 @@
  */
 package kim.nikita.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 
-import kim.nikita.model.Result;
 import kim.nikita.service.HeroService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +29,12 @@ public class RootController {
     public String root() {
         log.info("get index");
         return "index";
+    }
+
+    @GetMapping("/register")
+    public String registration() {
+        log.info("registration");
+        return "register";
     }
 
 

@@ -11,7 +11,7 @@ import java.util.Set;
 public class AuthorizedUser implements UserDetails {
 
 
-    private User user;
+    private final User user;
 
     public AuthorizedUser(User user) {
         this.user = user;
@@ -19,7 +19,7 @@ public class AuthorizedUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+        Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         return authorities;
 

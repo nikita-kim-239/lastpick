@@ -6,13 +6,7 @@
 package kim.nikita.model;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+
 
 /**
  * @author Никита
@@ -29,24 +23,7 @@ public class Friendship extends AbstractBaseEntity implements Serializable {
 
     private Boolean friends;
 
-    public Friendship(Hero hero1, Hero hero2, Boolean friends) {
-        this.hero1 = hero1;
-        this.hero2 = hero2;
-        this.friends = friends;
-    }
 
-    public Friendship(Integer id, Hero hero1, Hero hero2, Boolean friends) {
-        super(id);
-        this.hero1 = hero1;
-        this.hero2 = hero2;
-        this.friends = friends;
-    }
-
-    public Friendship(int id, Hero hero1, Hero hero2) {
-        this.id = id;
-        this.hero1 = hero1;
-        this.hero2 = hero2;
-    }
 
     public Friendship() {
     }

@@ -23,7 +23,7 @@
 
 <body onload="addIndexHeroSelect()">
 
-<nav class="navbar navbar-dark bg-primary">
+<nav class="navbar navbar-dark bg-primary justify-content-center">
 
     <div class="container">
         <div class="row">
@@ -32,19 +32,24 @@
             <sec:authorize access="isAnonymous()">
 
                 <form:form class="form-inline my-2 row" id="login_form" action="spring_security_check" method="post">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <input class="form-control mr-1" type="text" placeholder="Login" name="login">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <input class="form-control mr-1" type="password" placeholder="Password" name="password">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <button class="btn btn-success" type="submit">
                             <span class="fa fa-sign-in">Зайти</span>
                         </button>
                     </div>
-
+                    <div class="col-md-3">
+                        <button class="btn btn-warning">
+                            <a href="/register">Зарегистрироваться</a>
+                        </button>
+                    </div>
                 </form:form>
+
 
             </sec:authorize>
 
@@ -73,7 +78,10 @@
 
 
         </div>
+
+
     </div>
+
 </nav>
 
 

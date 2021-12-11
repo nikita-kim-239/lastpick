@@ -5,10 +5,7 @@
  */
 package kim.nikita.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
 
 
 public class Victimship extends AbstractBaseEntity {
@@ -19,12 +16,7 @@ public class Victimship extends AbstractBaseEntity {
 
     private Hero victim;
 
-    public Victimship(int id, Hero predator, Hero victim) {
-        this.id = id;
-        this.predator = predator;
-        this.victim = victim;
 
-    }
 
     public Victimship() {
     }

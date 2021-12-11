@@ -33,7 +33,7 @@
     <!--    </bean>-->
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="url" value="${database.init}"/>
+        <property name="url" value="${database.url}"/>
         <property name="username" value="${database.username}"/>
         <property name="password" value="${database.password}"/>
         <property name="driverClassName" value="org.postgresql.Driver"/>

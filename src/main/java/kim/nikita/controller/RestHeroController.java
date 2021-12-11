@@ -13,7 +13,6 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kim.nikita.model.*;
@@ -47,7 +46,7 @@ public class RestHeroController {
 
 
     @PostMapping("/admin/heroes")
-    public List<Hero> createHero(@RequestBody String jsonHero, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public List<Hero> createHero(@RequestBody String jsonHero, HttpServletResponse response) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
         Hero hero = new Hero();
@@ -66,15 +65,10 @@ public class RestHeroController {
         log.info("create hero with name " + hero.getName());
         try {
             heroService.createHero(hero);
-        } catch (BadNameException e1) {
+        } catch (BadNameException | AlreadyExistException e1) {
             log.debug(e1.getMessage());
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().println(e1.getMessage());
-            response.flushBuffer();
-        } catch (AlreadyExistException e2) {
-            log.debug(e2.getMessage());
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println(e2.getMessage());
             response.flushBuffer();
         }
         return getAllHeroes();
@@ -82,7 +76,7 @@ public class RestHeroController {
     }
 
     @PatchMapping("/admin/heroes")
-    public List<Hero> updateHero(@RequestBody String jsonHero, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public List<Hero> updateHero(@RequestBody String jsonHero, HttpServletResponse response) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Hero hero = new Hero();
         response.setCharacterEncoding("UTF-8");
@@ -101,15 +95,10 @@ public class RestHeroController {
         hero.setName(jsonClass.name);
         try {
             heroService.updateHero(hero);
-        } catch (BadNameException e1) {
+        } catch (BadNameException | AlreadyExistException e1) {
             log.debug(e1.getMessage());
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().println(e1.getMessage());
-            response.flushBuffer();
-        } catch (AlreadyExistException e2) {
-            log.debug(e2.getMessage());
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println(e2.getMessage());
             response.flushBuffer();
         }
         log.info("update hero with id " + hero.getId() + " to name " + hero.getName());
@@ -117,9 +106,9 @@ public class RestHeroController {
     }
 
     @DeleteMapping("/admin/heroes")
-    public List<Hero> deleteHero(@RequestBody String json, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public List<Hero> deleteHero(@RequestBody String json, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
-        JsonClass jsonClass = null;
+        JsonClass jsonClass = new JsonClass();
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -130,7 +119,7 @@ public class RestHeroController {
         }
         try {
             heroService.deleteHero(jsonClass.id);
-        } catch (HeroNotFoundException e) {
+        } catch (HeroNotFoundException | NullPointerException e) {
             log.debug(e.getMessage());
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().println(e.getMessage());
@@ -141,30 +130,30 @@ public class RestHeroController {
 
 
     @GetMapping("/results")
-    public List<Result> getResults(@RequestParam(value = "enemy1", required = true) String enemy1,
-                                   @RequestParam(value = "enemy2", required = true) String enemy2,
-                                   @RequestParam(value = "enemy3", required = true) String enemy3,
-                                   @RequestParam(value = "enemy4", required = true) String enemy4,
-                                   @RequestParam(value = "enemy5", required = true) String enemy5,
-                                   @RequestParam(value = "ally1", required = true) String ally1,
-                                   @RequestParam(value = "ally2", required = true) String ally2,
-                                   @RequestParam(value = "ally3", required = true) String ally3,
-                                   @RequestParam(value = "ally4", required = true) String ally4,
-                                   HttpServletRequest request, HttpServletResponse response
+    public List<Result> getResults(@RequestParam(value = "enemy1") String enemy1,
+                                   @RequestParam(value = "enemy2") String enemy2,
+                                   @RequestParam(value = "enemy3") String enemy3,
+                                   @RequestParam(value = "enemy4") String enemy4,
+                                   @RequestParam(value = "enemy5") String enemy5,
+                                   @RequestParam(value = "ally1") String ally1,
+                                   @RequestParam(value = "ally2") String ally2,
+                                   @RequestParam(value = "ally3") String ally3,
+                                   @RequestParam(value = "ally4") String ally4,
+                                   HttpServletResponse response
     ) throws IOException {
         List<Integer> friends = new ArrayList<>();
         List<Integer> enemies = new ArrayList<>();
 
 
-        Integer enemy1Id = Integer.parseInt(enemy1);
-        Integer enemy2Id = Integer.parseInt(enemy2);
-        Integer enemy3Id = Integer.parseInt(enemy3);
-        Integer enemy4Id = Integer.parseInt(enemy4);
-        Integer enemy5Id = Integer.parseInt(enemy5);
-        Integer ally1Id = Integer.parseInt(ally1);
-        Integer ally2Id = Integer.parseInt(ally2);
-        Integer ally3Id = Integer.parseInt(ally3);
-        Integer ally4Id = Integer.parseInt(ally4);
+        int enemy1Id = Integer.parseInt(enemy1);
+        int enemy2Id = Integer.parseInt(enemy2);
+        int enemy3Id = Integer.parseInt(enemy3);
+        int enemy4Id = Integer.parseInt(enemy4);
+        int enemy5Id = Integer.parseInt(enemy5);
+        int ally1Id = Integer.parseInt(ally1);
+        int ally2Id = Integer.parseInt(ally2);
+        int ally3Id = Integer.parseInt(ally3);
+        int ally4Id = Integer.parseInt(ally4);
 
 
         if (enemy1Id != 0) enemies.add(enemy1Id);
@@ -204,13 +193,13 @@ public class RestHeroController {
 
 
     @PostMapping("/admin/friendship")
-    public List<Friendship> createFriendship(@RequestBody String heroes, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public List<Friendship> createFriendship(@RequestBody String heroes, HttpServletResponse response) throws IOException {
 
 
         ObjectMapper mapper = new ObjectMapper();
 
 
-        JsonClass[] arrayOfHeroes = null;
+        JsonClass[] arrayOfHeroes;
         response.setCharacterEncoding("UTF-8");
 
         try {
@@ -233,11 +222,11 @@ public class RestHeroController {
 
 
     @PatchMapping("/admin/friendship")
-    public List<Friendship> updateFriendship(@RequestBody String friendship, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public List<Friendship> updateFriendship(@RequestBody String friendship, HttpServletResponse response) throws IOException {
 
 
         ObjectMapper mapper = new ObjectMapper();
-        JsonClass[] arrayOfHeroes = null;
+        JsonClass[] arrayOfHeroes;
 
         response.setCharacterEncoding("UTF-8");
 
@@ -249,14 +238,7 @@ public class RestHeroController {
             heroService.updateFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id, arrayOfHeroes[2].id, arrayOfHeroes[3].friends);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        } catch (AlreadyExistException e) {
-
-
-            log.error(e.getMessage());
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println(e.getMessage());
-            response.flushBuffer();
-        } catch (SameHeroesException e) {
+        } catch (AlreadyExistException | SameHeroesException e) {
 
 
             log.error(e.getMessage());
@@ -269,11 +251,11 @@ public class RestHeroController {
     }
 
     @DeleteMapping("/admin/friendship")
-    public List<Friendship> deleteFriendship(@RequestBody String friendship, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public List<Friendship> deleteFriendship(@RequestBody String friendship, HttpServletResponse response) {
 
 
         ObjectMapper mapper = new ObjectMapper();
-        JsonClass json = null;
+        JsonClass json;
         response.setCharacterEncoding("UTF-8");
 
         try {
@@ -299,11 +281,11 @@ public class RestHeroController {
 
     @PostMapping("/admin/victimship")
 
-    public List<Victimship> createVictimship(@RequestBody String heroes, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public List<Victimship> createVictimship(@RequestBody String heroes, HttpServletResponse response) throws IOException {
 
 
         ObjectMapper mapper = new ObjectMapper();
-        JsonClass[] arrayOfHeroes = null;
+        JsonClass[] arrayOfHeroes;
 
         response.setCharacterEncoding("UTF-8");
         try {
@@ -313,21 +295,7 @@ public class RestHeroController {
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        } catch (AlreadyExistException e) {
-
-
-            log.error(e.getMessage());
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println(e.getMessage());
-            response.flushBuffer();
-        } catch (RoundCounterException e) {
-
-
-            log.error(e.getMessage());
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println(e.getMessage());
-            response.flushBuffer();
-        } catch (SameHeroesException e) {
+        } catch (AlreadyExistException | RoundCounterException | SameHeroesException e) {
 
 
             log.error(e.getMessage());
@@ -342,11 +310,11 @@ public class RestHeroController {
 
     @PatchMapping("/admin/victimship")
 
-    public List<Victimship> updateVictimship(@RequestBody String victimship, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public List<Victimship> updateVictimship(@RequestBody String victimship, HttpServletResponse response) throws IOException {
 
 
         ObjectMapper mapper = new ObjectMapper();
-        JsonClass[] arrayOfHeroes = null;
+        JsonClass[] arrayOfHeroes;
         response.setCharacterEncoding("UTF-8");
 
 
@@ -357,14 +325,7 @@ public class RestHeroController {
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        } catch (AlreadyExistException e) {
-
-            log.error(e.getMessage());
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println(e.getMessage());
-            response.flushBuffer();
-        } catch (SameHeroesException e) {
-
+        } catch (AlreadyExistException | SameHeroesException e) {
 
             log.error(e.getMessage());
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -377,11 +338,11 @@ public class RestHeroController {
 
     @DeleteMapping("/admin/victimship")
 
-    public List<Victimship> deleteVictimship(@RequestBody String victimship, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public List<Victimship> deleteVictimship(@RequestBody String victimship, HttpServletResponse response) {
 
 
         ObjectMapper mapper = new ObjectMapper();
-        JsonClass json = null;
+        JsonClass json;
         response.setCharacterEncoding("UTF-8");
         try {
 

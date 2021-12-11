@@ -15,8 +15,6 @@ public class Result implements Serializable {
         this.score = score;
     }
 
-    public Result() {
-    }
 
     private String name;
 

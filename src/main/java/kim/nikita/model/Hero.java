@@ -6,9 +6,7 @@
 package kim.nikita.model;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+
 
 /**
  * @author Никита

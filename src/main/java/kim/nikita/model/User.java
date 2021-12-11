@@ -1,9 +1,6 @@
 package kim.nikita.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+
 import java.util.Objects;
 
 
@@ -14,21 +11,24 @@ public class User extends AbstractBaseEntity {
 
     private String password;
 
+    private Rank rank;
+
     public User() {
 
     }
 
-    public User(String login, String password) {
+    public User(String login, String password, Rank rank) {
         this.login = login;
         this.password = password;
+        this.rank = rank;
     }
 
-    public User(Integer id, String login, String password) {
+    public User(Integer id, String login, String password, Rank rank) {
         super(id);
         this.login = login;
         this.password = password;
+        this.rank = rank;
     }
-
 
     public String getLogin() {
         return login;
