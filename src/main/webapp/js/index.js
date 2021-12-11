@@ -1,5 +1,5 @@
-const simpleUrl = "https://lastpick.herokuapp.com/rest/";
-
+//const simpleUrl = "https://lastpick.herokuapp.com/rest/";
+const simpleUrl = "http://localhost:8080/rest/";
 
 function addIndexHeroSelect() {
 

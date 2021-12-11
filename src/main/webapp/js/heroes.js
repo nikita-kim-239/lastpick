@@ -1,5 +1,5 @@
-const adminUrl = "https://lastpick.herokuapp.com/rest/admin/heroes";
-
+//const adminUrl = "https://lastpick.herokuapp.com/rest/admin/heroes";
+const adminUrl = "http://localhost:8080/rest/admin/heroes";
 
 $(document).ready(function () {
 

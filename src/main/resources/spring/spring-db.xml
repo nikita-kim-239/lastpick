@@ -18,18 +18,24 @@
     <context:annotation-config/>
 
     <context:component-scan base-package="kim.nikita.repository.jdbctemplate"/>
-    <!--<jpa:repositories base-package="kim.nikita.repository.datajpa" entity-manager-factory-ref="entityManagerFactory"/>-->
 
 
-    <bean class="java.net.URI" id="dbUrl">
-        <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
-    </bean>
+    <!--    <bean class="java.net.URI" id="dbUrl">-->
+    <!--        <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>-->
+    <!--    </bean>-->
+
+    <!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+    <!--        <property name="url"-->
+    <!--                  value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>-->
+    <!--        <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>-->
+    <!--        <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>-->
+    <!--        <property name="driverClassName" value="org.postgresql.Driver"/>-->
+    <!--    </bean>-->
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="url"
-                  value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
-        <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
-        <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
+        <property name="url" value="${database.init}"/>
+        <property name="username" value="${database.username}"/>
+        <property name="password" value="${database.password}"/>
         <property name="driverClassName" value="org.postgresql.Driver"/>
     </bean>
 

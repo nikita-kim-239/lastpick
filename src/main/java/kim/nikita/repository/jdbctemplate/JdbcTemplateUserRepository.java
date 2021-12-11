@@ -13,7 +13,7 @@ public class JdbcTemplateUserRepository implements UserRepository {
 
     private JdbcTemplate jdbcTemplate;
 
-    private final String GET_USER_BY_LOGIN = "select * from users";
+    private final String GET_USER_BY_LOGIN = "select * from users where login = ?";
 
     @Autowired
     public JdbcTemplateUserRepository(JdbcTemplate jdbcTemplate) {
@@ -23,6 +23,6 @@ public class JdbcTemplateUserRepository implements UserRepository {
 
     @Override
     public User findByLogin(String login) {
-        return (User) jdbcTemplate.query(GET_USER_BY_LOGIN, new UserMapper()).get(0);
+        return jdbcTemplate.queryForObject(GET_USER_BY_LOGIN, User.class, login);
     }
 }
