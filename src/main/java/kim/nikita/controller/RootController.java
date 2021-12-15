@@ -31,12 +31,6 @@ public class RootController {
         return "index";
     }
 
-    @GetMapping("/register")
-    public String registration() {
-        log.info("registration");
-        return "register";
-    }
-
 
     @GetMapping("/heroes")
     public ModelAndView getHeroes() {

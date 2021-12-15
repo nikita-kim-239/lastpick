@@ -35,9 +35,7 @@ CREATE TABLE users
 
     id       INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     username varchar not null,
-    password varchar not null,
-    rank     varchar not null
-
+    password varchar not null
 );
 
 

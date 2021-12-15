@@ -5,21 +5,13 @@
  */
 package kim.nikita.repository.jdbctemplate;
 
-import java.sql.PreparedStatement;
-import java.sql.Statement;
-import java.util.List;
-import javax.sql.DataSource;
 
+import java.util.List;
 import kim.nikita.model.Hero;
 import kim.nikita.repository.HeroRepository;
 import kim.nikita.util.HeroMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -72,10 +64,6 @@ public class JdbcTemplateHeroRepository implements HeroRepository {
         return jdbcTemplate.queryForObject(SELECT_COUNT_BY_NAME, Integer.class, name) != 0;
     }
 
-    @Override
-    public String getHeroById(int heroId) {
-        return jdbcTemplate.queryForObject(SELECT_NAME, String.class, heroId);
-    }
 
     @Override
     public void deleteHero(int heroId) {

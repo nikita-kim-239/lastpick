@@ -89,7 +89,7 @@ public class HeroServiceTest {
 
     @Test
     public void testUpdateHeroAlreadyExist() {
-        assertThrows(AlreadyExistException.class, () -> service.updateHero(new Hero(27, "Doom")));
+        assertThrows(AlreadyExistException.class, () -> service.updateHero(new Hero(27, "doom")));
     }
 
 

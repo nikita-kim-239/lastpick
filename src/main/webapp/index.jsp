@@ -13,6 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brain.js/2.0.0-beta.1/brain-browser.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/index.js"></script>
     <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
     <meta name="_csrf" content="${_csrf.token}"/>
@@ -32,22 +33,18 @@
             <sec:authorize access="isAnonymous()">
 
                 <form:form class="form-inline my-2 row" id="login_form" action="spring_security_check" method="post">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <input class="form-control mr-1" type="text" placeholder="Login" name="login">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <input class="form-control mr-1" type="password" placeholder="Password" name="password">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <button class="btn btn-success" type="submit">
                             <span class="fa fa-sign-in">Зайти</span>
                         </button>
                     </div>
-                    <div class="col-md-3">
-                        <button class="btn btn-warning">
-                            <a href="/register">Зарегистрироваться</a>
-                        </button>
-                    </div>
+
                 </form:form>
 
 

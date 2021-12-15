@@ -11,24 +11,12 @@ public class User extends AbstractBaseEntity {
 
     private String password;
 
-    private Rank rank;
 
     public User() {
 
     }
 
-    public User(String login, String password, Rank rank) {
-        this.login = login;
-        this.password = password;
-        this.rank = rank;
-    }
 
-    public User(Integer id, String login, String password, Rank rank) {
-        super(id);
-        this.login = login;
-        this.password = password;
-        this.rank = rank;
-    }
 
     public String getLogin() {
         return login;

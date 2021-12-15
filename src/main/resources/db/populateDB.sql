@@ -9,249 +9,249 @@ FROM users;
 ALTER SEQUENCE global_seq RESTART WITH 1;
 
 insert into heroes (name)
-values ('Abaddon');
+values ('abaddon');
 insert into heroes (name)
-values ('Alchemist');
+values ('alchemist');
 insert into heroes (name)
-values ('Ancient Apparition');
+values ('ancient-apparition');
 insert into heroes (name)
-values ('Anti-Mage');
+values ('anti-mage');
 insert into heroes (name)
-values ('Arc Warden');
+values ('arc-warden');
 insert into heroes (name)
-values ('Axe');
+values ('axe');
 insert into heroes (name)
-values ('Bane');
+values ('bane');
 insert into heroes (name)
-values ('Batrider');
+values ('batrider');
 insert into heroes (name)
-values ('Beastmaster');
+values ('beastmaster');
 insert into heroes (name)
-values ('Bloodseeker');
+values ('bloodseeker');
 insert into heroes (name)
-values ('Bounty Hunter');
+values ('bounty-hunter');
 insert into heroes (name)
-values ('Brewmaster');
+values ('brewmaster');
 insert into heroes (name)
-values ('Bristleback');
+values ('bristleback');
 insert into heroes (name)
-values ('Broodmother');
+values ('broodmother');
 insert into heroes (name)
-values ('Centaur Warrunner');
+values ('centaur-warrunner');
 insert into heroes (name)
-values ('Chaos Knight');
+values ('chaos-knight');
 insert into heroes (name)
-values ('Chen');
+values ('chen');
 insert into heroes (name)
-values ('Clinkz');
+values ('clinkz');
 insert into heroes (name)
-values ('Clockwerk');
+values ('clockwerk');
 insert into heroes (name)
-values ('Crystal Maiden');
+values ('crystal-maiden');
 insert into heroes (name)
-values ('Dark Seer');
+values ('dark-seer');
 insert into heroes (name)
-values ('Dark Willow');
+values ('dark-willow');
 insert into heroes (name)
-values ('Dawnbreaker');
+values ('dawnbreaker');
 insert into heroes (name)
-values ('Dazzle');
+values ('dazzle');
 insert into heroes (name)
-values ('Death Prophet');
+values ('death-prophet');
 insert into heroes (name)
-values ('Disruptor');
+values ('disruptor');
 insert into heroes (name)
-values ('Doom');
+values ('doom');
 insert into heroes (name)
-values ('Dragon Knight');
+values ('dragon-knight');
 insert into heroes (name)
-values ('Drow Ranger');
+values ('drow-ranger');
 insert into heroes (name)
-values ('Earth Spirit');
+values ('earth-spirit');
 insert into heroes (name)
-values ('Earthshaker');
+values ('earthshaker');
 insert into heroes (name)
-values ('Elder Titan');
+values ('elder-titan');
 insert into heroes (name)
-values ('Ember Spirit');
+values ('ember-spirit');
 insert into heroes (name)
-values ('Enchantress');
+values ('enchantress');
 insert into heroes (name)
-values ('Enigma');
+values ('enigma');
 insert into heroes (name)
-values ('Faceless Void');
+values ('faceless-void');
 insert into heroes (name)
-values ('Grimstroke');
+values ('grimstroke');
 insert into heroes (name)
-values ('Gyrocopter');
+values ('gyrocopter');
 insert into heroes (name)
-values ('Hoodwink');
+values ('hoodwink');
 insert into heroes (name)
-values ('Huskar');
+values ('huskar');
 insert into heroes (name)
-values ('Invoker');
+values ('invoker');
 insert into heroes (name)
-values ('Io');
+values ('io');
 insert into heroes (name)
-values ('Jakiro');
+values ('jakiro');
 insert into heroes (name)
-values ('Juggernaut');
+values ('juggernaut');
 insert into heroes (name)
-values ('Keeper of the Light');
+values ('keeper-of-the-light');
 insert into heroes (name)
-values ('Kunkka');
+values ('kunkka');
 insert into heroes (name)
-values ('Legion Commander');
+values ('legion-commander');
 insert into heroes (name)
-values ('Leshrac');
+values ('leshrac');
 insert into heroes (name)
-values ('Lich');
+values ('lich');
 insert into heroes (name)
-values ('Lifestealer');
+values ('lifestealer');
 insert into heroes (name)
-values ('Lina');
+values ('lina');
 insert into heroes (name)
-values ('Lion');
+values ('lion');
 insert into heroes (name)
-values ('Lone Druid');
+values ('lone-druid');
 insert into heroes (name)
-values ('Luna');
+values ('luna');
 insert into heroes (name)
-values ('Lycan');
+values ('lycan');
 insert into heroes (name)
-values ('Magnus');
+values ('magnus');
 insert into heroes (name)
-values ('Marci');
+values ('marci');
 insert into heroes (name)
-values ('Mars');
+values ('mars');
 insert into heroes (name)
-values ('Medusa');
+values ('medusa');
 insert into heroes (name)
-values ('Meepo');
+values ('meepo');
 insert into heroes (name)
-values ('Mirana');
+values ('mirana');
 insert into heroes (name)
-values ('Monkey King');
+values ('monkey-king');
 insert into heroes (name)
-values ('Morphling');
+values ('morphling');
 insert into heroes (name)
-values ('Naga Siren');
+values ('naga-siren');
 insert into heroes (name)
-values ('Nature`s Prophet');
+values ('natures-prophet');
 insert into heroes (name)
-values ('Necrophos');
+values ('necrophos');
 insert into heroes (name)
-values ('Night Stalker');
+values ('night-stalker');
 insert into heroes (name)
-values ('Nyx Assassin');
+values ('nyx-assassin');
 insert into heroes (name)
-values ('Ogre Magi');
+values ('ogre-magi');
 insert into heroes (name)
-values ('Omniknight');
+values ('omniknight');
 insert into heroes (name)
-values ('Oracle');
+values ('oracle');
 insert into heroes (name)
-values ('Outworld Destroyer');
+values ('outworld-destroyer');
 insert into heroes (name)
-values ('Pangolier');
+values ('pangolier');
 insert into heroes (name)
-values ('Phantom Assassin');
+values ('phantom-assassin');
 insert into heroes (name)
-values ('Phantom Lancer');
+values ('phantom-lancer');
 insert into heroes (name)
-values ('Phoenix');
+values ('phoenix');
 insert into heroes (name)
-values ('Puck');
+values ('puck');
 insert into heroes (name)
-values ('Pudge');
+values ('pudge');
 insert into heroes (name)
-values ('Pugna');
+values ('pugna');
 insert into heroes (name)
-values ('Queen of Pain');
+values ('queen-of-pain');
 insert into heroes (name)
-values ('Razor');
+values ('razor');
 insert into heroes (name)
-values ('Riki');
+values ('riki');
 insert into heroes (name)
-values ('Rubick');
+values ('rubick');
 insert into heroes (name)
-values ('Sand King');
+values ('sand-king');
 insert into heroes (name)
-values ('Shadow Demon');
+values ('shadow-demon');
 insert into heroes (name)
-values ('Shadow Fiend');
+values ('shadow-fiend');
 insert into heroes (name)
-values ('Shadow Shaman');
+values ('shadow-shaman');
 insert into heroes (name)
-values ('Silencer');
+values ('silencer');
 insert into heroes (name)
-values ('Skywrath Mage');
+values ('skywrath-mage');
 insert into heroes (name)
-values ('Slardar');
+values ('slardar');
 insert into heroes (name)
-values ('Slark');
+values ('slark');
 insert into heroes (name)
-values ('Snapfire');
+values ('snapfire');
 insert into heroes (name)
-values ('Sniper');
+values ('sniper');
 insert into heroes (name)
-values ('Spectre');
+values ('spectre');
 insert into heroes (name)
-values ('Spirit Breaker');
+values ('spirit-breaker');
 insert into heroes (name)
-values ('Storm Spirit');
+values ('storm-spirit');
 insert into heroes (name)
-values ('Sven');
+values ('sven');
 insert into heroes (name)
-values ('Techies');
+values ('techies');
 insert into heroes (name)
-values ('Templar Assassin');
+values ('templar-assassin');
 insert into heroes (name)
-values ('Terrorblade');
+values ('terrorblade');
 insert into heroes (name)
-values ('Tidehunter');
+values ('tidehunter');
 insert into heroes (name)
-values ('Timbersaw');
+values ('timbersaw');
 insert into heroes (name)
-values ('Tinker');
+values ('tinker');
 insert into heroes (name)
-values ('Tiny');
+values ('tiny');
 insert into heroes (name)
-values ('Treant Protector');
+values ('treant-protector');
 insert into heroes (name)
-values ('Troll Warlord');
+values ('troll-warlord');
 insert into heroes (name)
-values ('Tusk');
+values ('tusk');
 insert into heroes (name)
-values ('Underlord');
+values ('underlord');
 insert into heroes (name)
-values ('Undying');
+values ('undying');
 insert into heroes (name)
-values ('Ursa');
+values ('ursa');
 insert into heroes (name)
-values ('Vengeful Spirit');
+values ('vengeful-spirit');
 insert into heroes (name)
-values ('Venomancer');
+values ('venomancer');
 insert into heroes (name)
-values ('Viper');
+values ('viper');
 insert into heroes (name)
-values ('Visage');
+values ('visage');
 insert into heroes (name)
-values ('Void Spirit');
+values ('void-spirit');
 insert into heroes (name)
-values ('Warlock');
+values ('warlock');
 insert into heroes (name)
-values ('Weaver');
+values ('weaver');
 insert into heroes (name)
-values ('Windranger');
+values ('windranger');
 insert into heroes (name)
-values ('Winter Wyvern');
+values ('winter-wyvern');
 insert into heroes (name)
-values ('Witch Doctor');
+values ('witch-doctor');
 insert into heroes (name)
-values ('Wraith King');
+values ('wraith-king');
 insert into heroes (name)
-values ('Zeus');
+values ('zeus');
 
 
 
@@ -645,5 +645,5 @@ insert into victimship (victim_id, predator_id)
 values (60, 94);
 
 
-insert into users (username, password, rank)
-values ('nikita', '{bcrypt}$2a$10$TZz7S3VRKZ1r9CA/eauSLeBtdom8Dncjx4qXp2N.v3JQkWxL0cO.6','guardian');
+insert into users (username, password)
+values ('nikita', '{bcrypt}$2a$10$TZz7S3VRKZ1r9CA/eauSLeBtdom8Dncjx4qXp2N.v3JQkWxL0cO.6');

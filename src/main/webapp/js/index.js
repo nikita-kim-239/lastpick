@@ -110,6 +110,8 @@ function createTable() {
     url += "ally3=" + ally3Id + "&";
     url += "ally4=" + ally4Id;
 
+    
+
     $.ajax({
         url: url,
         type: "GET",
