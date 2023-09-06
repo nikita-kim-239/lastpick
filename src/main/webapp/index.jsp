@@ -33,7 +33,7 @@
 
                 <form:form class="form-inline my-2 row" id="login_form" action="spring_security_check" method="post">
                     <div class="col-md-3">
-                        <input class="form-control mr-1" type="text" placeholder="Login" name="login">
+                        <input class="form-control mr-1" type="text" placeholder="Login" name="username">
                     </div>
                     <div class="col-md-3">
                         <input class="form-control mr-1" type="password" placeholder="Password" name="password">
@@ -41,11 +41,6 @@
                     <div class="col-md-3">
                         <button class="btn btn-success" type="submit">
                             <span class="fa fa-sign-in">Зайти</span>
-                        </button>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="btn btn-warning">
-                            <a href="/register">Зарегистрироваться</a>
                         </button>
                     </div>
                 </form:form>

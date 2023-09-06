@@ -17,9 +17,9 @@ public interface FriendshipRepository {
 
     List<Friendship> getAllFriends();
 
-    void create(int hero1_id, int hero2_id, Boolean friends);
+    void create(int hero1_id, int hero2_id);
 
-    void update(Integer friendshipId, Integer hero1_id, Integer hero2_id, Boolean friends);
+    void update(Integer friendshipId, Integer hero1_id, Integer hero2_id);
 
     void delete(int friendshipId);
 

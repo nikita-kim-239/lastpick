@@ -22,6 +22,7 @@ public interface HeroRepository {
 
     boolean isHeroExistWithName(String name);
 
+    String getHeroById(int id);
 
     void deleteHero(int heroId);
 

@@ -21,7 +21,7 @@ public class Friendship extends AbstractBaseEntity implements Serializable {
     private Hero hero2;
 
 
-    private Boolean friends;
+
 
 
 
@@ -54,11 +54,5 @@ public class Friendship extends AbstractBaseEntity implements Serializable {
         this.hero2 = hero2;
     }
 
-    public Boolean getFriends() {
-        return friends;
-    }
 
-    public void setFriends(Boolean friends) {
-        this.friends = friends;
-    }
 }

@@ -125,9 +125,8 @@
 
         <thead>
         <tr>
-
-
             <th>Герой</th>
+            <th></th>
             <th>Редактировать</th>
             <th>Удалить</th>
         </tr>
@@ -137,6 +136,7 @@
             <tr>
 
                 <td><c:out value="${hero.name}"/></td>
+                <td><img src="jpg/${hero.name}.jpg"></td>
                 <td>
                     <button onclick="heroUpdate(${hero.id})" class="btn btn-warning">Редактировать</button>
                 </td>

@@ -135,6 +135,8 @@ values ('Monkey King');
 insert into heroes (name)
 values ('Morphling');
 insert into heroes (name)
+values ('Muerta');
+insert into heroes (name)
 values ('Naga Siren');
 insert into heroes (name)
 values ('Nature`s Prophet');
@@ -488,130 +490,130 @@ values (121, 118);
 
 
 
-insert into friendship (hero1_id, hero2_id, friends)
-values (2, 89, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (2, 98, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (3, 10, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (4, 41, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (6, 1, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (6, 38, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (6, 69, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (9, 43, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (9, 88, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (10, 41, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (10, 121, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (19, 10, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (19, 41, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (20, 41, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (20, 88, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (20, 95, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (20, 121, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (21, 79, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (24, 14, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (24, 40, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (24, 59, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (30, 10, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (33, 20, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (33, 21, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (35, 41, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (35, 49, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (36, 41, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (36, 88, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (41, 47, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (41, 48, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (41, 83, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (41, 100, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (42, 54, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (42, 92, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (43, 36, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (44, 56, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (44, 111, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (50, 89, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (50, 94, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (51, 83, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (54, 110, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (57, 49, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (57, 75, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (58, 20, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (60, 7, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (61, 56, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (61, 69, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (70, 24, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (79, 9, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (79, 13, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (79, 48, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (79, 56, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (79, 78, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (79, 120, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (91, 35, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (95, 50, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (96, 35, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (97, 77, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (97, 103, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (98, 21, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (98, 70, true);
-insert into friendship (hero1_id, hero2_id, friends)
-values (119, 58, true);
+insert into friendship (hero1_id, hero2_id)
+values (2, 89);
+insert into friendship (hero1_id, hero2_id)
+values (2, 98);
+insert into friendship (hero1_id, hero2_id)
+values (3, 10);
+insert into friendship (hero1_id, hero2_id)
+values (4, 41);
+insert into friendship (hero1_id, hero2_id)
+values (6, 1);
+insert into friendship (hero1_id, hero2_id)
+values (6, 38);
+insert into friendship (hero1_id, hero2_id)
+values (6, 69);
+insert into friendship (hero1_id, hero2_id)
+values (9, 43);
+insert into friendship (hero1_id, hero2_id)
+values (9, 88);
+insert into friendship (hero1_id, hero2_id)
+values (10, 41);
+insert into friendship (hero1_id, hero2_id)
+values (10, 121);
+insert into friendship (hero1_id, hero2_id)
+values (19, 10);
+insert into friendship (hero1_id, hero2_id)
+values (19, 41);
+insert into friendship (hero1_id, hero2_id)
+values (20, 41);
+insert into friendship (hero1_id, hero2_id)
+values (20, 88);
+insert into friendship (hero1_id, hero2_id)
+values (20, 95);
+insert into friendship (hero1_id, hero2_id)
+values (20, 121);
+insert into friendship (hero1_id, hero2_id)
+values (21, 79);
+insert into friendship (hero1_id, hero2_id)
+values (24, 14);
+insert into friendship (hero1_id, hero2_id)
+values (24, 40);
+insert into friendship (hero1_id, hero2_id)
+values (24, 59);
+insert into friendship (hero1_id, hero2_id)
+values (30, 10);
+insert into friendship (hero1_id, hero2_id)
+values (33, 20);
+insert into friendship (hero1_id, hero2_id)
+values (33, 21);
+insert into friendship (hero1_id, hero2_id)
+values (35, 41);
+insert into friendship (hero1_id, hero2_id)
+values (35, 49);
+insert into friendship (hero1_id, hero2_id)
+values (36, 41);
+insert into friendship (hero1_id, hero2_id)
+values (36, 88);
+insert into friendship (hero1_id, hero2_id)
+values (41, 47);
+insert into friendship (hero1_id, hero2_id)
+values (41, 48);
+insert into friendship (hero1_id, hero2_id)
+values (41, 83);
+insert into friendship (hero1_id, hero2_id)
+values (41, 100);
+insert into friendship (hero1_id, hero2_id)
+values (42, 54);
+insert into friendship (hero1_id, hero2_id)
+values (42, 92);
+insert into friendship (hero1_id, hero2_id)
+values (43, 36);
+insert into friendship (hero1_id, hero2_id)
+values (44, 56);
+insert into friendship (hero1_id, hero2_id)
+values (44, 111);
+insert into friendship (hero1_id, hero2_id)
+values (50, 89);
+insert into friendship (hero1_id, hero2_id)
+values (50, 94);
+insert into friendship (hero1_id, hero2_id)
+values (51, 83);
+insert into friendship (hero1_id, hero2_id)
+values (54, 110);
+insert into friendship (hero1_id, hero2_id)
+values (57, 49);
+insert into friendship (hero1_id, hero2_id)
+values (57, 75);
+insert into friendship (hero1_id, hero2_id)
+values (58, 20);
+insert into friendship (hero1_id, hero2_id)
+values (60, 7);
+insert into friendship (hero1_id, hero2_id)
+values (61, 56);
+insert into friendship (hero1_id, hero2_id)
+values (61, 69);
+insert into friendship (hero1_id, hero2_id)
+values (70, 24);
+insert into friendship (hero1_id, hero2_id)
+values (79, 9);
+insert into friendship (hero1_id, hero2_id)
+values (79, 13);
+insert into friendship (hero1_id, hero2_id)
+values (79, 48);
+insert into friendship (hero1_id, hero2_id)
+values (79, 56);
+insert into friendship (hero1_id, hero2_id)
+values (79, 78);
+insert into friendship (hero1_id, hero2_id)
+values (79, 120);
+insert into friendship (hero1_id, hero2_id)
+values (91, 35);
+insert into friendship (hero1_id, hero2_id)
+values (95, 50);
+insert into friendship (hero1_id, hero2_id)
+values (96, 35);
+insert into friendship (hero1_id, hero2_id)
+values (97, 77);
+insert into friendship (hero1_id, hero2_id)
+values (97, 103);
+insert into friendship (hero1_id, hero2_id)
+values (98, 21);
+insert into friendship (hero1_id, hero2_id)
+values (98, 70);
+insert into friendship (hero1_id, hero2_id)
+values (119, 58);
 
 
 
@@ -645,5 +647,5 @@ insert into victimship (victim_id, predator_id)
 values (60, 94);
 
 
-insert into users (username, password, rank)
-values ('nikita', '{bcrypt}$2a$10$TZz7S3VRKZ1r9CA/eauSLeBtdom8Dncjx4qXp2N.v3JQkWxL0cO.6','guardian');
+insert into users (username, password)
+values ('nikita', '{bcrypt}$2a$10$TZz7S3VRKZ1r9CA/eauSLeBtdom8Dncjx4qXp2N.v3JQkWxL0cO.6');

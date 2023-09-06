@@ -19,8 +19,7 @@ CREATE TABLE friendship
 (
     id       INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     hero1_id integer not null references heroes (id) on delete cascade,
-    hero2_id integer not null references heroes (id) on delete cascade,
-    friends  boolean not null
+    hero2_id integer not null references heroes (id) on delete cascade
 );
 
 CREATE TABLE victimship
@@ -35,9 +34,7 @@ CREATE TABLE users
 
     id       INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     username varchar not null,
-    password varchar not null,
-    rank     varchar not null
-
+    password varchar not null
 );
 
 

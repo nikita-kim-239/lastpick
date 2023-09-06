@@ -63,10 +63,10 @@ public class HeroServiceTest {
 
     @Test
     public void testCreateHero() {
-        Hero newHero = new Hero(123, "new");
+        Hero newHero = new Hero(124, "new");
         service.createHero(newHero);
         List<Hero> heroes = service.getAllHeroes();
-        assertEquals(123, heroes.size());
+        assertEquals(124, heroes.size());
     }
 
     @Test
@@ -79,7 +79,7 @@ public class HeroServiceTest {
     public void testDeleteHero() {
         service.deleteHero(100);
         List<Hero> heroes = service.getAllHeroes();
-        assertEquals(121, heroes.size());
+        assertEquals(122, heroes.size());
     }
 
     @Test
@@ -96,7 +96,7 @@ public class HeroServiceTest {
     @Test
     public void testGetAllHeroes() {
         List<Hero> heroes = service.getAllHeroes();
-        assertEquals(122, heroes.size());
+        assertEquals(123, heroes.size());
     }
 
     @Test
@@ -113,7 +113,7 @@ public class HeroServiceTest {
     @Test
     public void testCreateFriendshipWithTheSameHeroes() {
         log.info("Testing create friendship (1,1)");
-        assertThrows(SameHeroesException.class, () -> service.createFriendship(1, 1, true));
+        assertThrows(SameHeroesException.class, () -> service.createFriendship(1, 1));
     }
 
 

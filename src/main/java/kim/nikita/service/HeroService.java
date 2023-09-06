@@ -112,8 +112,8 @@ public class HeroService {
 
         for (Friendship f : friendship) {
 
-            arrayOfFriendship[f.getHero1().getId()][f.getHero2().getId()] = (f.getFriends()) ? 1 : -5;
-            arrayOfFriendship[f.getHero2().getId()][f.getHero1().getId()] = (f.getFriends()) ? 1 : -5;
+            arrayOfFriendship[f.getHero1().getId()][f.getHero2().getId()] = 1;
+            arrayOfFriendship[f.getHero2().getId()][f.getHero1().getId()] = 1;
 
 
         }
@@ -160,7 +160,7 @@ public class HeroService {
         return victimshipRepository.getAllVictims();
     }
 
-    public void createFriendship(int hero1_id, int hero2_id, boolean friends) {
+    public void createFriendship(int hero1_id, int hero2_id) {
 
 
         if (hero1_id == hero2_id)
@@ -168,12 +168,12 @@ public class HeroService {
         if (friendshipRepository.count(hero1_id, hero2_id) != 0)
             throw new AlreadyExistException("В базе данных уже есть такая запись!");
 
-        friendshipRepository.create(hero1_id, hero2_id, friends);
+        friendshipRepository.create(hero1_id, hero2_id);
 
 
     }
 
-    public void updateFriendship(Integer friendshipId, Integer hero1_id, Integer hero2_id, Boolean friends) {
+    public void updateFriendship(Integer friendshipId, Integer hero1_id, Integer hero2_id) {
 
 
         if (hero1_id.equals(hero2_id))
@@ -181,7 +181,7 @@ public class HeroService {
         if (friendshipRepository.count(hero1_id, hero2_id) != 0)
             throw new AlreadyExistException("В базе данных уже есть такая запись!");
 
-        friendshipRepository.update(friendshipId, hero1_id, hero2_id, friends);
+        friendshipRepository.update(friendshipId, hero1_id, hero2_id);
 
     }
 

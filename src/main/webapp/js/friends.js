@@ -21,9 +21,8 @@ $(document).ready(function () {
 
         var hero1id = {id: $("#selectHero1").val()};
         var hero2id = {id: $("#selectHero2").val()};
-        var friends = $("#antifriends").is(":checked");
-        friends = !friends;
-        var heroes = [hero1id, hero2id, {friends: friends}];
+
+        var heroes = [hero1id, hero2id];
 
         $.ajax({
             url: ajaxUrl,
@@ -166,11 +165,11 @@ function friendshipUpdate(i) {
         var friendshipId = {id: Number(index)};
         var hero1id = {id: $("#editHero1").val()};
         var hero2id = {id: $("#editHero2").val()};
-        var friends = $("#antifriends2").is(":checked");
-        friends = !friends;
 
 
-        var friendship = [friendshipId, hero1id, hero2id, {friends: friends}];
+
+
+        var friendship = [friendshipId, hero1id, hero2id];
 
         $.ajax({
             url: ajaxUrl,

@@ -205,7 +205,7 @@ public class RestHeroController {
         try {
             arrayOfHeroes = mapper.readValue(heroes, JsonClass[].class);
 
-            heroService.createFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id, arrayOfHeroes[2].friends);
+            heroService.createFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
 
 
         } catch (Exception e) {
@@ -235,7 +235,7 @@ public class RestHeroController {
             arrayOfHeroes = mapper.readValue(friendship, JsonClass[].class);
 
 
-            heroService.updateFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id, arrayOfHeroes[2].id, arrayOfHeroes[3].friends);
+            heroService.updateFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id, arrayOfHeroes[2].id);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (AlreadyExistException | SameHeroesException e) {
