@@ -7,21 +7,21 @@ package kim.nikita.repository;
 
 import java.util.List;
 
-import kim.nikita.model.Friendship;
+import kim.nikita.model.Combo;
 
 /**
  * @author Никита
  */
-public interface FriendshipRepository {
+public interface ComboRepository {
 
 
-    List<Friendship> getAllFriends();
+    List<Combo> getAllCombos();
 
     void create(int hero1_id, int hero2_id);
 
-    void update(Integer friendshipId, Integer hero1_id, Integer hero2_id);
+    void update(Integer comboId, Integer hero1_id, Integer hero2_id);
 
-    void delete(int friendshipId);
+    void delete(int comboId);
 
     int count(int hero1_id, int hero2_id);
 

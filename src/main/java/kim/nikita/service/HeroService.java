@@ -13,16 +13,16 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import kim.nikita.model.Friendship;
+import kim.nikita.model.Combo;
+import kim.nikita.model.Counterpick;
 import kim.nikita.model.Hero;
 import kim.nikita.model.Result;
-import kim.nikita.model.Victimship;
-import kim.nikita.repository.FriendshipRepository;
 import kim.nikita.repository.HeroRepository;
-import kim.nikita.repository.VictimshipRepository;
 import kim.nikita.util.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import kim.nikita.repository.CounterpickRepository;
+import kim.nikita.repository.ComboRepository;
 
 
 @Service
@@ -32,15 +32,14 @@ public class HeroService {
     @Autowired
     private HeroRepository heroRepository;
     @Autowired
-    private VictimshipRepository victimshipRepository;
+    private CounterpickRepository counterpickRepository;
     @Autowired
-    private FriendshipRepository friendshipRepository;
+    private ComboRepository comboRepository;
 
 
     public void createHero(Hero hero) {
 
-        if (heroRepository.isHeroExistWithName(hero.getName()))
-            throw new AlreadyExistException("Такой герой уже есть в базе!");
+      
         if ((hero.getName().length() < 2) || (hero.getName().length() > 30))
             throw new BadNameException("Плохое имя!");
 
@@ -55,8 +54,7 @@ public class HeroService {
 
     public void updateHero(Hero hero) {
 
-        if (heroRepository.isHeroExistWithName(hero.getName()))
-            throw new AlreadyExistException("Такой герой уже есть в базе!");
+     
         if ((hero.getName().length() < 2) || (hero.getName().length() > 30))
             throw new BadNameException("Плохое имя!");
         heroRepository.updateHero(hero);
@@ -93,8 +91,8 @@ public class HeroService {
 
 
         List<Result> results = new ArrayList<>();
-        List<Friendship> friendship = friendshipRepository.getAllFriends();
-        List<Victimship> victimship = victimshipRepository.getAllVictims();
+        List<Combo> combo = comboRepository.getAllCombos();
+        List<Counterpick> counterpick = counterpickRepository.getAllCounterpicks();
         List<Hero> heroes = heroRepository.getAllHeroes();
 
         Integer maxHeroId = 0;
@@ -106,20 +104,20 @@ public class HeroService {
 
         maxHeroId++;
 
-        int[][] arrayOfFriendship = new int[maxHeroId][maxHeroId];
+        int[][] arrayOfCombo = new int[maxHeroId][maxHeroId];
 
-        int[][] arrayOfVictimship = new int[maxHeroId][maxHeroId];
+        int[][] arrayOfCounterpick = new int[maxHeroId][maxHeroId];
 
-        for (Friendship f : friendship) {
+        for (Combo f : combo) {
 
-            arrayOfFriendship[f.getHero1().getId()][f.getHero2().getId()] = 1;
-            arrayOfFriendship[f.getHero2().getId()][f.getHero1().getId()] = 1;
+            arrayOfCombo[f.getHero1().getId()][f.getHero2().getId()] = 1;
+            arrayOfCombo[f.getHero2().getId()][f.getHero1().getId()] = 1;
 
 
         }
 
-        for (Victimship v : victimship) {
-            arrayOfVictimship[v.getPredator().getId()][v.getVictim().getId()] = 1;
+        for (Counterpick v : counterpick) {
+            arrayOfCounterpick[v.getPredator().getId()][v.getVictim().getId()] = 1;
 
         }
         //фильтруем список героев, чтобы в него не входили исходные герои
@@ -127,23 +125,23 @@ public class HeroService {
 
         for (Hero hero : filteredHeroes) {
             //находим количество союзников среди друзей
-            int countOfFriends = 0;
+            int countOfCombos = 0;
             for (Integer i : friends) {
-                countOfFriends += arrayOfFriendship[hero.getId()][i];
+                countOfCombos += arrayOfCombo[hero.getId()][i];
             }
             //находим количество врагов среди врагов
             int countOfEnemies = 0;
             for (Integer i : enemies) {
-                if (arrayOfVictimship[i][hero.getId()] == 1) countOfEnemies++;
+                if (arrayOfCounterpick[i][hero.getId()] == 1) countOfEnemies++;
             }
 
             //находим количество тех врагов которые для нас жертва
-            int countOfVictims = 0;
+            int countOfCounterpicks = 0;
             for (Integer i : enemies) {
-                if (arrayOfVictimship[hero.getId()][i] == 1) countOfVictims++;
+                if (arrayOfCounterpick[hero.getId()][i] == 1) countOfCounterpicks++;
             }
 
-            results.add(new Result(hero.getName(), countOfFriends - countOfEnemies + countOfVictims));
+            results.add(new Result(hero.getName(), countOfCombos - countOfEnemies + countOfCounterpicks));
         }
 
         results.sort(Comparator.comparing(o -> o.getScore()));
@@ -151,72 +149,67 @@ public class HeroService {
         return results;
     }
 
-    public List<Friendship> getAllFriends() {
-        return friendshipRepository.getAllFriends();
+    public List<Combo> getAllCombos() {
+        return comboRepository.getAllCombos();
     }
 
 
-    public List<Victimship> getAllVictims() {
-        return victimshipRepository.getAllVictims();
+    public List<Counterpick> getAllCounterpicks() {
+        return counterpickRepository.getAllCounterpicks();
     }
 
-    public void createFriendship(int hero1_id, int hero2_id) {
+    public void createCombo(int hero1_id, int hero2_id) {
 
 
         if (hero1_id == hero2_id)
             throw new SameHeroesException("Герои не должны совпадать!");
-        if (friendshipRepository.count(hero1_id, hero2_id) != 0)
-            throw new AlreadyExistException("В базе данных уже есть такая запись!");
+        
 
-        friendshipRepository.create(hero1_id, hero2_id);
+        comboRepository.create(hero1_id, hero2_id);
 
 
     }
 
-    public void updateFriendship(Integer friendshipId, Integer hero1_id, Integer hero2_id) {
+    public void updateCombo(Integer comboId, Integer hero1_id, Integer hero2_id) {
 
 
         if (hero1_id.equals(hero2_id))
             throw new SameHeroesException("Герои не должны совпадать!");
-        if (friendshipRepository.count(hero1_id, hero2_id) != 0)
-            throw new AlreadyExistException("В базе данных уже есть такая запись!");
+        
 
-        friendshipRepository.update(friendshipId, hero1_id, hero2_id);
+        comboRepository.update(comboId, hero1_id, hero2_id);
 
     }
 
-    public void deleteFriendship(int friendshipId) {
-
-        friendshipRepository.delete(friendshipId);
+    public void deleteCombo(int comboId) {
+        comboRepository.delete(comboId);
     }
 
-    public void createVictimship(int predator_id, int victim_id) {
+    public void createCounterpick(int predator_id, int victim_id) {
 
         if (predator_id == victim_id)
             throw new SameHeroesException("Герои не должны совпадать!");
 
-        if (victimshipRepository.count(predator_id, victim_id) != 0)
-            throw new AlreadyExistException("В базе данных уже есть такая запись!");
+        
 
-        if (victimshipRepository.count(victim_id, predator_id) != 0)
+        if (counterpickRepository.count(victim_id, predator_id) != 0)
             throw new RoundCounterException("Герои не должны контрить друг друга!");
 
-        victimshipRepository.create(predator_id, victim_id);
+        counterpickRepository.create(predator_id, victim_id);
     }
 
-    public void updateVictimship(int victimshipId, int predator_id, int victim_id) {
+    public void updateCounterpick(int counterpickId, int predator_id, int victim_id) {
         if (predator_id == victim_id)
             throw new SameHeroesException("Герои не должны совпадать!");
-        if (victimshipRepository.count(predator_id, victim_id) != 0)
-            throw new AlreadyExistException("В базе данных уже есть такая запись!");
-        if (victimshipRepository.count(victim_id, predator_id) != 0)
+        
+        if (counterpickRepository.count(victim_id, predator_id) != 0)
             throw new RoundCounterException("Герои не должны контрить друг друга!");
 
-        victimshipRepository.update(victimshipId, predator_id, victim_id);
+        counterpickRepository.update(counterpickId, predator_id, victim_id);
     }
 
-    public void deleteVictimship(int victimshipId) {
-        victimshipRepository.delete(victimshipId);
+    public void deleteCounterpick(int counterpickId) {
+        counterpickRepository.delete(counterpickId);
     }
 
 }

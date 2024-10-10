@@ -3,7 +3,6 @@ package kim.nikita.util;
 
 import kim.nikita.model.User;
 import org.springframework.jdbc.core.RowMapper;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

@@ -50,11 +50,11 @@
 
             <sec:authorize access="isAuthenticated()">
                 <div class="col-md-3">
-                    <a href="friendship" class="navbar-brand">Связки</a>
+                    <a href="combos" class="navbar-brand">Связки</a>
                 </div>
 
                 <div class="col-md-3">
-                    <a href="victimship" class="navbar-brand">Контрпики</a>
+                    <a href="counterpicks" class="navbar-brand">Контрпики</a>
                 </div>
 
                 <div class="col-md-3">

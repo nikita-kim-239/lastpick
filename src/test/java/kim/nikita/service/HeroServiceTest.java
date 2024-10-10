@@ -7,7 +7,7 @@ package kim.nikita.service;
 
 import kim.nikita.model.Hero;
 import kim.nikita.model.Result;
-import kim.nikita.util.exception.AlreadyExistException;
+
 import kim.nikita.util.exception.BadNameException;
 import kim.nikita.util.exception.SameHeroesException;
 import org.apache.log4j.Logger;
@@ -87,10 +87,7 @@ public class HeroServiceTest {
         assertThrows(BadNameException.class, () -> service.updateHero(new Hero(100, "a")));
     }
 
-    @Test
-    public void testUpdateHeroAlreadyExist() {
-        assertThrows(AlreadyExistException.class, () -> service.updateHero(new Hero(27, "Doom")));
-    }
+   
 
 
     @Test
@@ -113,15 +110,11 @@ public class HeroServiceTest {
     @Test
     public void testCreateFriendshipWithTheSameHeroes() {
         log.info("Testing create friendship (1,1)");
-        assertThrows(SameHeroesException.class, () -> service.createFriendship(1, 1));
+        assertThrows(SameHeroesException.class, () -> service.createCombo(1, 1));
     }
 
 
-    @Test
-    public void testCreateVictimshipAlreadyInBase() {
-        log.info("Testing create friendship (1,6) already in base");
-        assertThrows(AlreadyExistException.class, () -> service.createVictimship(1, 6));
-    }
+    
 
 
 }

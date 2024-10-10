@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author Никита
  */
 
-public class Friendship extends AbstractBaseEntity implements Serializable {
+public class Combo extends AbstractBaseEntity implements Serializable {
 
 
     private Hero hero1;
@@ -21,13 +21,14 @@ public class Friendship extends AbstractBaseEntity implements Serializable {
     private Hero hero2;
 
 
-
-
-
-
-    public Friendship() {
+    public Combo() {
     }
 
+    public Combo(Hero hero1,Hero hero2)
+        {
+            this.hero1=hero1;
+            this.hero2=hero2;
+        }
 
     public Hero getHero1() {
         return hero1;
@@ -54,5 +55,11 @@ public class Friendship extends AbstractBaseEntity implements Serializable {
         this.hero2 = hero2;
     }
 
-
+    @Override
+    public String toString() {
+        return "Combo{" +
+                "hero1=" + hero1 +
+                ", hero2=" + hero2 +
+                '}';
+    }
 }

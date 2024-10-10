@@ -7,14 +7,10 @@ package kim.nikita.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
-
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
-
 import kim.nikita.model.*;
 import kim.nikita.service.HeroService;
 import kim.nikita.util.exception.*;
@@ -65,7 +61,7 @@ public class RestHeroController {
         log.info("create hero with name " + hero.getName());
         try {
             heroService.createHero(hero);
-        } catch (BadNameException | AlreadyExistException e1) {
+        } catch (BadNameException e1) {
             log.debug(e1.getMessage());
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().println(e1.getMessage());
@@ -95,7 +91,7 @@ public class RestHeroController {
         hero.setName(jsonClass.name);
         try {
             heroService.updateHero(hero);
-        } catch (BadNameException | AlreadyExistException e1) {
+        } catch (BadNameException  e1) {
             log.debug(e1.getMessage());
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().println(e1.getMessage());
@@ -187,13 +183,13 @@ public class RestHeroController {
 
 
     @GetMapping("/admin/friendship")
-    public List<Friendship> getAllFriends() {
-        return heroService.getAllFriends();
+    public List<Combo> getAllCombos() {
+        return heroService.getAllCombos();
     }
 
 
     @PostMapping("/admin/friendship")
-    public List<Friendship> createFriendship(@RequestBody String heroes, HttpServletResponse response) throws IOException {
+    public List<Combo> createCombo(@RequestBody String heroes, HttpServletResponse response) throws IOException {
 
 
         ObjectMapper mapper = new ObjectMapper();
@@ -205,7 +201,7 @@ public class RestHeroController {
         try {
             arrayOfHeroes = mapper.readValue(heroes, JsonClass[].class);
 
-            heroService.createFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
+            heroService.createCombo(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
 
 
         } catch (Exception e) {
@@ -217,12 +213,12 @@ public class RestHeroController {
         }
 
 
-        return getAllFriends();
+        return getAllCombos();
     }
 
 
     @PatchMapping("/admin/friendship")
-    public List<Friendship> updateFriendship(@RequestBody String friendship, HttpServletResponse response) throws IOException {
+    public List<Combo> updateCombo(@RequestBody String friendship, HttpServletResponse response) throws IOException {
 
 
         ObjectMapper mapper = new ObjectMapper();
@@ -235,10 +231,10 @@ public class RestHeroController {
             arrayOfHeroes = mapper.readValue(friendship, JsonClass[].class);
 
 
-            heroService.updateFriendship(arrayOfHeroes[0].id, arrayOfHeroes[1].id, arrayOfHeroes[2].id);
+            heroService.updateCombo(arrayOfHeroes[0].id, arrayOfHeroes[1].id, arrayOfHeroes[2].id);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        } catch (AlreadyExistException | SameHeroesException e) {
+        } catch (SameHeroesException e) {
 
 
             log.error(e.getMessage());
@@ -247,11 +243,11 @@ public class RestHeroController {
             response.flushBuffer();
         }
 
-        return getAllFriends();
+        return getAllCombos();
     }
 
     @DeleteMapping("/admin/friendship")
-    public List<Friendship> deleteFriendship(@RequestBody String friendship, HttpServletResponse response) {
+    public List<Combo> deleteCombo(@RequestBody String friendship, HttpServletResponse response) {
 
 
         ObjectMapper mapper = new ObjectMapper();
@@ -260,7 +256,7 @@ public class RestHeroController {
 
         try {
             json = mapper.readValue(friendship, JsonClass.class);
-            heroService.deleteFriendship(json.id);
+            heroService.deleteCombo(json.id);
 
 
         } catch (JsonProcessingException e) {
@@ -268,20 +264,20 @@ public class RestHeroController {
         }
 
 
-        return getAllFriends();
+        return getAllCombos();
     }
 
 
     @GetMapping("/admin/victimship")
 
-    public List<Victimship> getAllVictims() {
-        return heroService.getAllVictims();
+    public List<Counterpick> getAllCounterpicks() {
+        return heroService.getAllCounterpicks();
     }
 
 
     @PostMapping("/admin/victimship")
 
-    public List<Victimship> createVictimship(@RequestBody String heroes, HttpServletResponse response) throws IOException {
+    public List<Counterpick> createCounterpick(@RequestBody String heroes, HttpServletResponse response) throws IOException {
 
 
         ObjectMapper mapper = new ObjectMapper();
@@ -290,12 +286,12 @@ public class RestHeroController {
         response.setCharacterEncoding("UTF-8");
         try {
             arrayOfHeroes = mapper.readValue(heroes, JsonClass[].class);
-            heroService.createVictimship(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
+            heroService.createCounterpick(arrayOfHeroes[0].id, arrayOfHeroes[1].id);
 
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        } catch (AlreadyExistException | RoundCounterException | SameHeroesException e) {
+        } catch ( RoundCounterException | SameHeroesException e) {
 
 
             log.error(e.getMessage());
@@ -305,12 +301,12 @@ public class RestHeroController {
         }
 
 
-        return getAllVictims();
+        return getAllCounterpicks();
     }
 
     @PatchMapping("/admin/victimship")
 
-    public List<Victimship> updateVictimship(@RequestBody String victimship, HttpServletResponse response) throws IOException {
+    public List<Counterpick> updateCounterpick(@RequestBody String victimship, HttpServletResponse response) throws IOException {
 
 
         ObjectMapper mapper = new ObjectMapper();
@@ -320,12 +316,12 @@ public class RestHeroController {
 
         try {
             arrayOfHeroes = mapper.readValue(victimship, JsonClass[].class);
-            heroService.updateVictimship(arrayOfHeroes[0].id, arrayOfHeroes[1].id, arrayOfHeroes[2].id);
+            heroService.updateCounterpick(arrayOfHeroes[0].id, arrayOfHeroes[1].id, arrayOfHeroes[2].id);
 
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        } catch (AlreadyExistException | SameHeroesException e) {
+        } catch ( SameHeroesException e) {
 
             log.error(e.getMessage());
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -333,12 +329,12 @@ public class RestHeroController {
             response.flushBuffer();
         }
 
-        return getAllVictims();
+        return getAllCounterpicks();
     }
 
     @DeleteMapping("/admin/victimship")
 
-    public List<Victimship> deleteVictimship(@RequestBody String victimship, HttpServletResponse response) {
+    public List<Counterpick> deleteCounterpick(@RequestBody String victimship, HttpServletResponse response) {
 
 
         ObjectMapper mapper = new ObjectMapper();
@@ -347,7 +343,7 @@ public class RestHeroController {
         try {
 
             json = mapper.readValue(victimship, JsonClass.class);
-            heroService.deleteVictimship(json.id);
+            heroService.deleteCounterpick(json.id);
 
 
         } catch (JsonProcessingException e) {
@@ -355,7 +351,7 @@ public class RestHeroController {
         }
 
 
-        return getAllVictims();
+        return getAllCounterpicks();
     }
 
 

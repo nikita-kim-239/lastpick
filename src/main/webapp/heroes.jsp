@@ -6,10 +6,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Герои</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="/js/heroes.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="${pageContext.request.contextPath}/js/heroes.js"></script>
     <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
@@ -98,11 +100,11 @@
             </div>
 
             <div class="col-md-3">
-                <a href="friendship" class="navbar-brand">Связки</a>
+                <a href="combos" class="navbar-brand">Связки</a>
             </div>
 
             <div class="col-md-3">
-                <a href="victimship" class="navbar-brand">Контрпики</a>
+                <a href="counterpicks" class="navbar-brand">Контрпики</a>
             </div>
 
 

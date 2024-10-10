@@ -1,8 +1,10 @@
-//const ajaxUrl = "https://lastpick.herokuapp.com/rest/admin/friendship";
+//const ajaxUrl = "https://lastpick.herokuapp.com/rest/admin/victimship";
 //const heroesUrl = "https://lastpick.herokuapp.com/rest/heroes";
-const ajaxUrl = "http://localhost:8080/rest/admin/friendship";
-const heroesUrl = "http://localhost:8080/rest/heroes";
+const heroesUrl = "http://localhost:8080/lastpick/rest/heroes";
+const ajaxUrl = "http://localhost:8080/lastpick/rest/admin/victimship";
 $(document).ready(function () {
+
+    $("#tableOfCounterpicks").DataTable();
 
     $(function () {
         var token = $("meta[name='_csrf']").attr("content");
@@ -14,15 +16,14 @@ $(document).ready(function () {
     });
 
     $("#myBtn").click(function () {
-        $("#modalToCreate").modal('show');
+        $("#modal").modal('show');
     });
 
     $("#save").click(function () {
 
-        var hero1id = {id: $("#selectHero1").val()};
-        var hero2id = {id: $("#selectHero2").val()};
-
-        var heroes = [hero1id, hero2id];
+        var predatorid = {id: $("#selectPredator").val()};
+        var victimid = {id: $("#selectVictim").val()};
+        var heroes = [predatorid, victimid];
 
         $.ajax({
             url: ajaxUrl,
@@ -30,27 +31,31 @@ $(document).ready(function () {
             data: JSON.stringify(heroes),
             contentType: 'application/json',
             dataType: 'json',
+
             success: function (response) {
+
                 updateTable(response);
+
 
             },
             error: function (jqXHR) {
-                console.log(jqXHR);
 
 
                 alert(jqXHR.responseText);
 
             }
+
         });
 
-        $("#modalToCreate").modal('hide');
+
+        $("#modal").modal('hide');
+
 
     });
 });
 
-
 function initializePage() {
-    addFriendsHeroSelect();
+    addCounterpickHeroSelect();
 
 
 }
@@ -58,55 +63,48 @@ function initializePage() {
 
 function updateTable(response) {
 
+    var table = document.getElementById("tableOfVictims");
 
-    let table = document.getElementById("tableOfFriends");
+    $("#tableOfVictims tr").remove();
 
-    $("#tableOfFriends tr").remove();
-
-    let row = table.insertRow(0);
-    row.insertCell(0).outerHTML = "<th>Герой 1</th>";
-    row.insertCell(1).outerHTML = "<th>Герой 2</th>";
+    var row = table.insertRow(0);
+    row.insertCell(0).outerHTML = "<th>Контрпик</th>";
+    row.insertCell(1).outerHTML = "<th>Герой</th>";
     row.insertCell(2).outerHTML = "<th>Редактировать</th>";
     row.insertCell(3).outerHTML = "<th>Удалить</th>";
 
+    for (var i = 0; i < response.length; i++) {
 
-    for (let i = 0; i < response.length; i++) {
         row = table.insertRow(i + 1);
-        if (response[i].friends)
-            row.setAttribute('class', 'table-success');
-        else
-            row.setAttribute('class', 'table-danger');
         var cellName1 = row.insertCell(0);
-        var hero1Name = document.createTextNode(response[i].hero1.name);
+        var hero1Name = document.createTextNode(response[i].predator.name);
         cellName1.appendChild(hero1Name);
         var cellName2 = row.insertCell(1);
-        var hero2Name = document.createTextNode(response[i].hero2.name);
+        var hero2Name = document.createTextNode(response[i].victim.name);
         cellName2.appendChild(hero2Name);
         var editCell = row.insertCell(2);
         var editButton = document.createElement("button");
         editButton.setAttribute('class', 'btn btn-warning');
 
-        editButton.setAttribute('onclick', 'friendshipUpdate(' + String(response[i].id) + ')');
+        editButton.setAttribute('onclick', 'counterpickUpdate(' + String(response[i].id) + ')');
         editButton.textContent = 'Редактировать';
         editCell.appendChild(editButton);
         var deleteCell = row.insertCell(3);
         var deleteButton = document.createElement("button");
         deleteButton.setAttribute('class', 'btn btn-danger');
 
-        deleteButton.setAttribute('onclick', 'friendshipDelete(' + String(response[i].id) + ')');
+        deleteButton.setAttribute('onclick', 'counterpickDelete(' + String(response[i].id) + ')');
         deleteButton.textContent = 'Удалить';
         deleteCell.appendChild(deleteButton);
     }
-
 }
 
+function addCounterpickHeroSelect() {
 
-function addFriendsHeroSelect() {
-
-    var selectHero1 = document.getElementById("selectHero1");
-    var selectHero2 = document.getElementById("selectHero2");
-    var editHero1 = document.getElementById("editHero1");
-    var editHero2 = document.getElementById("editHero2");
+    var selectPredator = document.getElementById("selectPredator");
+    var selectVictim = document.getElementById("selectVictim");
+    var editPredator = document.getElementById("editPredator");
+    var editVictim = document.getElementById("editVictim");
 
     var xhr = new XMLHttpRequest();
 
@@ -135,11 +133,10 @@ function addFriendsHeroSelect() {
                 var el4 = document.createElement("option");
                 el4.text = hero;
                 el4.value = heroes[i].id;
-
-                selectHero1.append(el1);
-                selectHero2.append(el2);
-                editHero1.append(el3);
-                editHero2.append(el4);
+                selectPredator.append(el1);
+                selectVictim.append(el2);
+                editPredator.append(el3);
+                editVictim.append(el4);
 
             }
         }
@@ -152,7 +149,7 @@ function addFriendsHeroSelect() {
 }
 
 
-function friendshipUpdate(i) {
+function counterpickUpdate(i) {
 
 
     $("#modalToUpdate").modal('show');
@@ -162,27 +159,36 @@ function friendshipUpdate(i) {
     $("#edit").click(function () {
 
 
-        var friendshipId = {id: Number(index)};
-        var hero1id = {id: $("#editHero1").val()};
-        var hero2id = {id: $("#editHero2").val()};
+        var counterpickId = {id: Number(index)};
+        var hero1id = {id: $("#editPredator").val()};
+        var hero2id = {id: $("#editVictim").val()};
+        var hero1 = document.getElementById("editPredator");
+        var hero1children = hero1.childNodes;
 
 
+        var hero1idNumber = Number($("#editPredator").val());
+        var hero2idNumber = Number($("#editVictim").val());
+        var hero1name = hero1children[hero1idNumber + 2].text;
+        var hero2name = hero1children[hero2idNumber + 2].text;
 
 
-        var friendship = [friendshipId, hero1id, hero2id];
+        var counterpick = [counterpickId, hero1id, hero2id];
 
         $.ajax({
             url: ajaxUrl,
             type: "PATCH",
-            data: JSON.stringify(friendship),
+            data: JSON.stringify(counterpick),
             contentType: 'application/json',
             dataType: 'json',
             success: function (response) {
 
+
                 updateTable(response);
+
 
             },
             error: function (jqXHR) {
+
                 alert(jqXHR.responseText);
 
             }
@@ -198,26 +204,30 @@ function friendshipUpdate(i) {
 }
 
 
-function friendshipDelete(i) {
+function counterpickDelete(i) {
+
+
     $("#modalToDelete").modal('show');
     var index = Number(i);
 
     $("#delete").click(function () {
 
-        var friendshipId = {id: Number(index)};
+        var counterpickId = {id: Number(index)};
         $.ajax({
             url: ajaxUrl,
             type: "DELETE",
-            data: JSON.stringify(friendshipId),
+            data: JSON.stringify(counterpickId),
             contentType: 'application/json',
             dataType: 'json',
             success: function (response) {
 
+
                 updateTable(response);
+
 
             },
             error: function (jqXHR) {
-                console.log(jqXHR);
+
                 alert(jqXHR.responseText);
 
             }
@@ -226,7 +236,5 @@ function friendshipDelete(i) {
 
         $("#modalToDelete").modal('hide');
     });
-
-
-}
+}     
 

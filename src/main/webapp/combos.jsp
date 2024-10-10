@@ -7,12 +7,13 @@
           content="text/html; charset=UTF-8">
     <title>Связки</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-
-    <script src="/js/friends.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="${pageContext.request.contextPath}/js/combos.js"></script>
     <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
@@ -125,11 +126,11 @@
         <div class="row">
 
             <div class="col-md-3">
-                <a href="/" class="navbar-brand">На главную</a>
+                <a href="${pageContext.request.contextPath}/" class="navbar-brand">На главную</a>
             </div>
 
             <div class="col-md-3">
-                <a href="victimship" class="navbar-brand">Контрпики</a>
+                <a href="counterpicks" class="navbar-brand">Контрпики</a>
             </div>
 
             <div class="col-md-3">
@@ -151,7 +152,7 @@
 
     <br/>
 
-    <table border="1" cellpadding="5" class="table table-primary" id="tableOfFriends">
+    <table border="1" cellpadding="5" class="table table-primary" id="tableOfCombos">
         <thead>
         <tr>
             <th>Герой 1</th>
@@ -160,17 +161,17 @@
             <th>Удалить</th>
         </tr>
         </thead>
-        <c:forEach items="${friendships}" var="friendship">
-            <jsp:useBean id="friendship" type="kim.nikita.model.Friendship"/>
+        <c:forEach items="${combos}" var="combo">
+            <jsp:useBean id="combo" type="kim.nikita.model.Combo"/>
             <tr>
 
-                <td><c:out value="${friendship.hero1.name}"/></td>
-                <td><c:out value="${friendship.hero2.name}"/></td>
+                <td><c:out value="${combo.hero1.name}"/></td>
+                <td><c:out value="${combo.hero2.name}"/></td>
                 <td>
-                    <button onclick="friendshipUpdate(${friendship.id})" class="btn btn-warning">Редактировать</button>
+                    <button onclick="comboUpdate(${combo.id})" class="btn btn-warning">Редактировать</button>
                 </td>
                 <td>
-                    <button onclick="friendshipDelete(${friendship.id})" class="btn btn-danger">Удалить</button>
+                    <button onclick="comboDelete(${combo.id})" class="btn btn-danger">Удалить</button>
                 </td>
             </tr>
         </c:forEach>

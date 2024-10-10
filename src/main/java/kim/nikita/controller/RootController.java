@@ -42,24 +42,24 @@ public class RootController {
     }
 
 
-    @GetMapping("/friendship")
-    public ModelAndView getFriendship() {
+    @GetMapping("/combos")
+    public ModelAndView getCombos() {
 
 
-        log.info("get all  friends");
-        ModelAndView mav = new ModelAndView("friends");
-        mav.addObject("friendships", heroService.getAllFriends());
+        log.info("get all combos");
+        ModelAndView mav = new ModelAndView("combos");
+        mav.addObject("combos", heroService.getAllCombos());
         return mav;
     }
 
 
-    @GetMapping("/victimship")
-    public ModelAndView getVictimship() {
+    @GetMapping("/counterpicks")
+    public ModelAndView getCountepicks() {
 
 
-        log.info("get all  victims");
-        ModelAndView mav = new ModelAndView("victims");
-        mav.addObject("victimships", heroService.getAllVictims());
+        log.info("get all counterpicks");
+        ModelAndView mav = new ModelAndView("counterpicks");
+        mav.addObject("counterpicks", heroService.getAllCounterpicks());
         return mav;
     }
 

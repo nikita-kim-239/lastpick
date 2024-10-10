@@ -8,10 +8,12 @@
     <title>Контрпики</title>
     <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="/js/victims.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="${pageContext.request.contextPath}/js/counterpicks.js"></script>
     <link rel="stylesheet" href="<c:url value="/css/style.css"/>">
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
@@ -118,11 +120,11 @@
         <div class="row">
 
             <div class="col-md-3">
-                <a href="/" class="navbar-brand">На главную</a>
+                <a href="${pageContext.request.contextPath}/lastpick" class="navbar-brand">На главную</a>
             </div>
 
             <div class="col-md-3">
-                <a href="friendship" class="navbar-brand">Связки</a>
+                <a href="combos" class="navbar-brand">Связки</a>
             </div>
 
             <div class="col-md-3">
@@ -145,33 +147,34 @@
 
     <br/>
 
-    <table border="1" cellpadding="5" class="table table-primary" id="tableOfVictims">
+    <table border="1" cellpadding="5" class="table table-primary" id="tableOfCounterpicks">
+
+        <thead>
 
         <tr>
-
-
             <th>Герой</th>
             <th>Контрпик</th>
             <th>Редактировать</th>
             <th>Удалить</th>
-
         </tr>
-        <c:forEach items="${victimships}" var="victimship">
-            <jsp:useBean id="victimship" type="kim.nikita.model.Victimship"/>
+        </thead>
+        <tbody>
+        <c:forEach items="${counterpicks}" var="counterpick">
+            <jsp:useBean id="counterpick" type="kim.nikita.model.Counterpick"/>
             <tr>
 
-                <td><c:out value="${victimship.victim.name}"/></td>
-                <td><c:out value="${victimship.predator.name}"/></td>
+                <td><c:out value="${counterpick.victim.name}"/></td>
+                <td><c:out value="${counterpick.predator.name}"/></td>
                 <td>
-                    <button onclick="victimshipUpdate(${victimship.id})" class="btn btn-warning">Редактировать</button>
+                    <button onclick="counterpickUpdate(${counterpick.id})" class="btn btn-warning">Редактировать</button>
                 </td>
                 <td>
-                    <button onclick="victimshipDelete(${victimship.id})" class="btn btn-danger">Удалить</button>
+                    <button onclick="counterpickDelete(${counterpick.id})" class="btn btn-danger">Удалить</button>
                 </td>
             </tr>
         </c:forEach>
 
-
+        </tbody>
     </table>
 </div>
 

@@ -7,15 +7,15 @@ package kim.nikita.repository;
 
 import java.util.List;
 
-import kim.nikita.model.Victimship;
+import kim.nikita.model.Counterpick;
 
 /**
  * @author Никита
  */
-public interface VictimshipRepository {
+public interface CounterpickRepository {
 
 
-    List<Victimship> getAllVictims();
+    List<Counterpick> getAllCounterpicks();
 
     void create(int predator_id, int victim_id);
 
@@ -23,7 +23,7 @@ public interface VictimshipRepository {
 
     void update(int victimshipId, int predator_id, int victim_id);
 
-    void delete(int victimshipId);
+    void delete(int counterpickId);
 
 
 }

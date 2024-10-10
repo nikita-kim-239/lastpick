@@ -1,8 +1,9 @@
 //const adminUrl = "https://lastpick.herokuapp.com/rest/admin/heroes";
-const adminUrl = "http://localhost:8080/rest/admin/heroes";
+const adminUrl = "http://localhost:8080/lastpick/rest/admin/heroes";
 
 $(document).ready(function () {
 
+    $("#tableOfHeroes").DataTable();
 
     $(function () {
         var token = $("meta[name='_csrf']").attr("content");

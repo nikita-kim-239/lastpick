@@ -1,9 +1,9 @@
-//const ajaxUrl = "https://lastpick.herokuapp.com/rest/admin/victimship";
-//const heroesUrl = "https://lastpick.herokuapp.com/rest/heroes";
-const heroesUrl = "http://localhost:8080/rest/heroes";
-const ajaxUrl = "http://localhost:8080/rest/admin/victimship";
+const ajaxUrl = "http://localhost:8080/lastpick/rest/admin/combos";
+const heroesUrl = "http://localhost:8080/lastpick/rest/heroes";
 $(document).ready(function () {
 
+
+    $("#tableOfCombos").DataTable();
 
     $(function () {
         var token = $("meta[name='_csrf']").attr("content");
@@ -15,14 +15,15 @@ $(document).ready(function () {
     });
 
     $("#myBtn").click(function () {
-        $("#modal").modal('show');
+        $("#modalToCreate").modal('show');
     });
 
     $("#save").click(function () {
 
-        var predatorid = {id: $("#selectPredator").val()};
-        var victimid = {id: $("#selectVictim").val()};
-        var heroes = [predatorid, victimid];
+        var hero1id = {id: $("#selectHero1").val()};
+        var hero2id = {id: $("#selectHero2").val()};
+
+        var heroes = [hero1id, hero2id];
 
         $.ajax({
             url: ajaxUrl,
@@ -30,31 +31,27 @@ $(document).ready(function () {
             data: JSON.stringify(heroes),
             contentType: 'application/json',
             dataType: 'json',
-
             success: function (response) {
-
                 updateTable(response);
-
 
             },
             error: function (jqXHR) {
+                console.log(jqXHR);
 
 
                 alert(jqXHR.responseText);
 
             }
-
         });
 
-
-        $("#modal").modal('hide');
-
+        $("#modalToCreate").modal('hide');
 
     });
 });
 
+
 function initializePage() {
-    addVictimHeroSelect();
+    addCombosHeroSelect();
 
 
 }
@@ -62,48 +59,55 @@ function initializePage() {
 
 function updateTable(response) {
 
-    var table = document.getElementById("tableOfVictims");
 
-    $("#tableOfVictims tr").remove();
+    let table = document.getElementById("tableOfFriends");
 
-    var row = table.insertRow(0);
-    row.insertCell(0).outerHTML = "<th>Контрпик</th>";
-    row.insertCell(1).outerHTML = "<th>Герой</th>";
+    $("#tableOfCombos tr").remove();
+
+    let row = table.insertRow(0);
+    row.insertCell(0).outerHTML = "<th>Герой 1</th>";
+    row.insertCell(1).outerHTML = "<th>Герой 2</th>";
     row.insertCell(2).outerHTML = "<th>Редактировать</th>";
     row.insertCell(3).outerHTML = "<th>Удалить</th>";
 
-    for (var i = 0; i < response.length; i++) {
 
+    for (let i = 0; i < response.length; i++) {
         row = table.insertRow(i + 1);
+        if (response[i].combos)
+            row.setAttribute('class', 'table-success');
+        else
+            row.setAttribute('class', 'table-danger');
         var cellName1 = row.insertCell(0);
-        var hero1Name = document.createTextNode(response[i].predator.name);
+        var hero1Name = document.createTextNode(response[i].hero1.name);
         cellName1.appendChild(hero1Name);
         var cellName2 = row.insertCell(1);
-        var hero2Name = document.createTextNode(response[i].victim.name);
+        var hero2Name = document.createTextNode(response[i].hero2.name);
         cellName2.appendChild(hero2Name);
         var editCell = row.insertCell(2);
         var editButton = document.createElement("button");
         editButton.setAttribute('class', 'btn btn-warning');
 
-        editButton.setAttribute('onclick', 'victimshipUpdate(' + String(response[i].id) + ')');
+        editButton.setAttribute('onclick', 'comboUpdate(' + String(response[i].id) + ')');
         editButton.textContent = 'Редактировать';
         editCell.appendChild(editButton);
         var deleteCell = row.insertCell(3);
         var deleteButton = document.createElement("button");
         deleteButton.setAttribute('class', 'btn btn-danger');
 
-        deleteButton.setAttribute('onclick', 'victimshipDelete(' + String(response[i].id) + ')');
+        deleteButton.setAttribute('onclick', 'comboDelete(' + String(response[i].id) + ')');
         deleteButton.textContent = 'Удалить';
         deleteCell.appendChild(deleteButton);
     }
+
 }
 
-function addVictimHeroSelect() {
 
-    var selectPredator = document.getElementById("selectPredator");
-    var selectVictim = document.getElementById("selectVictim");
-    var editPredator = document.getElementById("editPredator");
-    var editVictim = document.getElementById("editVictim");
+function addCombosHeroSelect() {
+
+    var selectHero1 = document.getElementById("selectHero1");
+    var selectHero2 = document.getElementById("selectHero2");
+    var editHero1 = document.getElementById("editHero1");
+    var editHero2 = document.getElementById("editHero2");
 
     var xhr = new XMLHttpRequest();
 
@@ -132,10 +136,11 @@ function addVictimHeroSelect() {
                 var el4 = document.createElement("option");
                 el4.text = hero;
                 el4.value = heroes[i].id;
-                selectPredator.append(el1);
-                selectVictim.append(el2);
-                editPredator.append(el3);
-                editVictim.append(el4);
+
+                selectHero1.append(el1);
+                selectHero2.append(el2);
+                editHero1.append(el3);
+                editHero2.append(el4);
 
             }
         }
@@ -148,7 +153,7 @@ function addVictimHeroSelect() {
 }
 
 
-function victimshipUpdate(i) {
+function friendshipUpdate(i) {
 
 
     $("#modalToUpdate").modal('show');
@@ -158,36 +163,27 @@ function victimshipUpdate(i) {
     $("#edit").click(function () {
 
 
-        var victimshipId = {id: Number(index)};
-        var hero1id = {id: $("#editPredator").val()};
-        var hero2id = {id: $("#editVictim").val()};
-        var hero1 = document.getElementById("editPredator");
-        var hero1children = hero1.childNodes;
+        var comboId = {id: Number(index)};
+        var hero1id = {id: $("#editHero1").val()};
+        var hero2id = {id: $("#editHero2").val()};
 
 
-        var hero1idNumber = Number($("#editPredator").val());
-        var hero2idNumber = Number($("#editVictim").val());
-        var hero1name = hero1children[hero1idNumber + 2].text;
-        var hero2name = hero1children[hero2idNumber + 2].text;
 
 
-        var victimship = [victimshipId, hero1id, hero2id];
+        var combo = [comboId, hero1id, hero2id];
 
         $.ajax({
             url: ajaxUrl,
             type: "PATCH",
-            data: JSON.stringify(victimship),
+            data: JSON.stringify(combo),
             contentType: 'application/json',
             dataType: 'json',
             success: function (response) {
 
-
                 updateTable(response);
-
 
             },
             error: function (jqXHR) {
-
                 alert(jqXHR.responseText);
 
             }
@@ -203,30 +199,26 @@ function victimshipUpdate(i) {
 }
 
 
-function victimshipDelete(i) {
-
-
+function friendshipDelete(i) {
     $("#modalToDelete").modal('show');
     var index = Number(i);
 
     $("#delete").click(function () {
 
-        var victimshipId = {id: Number(index)};
+        var comboId = {id: Number(index)};
         $.ajax({
             url: ajaxUrl,
             type: "DELETE",
-            data: JSON.stringify(victimshipId),
+            data: JSON.stringify(comboId),
             contentType: 'application/json',
             dataType: 'json',
             success: function (response) {
 
-
                 updateTable(response);
-
 
             },
             error: function (jqXHR) {
-
+                console.log(jqXHR);
                 alert(jqXHR.responseText);
 
             }
@@ -235,5 +227,7 @@ function victimshipDelete(i) {
 
         $("#modalToDelete").modal('hide');
     });
-}     
+
+
+}
 
